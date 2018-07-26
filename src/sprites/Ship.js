@@ -1,5 +1,51 @@
 import Sprite from '../sprites/Sprite';
 
+function Bullet(texture='bullet', damage=100, speed=400, reverse=false)
+{
+	if (reverse)
+	{
+		speed = -speed;
+	}
+
+	return new Phaser.Class({
+		Extends: Phaser.GameObjects.Sprite,
+
+		initialize: function(scene)
+		{
+			Phaser.GameObjects.Sprite.call(this, scene, 0, 0, texture);
+
+			this.speed = Phaser.Math.GetSpeed(speed, 1);
+		},
+
+		fire: function(x, y)
+		{
+			this.setPosition(x, y)
+				.setActive(true)
+				.setVisible(true);
+		},
+
+		update: function(time, delta)
+		{
+			if (reverse)
+			{
+				var cond = this.y > 640 + 50;
+			}
+			else
+			{
+				var cond = this.y < -50;
+			}
+
+			this.y -= this.speed * delta;
+
+			if (cond)
+			{
+				this.setActive(false)
+					.setVisible(false);
+			}
+		}
+	});
+};
+
 class ShipSprite extends Sprite
 {
 
@@ -24,13 +70,13 @@ class ShipSprite extends Sprite
 
 		this.weapon = {};
 
-		// this.weapon.bullets = this.physics.add.group({
-		// 	classType: Bullet(),
-		// 	maxSize: 100,
-		// 	runChildUpdate: true
-		// });
+		this.weapon.bullets = scene.physics.add.group({
+			classType: Bullet(),
+			maxSize: 100,
+			runChildUpdate: true
+		});
 
-		// this.weapon.bulletsAlt = this.physics.add.group({
+		// this.weapon.bulletsAlt = scene.physics.add.group({
 		// 	classType: Bullet('brain', 500, 200),
 		// 	maxSize: 1,
 		// 	runChildUpdate: true
@@ -41,6 +87,20 @@ class ShipSprite extends Sprite
 	{
 		if (controller)
 		{
+			if (controller.spacebar.isDown && time > this.lastFired)
+			{
+				var bullet = this.weapon.bullets.get();
+
+				if (bullet)
+				{
+					bullet.fire(this.x, this.y);
+
+					this.lastFired = time + this.bulletspeed;
+
+					// self.fx.play('shot');
+				}
+			}
+
 			if (controller.left.isDown)
 			{
 				this.x -= this.speed * delta;
