@@ -7,7 +7,7 @@ class ShipSprite extends Sprite
 	{
 		super(scene, x, y, key);
 
-		this.setDepth(1);
+		// this.setDepth(1);
 		// this.setCollideWorldBounds(true);
 
 		this.alive = true;
@@ -39,22 +39,25 @@ class ShipSprite extends Sprite
 
 	update(controller, time, delta)
 	{
-		if (controller.left.isDown)
+		if (controller)
 		{
-			this.x -= this.speed * delta;
-		}
-		else if (controller.right.isDown)
-		{
-			this.x += this.speed * delta;
-		}
+			if (controller.left.isDown)
+			{
+				this.x -= this.speed * delta;
+			}
+			else if (controller.right.isDown)
+			{
+				this.x += this.speed * delta;
+			}
 
-		if (controller.up.isDown)
-		{
-			this.y -= this.speed * delta;
-		}
-		else if (controller.down.isDown)
-		{
-			this.y += this.speed * delta;
+			if (controller.up.isDown)
+			{
+				this.y -= this.speed * delta;
+			}
+			else if (controller.down.isDown)
+			{
+				this.y += this.speed * delta;
+			}
 		}
 	}
 

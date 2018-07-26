@@ -1,4 +1,4 @@
-function createAxis(size=32)
+function Axis(size=32)
 {
 	var array = [-size];
 
@@ -12,6 +12,7 @@ function createAxis(size=32)
 		var offset = 1;
 		var start = offset;
 		var stop = array.length - 1 - offset;
+
 		return Phaser.Math.RND.integerInRange(start, stop);
 	};
 
@@ -31,4 +32,4 @@ function createAxis(size=32)
 	return array;
 }
 
-export default createAxis;
+export default Axis;
