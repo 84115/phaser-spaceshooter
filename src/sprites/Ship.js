@@ -1,12 +1,14 @@
-import Sprite from 'Sprite';
+import Sprite from '../sprites/Sprite';
 
 class ShipSprite extends Sprite
 {
 
-	create()
+	constructor(scene, x, y, key)
 	{
-		this.setDepth(1)
-			.setCollideWorldBounds(true);
+		super(scene, x, y, key);
+
+		this.setDepth(1);
+		// this.setCollideWorldBounds(true);
 
 		this.alive = true;
 		this.lives = 3;
@@ -33,33 +35,27 @@ class ShipSprite extends Sprite
 		// 	maxSize: 1,
 		// 	runChildUpdate: true
 		// });
-
-		this.createInput();
 	}
 
-	createInput()
+	update(controller, time, delta)
 	{
-		var code = Phaser.Input.Keyboard.KeyCodes;
+		if (controller.left.isDown)
+		{
+			this.x -= this.speed * delta;
+		}
+		else if (controller.right.isDown)
+		{
+			this.x += this.speed * delta;
+		}
 
-		this.key = {
-			cursor: {
-				up: this.input.keyboard.addKey(code.W),
-				left: this.input.keyboard.addKey(code.A),
-				down: this.input.keyboard.addKey(code.S),
-				right: this.input.keyboard.addKey(code.D)
-			},
-			spacebar: this.input.keyboard.addKey(code.SPACE),
-			Q: this.input.keyboard.addKey(code.Q),
-			K: this.input.keyboard.addKey(code.K),
-			L: this.input.keyboard.addKey(code.L)
-		};
-
-		return this;
-	}
-
-	damage(damage)
-	{
-		// ...
+		if (controller.up.isDown)
+		{
+			this.y -= this.speed * delta;
+		}
+		else if (controller.down.isDown)
+		{
+			this.y += this.speed * delta;
+		}
 	}
 
 }
