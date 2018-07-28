@@ -5,7 +5,7 @@ class Image extends Phaser.GameObjects.Image
 	{
 		super(scene, x, y, key);
 
-		scene.physics.world.enable(this);
+		// scene.physics.world.enable(this);
 		scene.add.existing(this);
 	}
 

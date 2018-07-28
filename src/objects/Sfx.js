@@ -1,6 +1,6 @@
 function SfxObject(scene)
 {
-	var markers = [
+	let markers = [
 		{ "name": "alien death", "start": 1, "end": 2 },
 		{ "name": "boss hit", "start": 3, "end": 3.5 },
 		{ "name": "escape", "start": 4, "end": 7.2 },
@@ -12,15 +12,14 @@ function SfxObject(scene)
 		{ "name": "squit", "start": 19, "end": 19.3 }
 	]
 
-	scene.sfx = scene.sound.add('sfx');
+	let sfx = scene.sound.add('sfx');
 
-	// for (var i = 0; i < markers.length; i++)
-	for (var i = markers.length - 1; i >= 0; i--)
+	for (let i = markers.length - 1; i >= 0; i--)
 	{
-		scene.sfx.addMarker(markers[i]);
+		sfx.addMarker(markers[i]);
 	}
 
-	return scene.sfx;
+	return sfx;
 }
 
 export default SfxObject;

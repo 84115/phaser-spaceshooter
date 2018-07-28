@@ -1,7 +1,11 @@
-import ShipSprite from '../sprites/Ship';
-import BackgroundObject from '../objects/BackgroundObject';
-import ControllerObject from '../objects/ControllerObject';
-import SfxObject from '../objects/SfxObject';
+import Grid from '../util/Grid';
+import Sfx from '../objects/Sfx';
+import Background from '../objects/Background';
+import Stats from '../util/Stats';
+import Ship from '../sprites/Ship';
+import Controller from '../objects/Controller';
+import StageTitle from '../util/StageTitle';
+import DebugGrid from '../debug/Grid';
 
 class GameScene extends Phaser.Scene
 {
@@ -13,33 +17,44 @@ class GameScene extends Phaser.Scene
 
 	create()
 	{
-		this.background = new BackgroundObject(this, 'sky');
+		this.background = new Background(this, 'sky');
 
-		this.sfx = SfxObject(this);
-		// this.sfx.play('meow');
+		this.stats = new Stats(this);
 
-		this.ship = new ShipSprite(this, 160, 320, 'ship');
+		this.gameover = false;
 
-		this.controller = ControllerObject(this);
+		this.stats.updateStat('score', this.score = 0);
 
-		// createStatus(this);
+		this.grid = Grid(32);
+		this.sfx = Sfx(this);
+
+		this.ship = new Ship(this, this.grid.centerX, this.grid[19], 'ship');
+
+		this.controller = Controller(this);
+
+		this.StageTitle = StageTitle;
+		StageTitle(this, "Level:0");
+
 		// createEnemies(this);
-		// createLevelTitle(this, "Level:0");
 		// createPowerups(this);
 		// createPhysics(this);
 
-		// if (debug)
-		// {
-		// 	createDebugInput(this);
-		// 	createDebugGrid(this);
-		// }
+
+
+		if (this.physics.config.debug)
+		{
+			this.debugGrid = DebugGrid(this);
+		}
 	}
 
 	update(time, delta)
 	{
-		this.ship.update(this.controller, time, delta);
+		this.background.update();
 
-		this.background.update(this);
+		if (!this.gameover)
+		{
+			this.ship.update(time, delta);
+		}
 	}
 
 }

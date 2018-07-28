@@ -1,50 +1,5 @@
 import Sprite from '../sprites/Sprite';
-
-function Bullet(texture='bullet', damage=100, speed=400, reverse=false)
-{
-	if (reverse)
-	{
-		speed = -speed;
-	}
-
-	return new Phaser.Class({
-		Extends: Phaser.GameObjects.Sprite,
-
-		initialize: function(scene)
-		{
-			Phaser.GameObjects.Sprite.call(this, scene, 0, 0, texture);
-
-			this.speed = Phaser.Math.GetSpeed(speed, 1);
-		},
-
-		fire: function(x, y)
-		{
-			this.setPosition(x, y)
-				.setActive(true)
-				.setVisible(true);
-		},
-
-		update: function(time, delta)
-		{
-			if (reverse)
-			{
-				var cond = this.y > 640 + 50;
-			}
-			else
-			{
-				var cond = this.y < -50;
-			}
-
-			this.y -= this.speed * delta;
-
-			if (cond)
-			{
-				this.setActive(false)
-					.setVisible(false);
-			}
-		}
-	});
-};
+import Bullet from '../sprites/Bullet';
 
 class ShipSprite extends Sprite
 {
@@ -53,74 +8,142 @@ class ShipSprite extends Sprite
 	{
 		super(scene, x, y, key);
 
+		this.scene = scene;
+
 		// this.setDepth(1);
 		// this.setCollideWorldBounds(true);
 
 		this.alive = true;
 		this.lives = 3;
+
 		this.speed = Phaser.Math.GetSpeed(150, 1);
+
 		this.health = 50;
 		this.maxHealth = 100;
+
 		this.shield = 0;
 		this.maxShield = 150;
+
 		this.lastFired = 0;
 		this.lastFiredAlt = 0;
 		this.bulletspeed = 250;
 		this.bulletspeedAlt = 1000;
 
 		this.weapon = {};
-
-		this.weapon.bullets = scene.physics.add.group({
-			classType: Bullet(),
+		this.weapon.bullets = this.scene.physics.add.group({
+			classType: () => new Bullet(this.scene),
 			maxSize: 100,
 			runChildUpdate: true
 		});
 
-		// this.weapon.bulletsAlt = scene.physics.add.group({
-		// 	classType: Bullet('brain', 500, 200),
-		// 	maxSize: 1,
-		// 	runChildUpdate: true
-		// });
+		this.scene.stats.updateStat('health', this.health, this.maxHealth);
+		this.scene.stats.updateStat('shield', this.shield, this.maxShield);
+		this.scene.stats.updateStat('ammo', null, this.weapon.bullets.maxSize);
+		this.scene.stats.updateStat('bulletspeed', this.getBulletSpeedPerSecond());
+		this.scene.stats.updateStat('speed', this.speed);
+		this.scene.stats.updateStat('lives', this.lives);
 	}
 
-	update(controller, time, delta)
+	update(time, delta)
 	{
-		if (controller)
+		if (this.scene.controller)
 		{
-			if (controller.spacebar.isDown && time > this.lastFired)
+			if (this.alive)
 			{
-				var bullet = this.weapon.bullets.get();
-
-				if (bullet)
+				if (this.scene.controller.spacebar.isDown && time > this.lastFired)
 				{
-					bullet.fire(this.x, this.y);
+					var bullet = this.weapon.bullets.get();
 
-					this.lastFired = time + this.bulletspeed;
+					if (bullet)
+					{
+						bullet.fire(this.x, this.y - 10);
 
-					// self.fx.play('shot');
+						this.lastFired = time + this.bulletspeed;
+
+						this.scene.sfx.play('shot');
+					}
 				}
 			}
 
-			if (controller.left.isDown)
+			if (this.scene.controller.left.isDown)
 			{
 				this.x -= this.speed * delta;
 			}
-			else if (controller.right.isDown)
+			else if (this.scene.controller.right.isDown)
 			{
 				this.x += this.speed * delta;
 			}
 
-			if (controller.up.isDown)
+			if (this.scene.controller.up.isDown)
 			{
 				this.y -= this.speed * delta;
 			}
-			else if (controller.down.isDown)
+			else if (this.scene.controller.down.isDown)
 			{
 				this.y += this.speed * delta;
 			}
 		}
 	}
 
+	getBulletSpeedPerSecond()
+	{
+		return (1000 / this.bulletspeed) + '@sec';
+	}
+
+	damage(amount)
+	{
+		if (this.alive)
+		{
+			if (this.health && amount)
+			{
+				this.health = this.health - amount;
+			}
+
+			if (this.health > 0)
+			{
+				this.scene.sfx.play('meow');
+
+				this.scene.stats.updateStat('health', this.health, this.maxHealth);
+			}
+			else
+			{
+				this.alive = false;
+				this.health = 0;
+				this.scene.stats.updateStat('health', this.health, this.maxHealth);
+
+				if (this.lives > 0)
+				{
+					this.lives--;
+				}
+
+				this.alpha = 0.25;
+
+				this.scene.stats.updateStat('lives', this.lives);
+
+				if (this.lives > 0)
+				{
+					this.scene.StageTitle(this.scene, "Dead m8");
+
+					this.scene.time.addEvent({
+						delay: 4000,
+						callback: () =>
+						{
+							this.alive = true;
+							this.alpha = 1;
+							this.health = 50;
+							this.scene.stats.updateStat('lives', this.lives);
+						}
+					});
+				}
+				else if (this.lives == 0 && !this.scene.gameover)
+				{
+					this.scene.gameover = true;
+
+					this.scene.StageTitle(this, "GameOver");
+				}
+			}
+		}
+	}
 }
 
 export default ShipSprite;

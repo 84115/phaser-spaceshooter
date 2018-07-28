@@ -9,6 +9,14 @@ class Sprite extends Phaser.GameObjects.Sprite
 		scene.add.existing(this);
 	}
 
+	damage(amount)
+	{
+		if (this.health && amount)
+		{
+			this.health = this.health - amount;
+		}
+	}
+
 }
 
 export default Sprite;
