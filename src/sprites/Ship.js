@@ -131,7 +131,7 @@ class ShipSprite extends Sprite
 							this.alive = true;
 							this.alpha = 1;
 							this.health = 50;
-							this.scene.stats.updateStat('lives', this.lives);
+							this.scene.stats.updateStat('health', this.health, this.maxHealth);
 						}
 					});
 				}
@@ -144,6 +144,47 @@ class ShipSprite extends Sprite
 			}
 		}
 	}
+
+	collideShipEnemy(ship, enemy)
+	{
+		if (ship.alive)
+		{
+			ship.damage(25);
+
+			this.scene.sfx.play('meow');
+
+			this.scene.add
+				.sprite(enemy.x, enemy.y, 'explode')
+				.anims.play('explode-anim');
+
+			if (enemy.disableBody && enemy.destroy)
+			{
+				enemy.disableBody(true, true);
+				enemy.destroy();
+			}
+
+			this.scene.cameras.main.shake(100);
+		}
+	}
+
+	collideBulletEnemy(enemy, bullet)
+	{
+		this.scene.sfx.play('alien death');
+
+		this.scene.score = this.scene.score + 100;
+
+		this.scene.stats.updateStat('score', this.scene.score);
+
+		bullet.destroy();
+
+		this.scene.add
+			.sprite(enemy.x, enemy.y, 'explode')
+			.anims.play('explode-anim');
+
+		enemy.disableBody(true, true);
+		enemy.destroy();
+	}
+
 }
 
 export default ShipSprite;

@@ -5,9 +5,9 @@ class Stats
 	{
 		this.scene = scene;
 
-		scene.status = {};
+		scene.statsData = {};
 
-		var statusProps = [
+		var statsProps = [
 			"score",
 			"lives",
 			"health",
@@ -17,9 +17,9 @@ class Stats
 			"speed",
 		];
 
-		for (let i = 0; i < statusProps.length; i++)
+		for (let i = 0; i < statsProps.length; i++)
 		{
-			scene.status[statusProps[i]] = scene.add
+			scene.statsData[statsProps[i]] = scene.add
 				.text(0, (16 * i), "")
 				.setFontFamily("courier")
 				.setFontSize(16)
@@ -33,7 +33,7 @@ class Stats
 		{
 			let string = label + ":" + value + (maxValue ? "/" + maxValue : "");
 
-			this.scene.status[label].setText(string);
+			this.scene.statsData[label].setText(string);
 		}
 	}
 

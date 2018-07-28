@@ -6,6 +6,8 @@ class Bullet extends Sprite
 	{
 		super(scene, 0, 0, 'bullet');
 
+		this.scene = scene;
+
 		this.damage = damage;
 		this.speed = Phaser.Math.GetSpeed(speed, 1);
 		this.reverse = reverse;
@@ -32,6 +34,7 @@ class Bullet extends Sprite
 				.setVisible(false);
 		}
 	}
+
 }
 
 export default Bullet;

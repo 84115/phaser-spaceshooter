@@ -23,6 +23,12 @@ class BootScene extends Phaser.Scene
 		this.load.image('orb-blue', 'assets/sprites/orb-blue.png');
 		this.load.image('font', 'assets/fonts/retro/ulm.png');
 
+	    this.load.spritesheet('explode', 'assets/sprites/boom32wh12.png', {
+	    	frameWidth: 32,
+	    	frameHeight: 32,
+	    	endFrame: 11
+	    });
+
 		this.load.audio('sfx', [
 			'assets/audio/SoundEffects/fx_mixdown.ogg',
 			'assets/audio/SoundEffects/fx_mixdown.mp3'
