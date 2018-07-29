@@ -170,6 +170,7 @@ class ShipSprite extends Sprite
 					this.alive = true;
 					this.alpha = 1;
 					this.health = 50;
+
 					this.updateStat('health');
 				}
 			});
@@ -180,6 +181,11 @@ class ShipSprite extends Sprite
 
 			this.scene.StageTitle(this, "GameOver");
 		}
+	}
+
+	collider(b, callback)
+	{
+		this.scene.physics.add.collider(this, b, callback, null, this);
 	}
 
 	collideShipEnemy(ship, enemy)
@@ -218,6 +224,17 @@ class ShipSprite extends Sprite
 
 		enemy.disableBody(true, true);
 		enemy.destroy();
+	}
+
+	collideShipPowerUps(ship, powerup)
+	{
+		this.scene.powerups.handle(powerup);
+
+		powerup
+			.disableBody(true, true)
+			.destroy();
+
+		this.scene.sfx.play('ping');
 	}
 
 }

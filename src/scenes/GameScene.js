@@ -5,6 +5,8 @@ import Stats from '../util/Stats';
 import Ship from '../sprites/Ship';
 import Controller from '../objects/Controller';
 import StageTitle from '../util/StageTitle';
+import Animations from '../util/Animations';
+import Powerups from '../groups/Powerups';
 import DebugGrid from '../debug/Grid';
 
 class GameScene extends Phaser.Scene
@@ -35,11 +37,11 @@ class GameScene extends Phaser.Scene
 		this.StageTitle = StageTitle;
 		this.StageTitle(this, "Level:0");
 
-		this.createAnimations();
+		this.animations = Animations(this);
 
 		this.createEnemies();
 
-		this.createPowerups();
+		this.powerups = new Powerups(this);
 
 		this.createCollisions();
 
@@ -47,41 +49,6 @@ class GameScene extends Phaser.Scene
 		{
 			this.debugGrid = DebugGrid(this);
 		}
-	}
-
-	createPowerups()
-	{
-		this.powerUps = this.physics.add.group();
-
-		this.powers = [
-			this.physics.add.sprite(this.grid[4], this.grid[15], 'skull'),
-			this.physics.add.sprite(this.grid.centerX, this.grid[15], 'skull'),
-			this.physics.add.sprite(this.grid[8], this.grid[15], 'skull'),
-			this.physics.add.sprite(this.grid[4], this.grid[13], 'orb-red'),
-			this.physics.add.sprite(this.grid.centerX, this.grid[13], 'orb-green'),
-			this.physics.add.sprite(this.grid[8], this.grid[13], 'orb-blue'),
-		];
-
-		for (var i = 0; i < this.powers.length; i++)
-		{
-			this.powerUps.add(this.powers[i]);
-		}
-
-	}
-
-	createAnimations()
-	{
-	    this.anims.create(
-	    {
-	        key: 'explode-anim',
-	        frames: this.anims.generateFrameNumbers('explode',
-	        {
-	        	start: 0,
-	        	end: 11,
-	        	first: 11
-	        }),
-	        frameRate: 10
-	    });
 	}
 
 	createEnemies()
@@ -95,29 +62,10 @@ class GameScene extends Phaser.Scene
 
 	createCollisions()
 	{
-		this.physics.add.collider(
-			this.ship.weapon.bullets,
-			this.enemies.children.entries,
-			this.ship.collideBulletEnemy,
-			null,
-			this.ship
-		);
+		this.physics.add.collider(this.ship.weapon.bullets, this.enemies.children.entries, this.ship.collideBulletEnemy, null, this.ship);
 
-		this.physics.add.collider(
-			this.ship,
-			this.enemies.children.entries,
-			this.ship.collideShipEnemy,
-			null,
-			this.ship
-		);
-
-		// this.physics.add.collider(
-		// 	this.ship,
-		// 	this.powerUps,
-		// 	collideShipPowerUps,
-		// 	null,
-		// 	this
-		// );
+		this.ship.collider(this.enemies.children.entries, this.ship.collideShipEnemy);
+		this.ship.collider(this.powerups, this.ship.collideShipPowerUps);
 	}
 
 	update(time, delta)
