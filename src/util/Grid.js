@@ -13,12 +13,29 @@ function Axis(size=32)
 		var start = offset;
 		var stop = array.length - 1 - offset;
 
+		console.log(stop)
+
+		return Phaser.Math.RND.integerInRange(start, stop);
+	};
+
+	array.randomIndexX = function randomIndex()
+	{
+		var offset = 1;
+		var start = offset;
+		// Clean up logic here, hardcoded! :0
+		var stop = array.length - 1 - offset - 9;
+
 		return Phaser.Math.RND.integerInRange(start, stop);
 	};
 
 	array.random = function random()
 	{
 		return array[array.randomIndex()];
+	}
+
+	array.randomX = function randomX()
+	{
+		return array[array.randomIndexX()];
 	}
 
 	array.centerIndex = 6;

@@ -8,8 +8,6 @@ class ShipSprite extends Sprite
 	{
 		super(scene, x, y, key);
 
-		this.scene = scene;
-
 		// this.setDepth(1);
 		// this.setCollideWorldBounds(true);
 
@@ -18,11 +16,13 @@ class ShipSprite extends Sprite
 
 		this.speed = Phaser.Math.GetSpeed(150, 1);
 
-		this.health = 50;
-		this.maxHealth = 100;
+		this.body.setCircle(14);
 
-		this.shield = 0;
+		this.maxHealth = 100;
+		this.health = this.maxHealth;
+
 		this.maxShield = 150;
+		this.shield = this.maxShield;
 
 		this.lastFired = 0;
 		this.lastFiredAlt = 0;
@@ -169,9 +169,11 @@ class ShipSprite extends Sprite
 				{
 					this.alive = true;
 					this.alpha = 1;
-					this.health = 50;
+					this.health = this.maxHealth;
+					this.shield = this.maxShield;
 
 					this.updateStat('health');
+					this.updateStat('shield');
 				}
 			});
 		}
@@ -181,11 +183,6 @@ class ShipSprite extends Sprite
 
 			this.scene.StageTitle(this, "GameOver");
 		}
-	}
-
-	collider(b, callback)
-	{
-		this.scene.physics.add.collider(this, b, callback, null, this);
 	}
 
 	collideShipEnemy(ship, enemy)
@@ -202,8 +199,9 @@ class ShipSprite extends Sprite
 
 			if (enemy.disableBody && enemy.destroy)
 			{
-				enemy.disableBody(true, true);
-				enemy.destroy();
+				enemy
+					.disableBody(true, true)
+					.destroy();
 			}
 
 			this.scene.cameras.main.shake(75);
@@ -222,8 +220,9 @@ class ShipSprite extends Sprite
 			.sprite(enemy.x, enemy.y, 'explode')
 			.anims.play('explode-anim');
 
-		enemy.disableBody(true, true);
-		enemy.destroy();
+		enemy
+			.disableBody(true, true)
+			.destroy();
 	}
 
 	collideShipPowerUps(ship, powerup)

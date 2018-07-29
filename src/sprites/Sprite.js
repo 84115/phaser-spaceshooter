@@ -5,6 +5,8 @@ class Sprite extends Phaser.GameObjects.Sprite
 	{
 		super(scene, x, y, key);
 
+		this.scene = scene;
+
 		scene.physics.world.enable(this);
 		scene.add.existing(this);
 	}
@@ -15,6 +17,11 @@ class Sprite extends Phaser.GameObjects.Sprite
 		{
 			this.health = this.health - amount;
 		}
+	}
+
+	collider(b, callback)
+	{
+		this.scene.physics.add.collider(this, b, callback, null, this);
 	}
 
 }
