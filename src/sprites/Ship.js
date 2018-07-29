@@ -29,8 +29,7 @@ class ShipSprite extends Sprite
 		this.bulletspeed = 250;
 		this.bulletspeedAlt = 1000;
 
-		this.weapon = {};
-		this.weapon.bullets = this.scene.physics.add.group({
+		this.bullets = this.scene.physics.add.group({
 			classType: () => new Bullet(this.scene),
 			maxSize: 100,
 			runChildUpdate: true
@@ -52,7 +51,7 @@ class ShipSprite extends Sprite
 			{
 				if (this.scene.controller.spacebar.isDown && time > this.lastFired)
 				{
-					var bullet = this.weapon.bullets.get();
+					var bullet = this.bullets.get();
 
 					if (bullet)
 					{
@@ -99,7 +98,7 @@ class ShipSprite extends Sprite
 				break;
 
 			case 'ammo':
-				this.scene.stats.updateStat('ammo', null, this.weapon.bullets.maxSize);
+				this.scene.stats.updateStat('ammo', null, this.bullets.maxSize);
 				break;
 
 			case 'bulletspeed':
@@ -197,12 +196,12 @@ class ShipSprite extends Sprite
 				.sprite(enemy.x, enemy.y, 'explode')
 				.anims.play('explode-anim');
 
-			if (enemy.disableBody && enemy.destroy)
+			if (enemy.disableBody)
 			{
-				enemy
-					.disableBody(true, true)
-					.destroy();
+				enemy.disableBody(true, true);
 			}
+
+			enemy.destroy();
 
 			this.scene.cameras.main.shake(75);
 		}
@@ -220,9 +219,12 @@ class ShipSprite extends Sprite
 			.sprite(enemy.x, enemy.y, 'explode')
 			.anims.play('explode-anim');
 
-		enemy
-			.disableBody(true, true)
-			.destroy();
+		if (enemy.disableBody)
+		{
+			enemy.disableBody(true, true);
+		}
+
+		enemy.destroy();
 	}
 
 	collideShipPowerUps(ship, powerup)

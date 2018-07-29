@@ -11,7 +11,7 @@ class Sprite extends Phaser.GameObjects.Sprite
 		scene.add.existing(this);
 	}
 
-	damage(amount)
+	damage(amount=0)
 	{
 		if (this.health && amount)
 		{

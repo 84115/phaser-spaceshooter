@@ -8,6 +8,10 @@ class Bullet extends Sprite
 
 		this.scene = scene;
 
+		if (reverse) {
+			speed = -speed;
+		}
+
 		this.damage = damage;
 		this.speed = Phaser.Math.GetSpeed(speed, 1);
 		this.reverse = reverse;
