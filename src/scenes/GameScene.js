@@ -130,6 +130,14 @@ class GameScene extends Phaser.Scene
 		}
 	}
 
+	incrementScore(amount=0)
+	{
+		this.score = this.score + amount;
+
+		this.stats.updateStat('score', this.score);
+
+		return amount;
+	}
 }
 
 export default GameScene;

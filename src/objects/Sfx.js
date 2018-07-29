@@ -1,15 +1,15 @@
 function SfxObject(scene)
 {
 	let markers = [
-		{ "name": "alien death", "start": 1, "end": 2 },
-		{ "name": "boss hit", "start": 3, "end": 3.5 },
-		{ "name": "escape", "start": 4, "end": 7.2 },
-		{ "name": "meow", "start": 8, "end": 8.5 },
-		{ "name": "numkey", "start": 9, "end": 9.1 },
-		{ "name": "ping", "start": 10, "end": 11 },
-		{ "name": "death", "start": 12, "end": 16.2 },
-		{ "name": "shot", "start": 17, "end": 18 },
-		{ "name": "squit", "start": 19, "end": 19.3 }
+		{ "name": "alien death", "start": 1, "duration": 1 },
+		{ "name": "boss hit", "start": 3, "duration": 0.5 },
+		{ "name": "escape", "start": 4, "duration": 3.2 },
+		{ "name": "meow", "start": 8, "duration": 0.5 },
+		{ "name": "numkey", "start": 9, "duration": 0.1 },
+		{ "name": "ping", "start": 10, "duration": 1 },
+		{ "name": "death", "start": 12, "duration": 4.2 },
+		{ "name": "shot", "start": 17, "duration": 1 },
+		{ "name": "squit", "start": 19, "duration": 0.3 },
 	]
 
 	let sfx = scene.sound.add('sfx');

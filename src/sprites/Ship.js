@@ -36,12 +36,12 @@ class ShipSprite extends Sprite
 			runChildUpdate: true
 		});
 
-		this.scene.stats.updateStat('health', this.health, this.maxHealth);
-		this.scene.stats.updateStat('shield', this.shield, this.maxShield);
-		this.scene.stats.updateStat('ammo', null, this.weapon.bullets.maxSize);
-		this.scene.stats.updateStat('bulletspeed', this.getBulletSpeedPerSecond());
-		this.scene.stats.updateStat('speed', this.speed);
-		this.scene.stats.updateStat('lives', this.lives);
+		this.updateStat('health');
+		this.updateStat('shield');
+		this.updateStat('ammo');
+		this.updateStat('bulletspeed');
+		this.updateStat('speed');
+		this.updateStat('lives');
 	}
 
 	update(time, delta)
@@ -85,9 +85,40 @@ class ShipSprite extends Sprite
 		}
 	}
 
-	getBulletSpeedPerSecond()
+	updateStat(stat="")
 	{
-		return (1000 / this.bulletspeed) + '@sec';
+		switch (stat)
+		{
+
+			case 'health':
+				this.scene.stats.updateStat('health', this.health, this.maxHealth);
+				break;
+
+			case 'shield':
+				this.scene.stats.updateStat('shield', this.shield, this.maxShield);
+				break;
+
+			case 'ammo':
+				this.scene.stats.updateStat('ammo', null, this.weapon.bullets.maxSize);
+				break;
+
+			case 'bulletspeed':
+				this.scene.stats.updateStat('bulletspeed', (1000 / this.bulletspeed) + '@sec');
+				break;
+
+			case 'speed':
+				this.scene.stats.updateStat('speed', this.speed);
+				break;
+
+			case 'lives':
+				this.scene.stats.updateStat('lives', this.lives);
+			break;
+
+			case 'score':
+				this.scene.stats.updateStat('score', this.scene.score);
+			break;
+
+		}
 	}
 
 	damage(amount)
@@ -103,45 +134,51 @@ class ShipSprite extends Sprite
 			{
 				this.scene.sfx.play('meow');
 
-				this.scene.stats.updateStat('health', this.health, this.maxHealth);
+				this.updateStat('health');
 			}
 			else
 			{
-				this.alive = false;
-				this.health = 0;
-				this.scene.stats.updateStat('health', this.health, this.maxHealth);
-
-				if (this.lives > 0)
-				{
-					this.lives--;
-				}
-
-				this.alpha = 0.25;
-
-				this.scene.stats.updateStat('lives', this.lives);
-
-				if (this.lives > 0)
-				{
-					this.scene.StageTitle(this.scene, "Dead m8");
-
-					this.scene.time.addEvent({
-						delay: 4000,
-						callback: () =>
-						{
-							this.alive = true;
-							this.alpha = 1;
-							this.health = 50;
-							this.scene.stats.updateStat('health', this.health, this.maxHealth);
-						}
-					});
-				}
-				else if (this.lives == 0 && !this.scene.gameover)
-				{
-					this.scene.gameover = true;
-
-					this.scene.StageTitle(this, "GameOver");
-				}
+				this.lifeLoss();
 			}
+		}
+	}
+
+	lifeLoss()
+	{
+		this.alive = false;
+		this.health = 0;
+
+		this.updateStat('health');
+
+		if (this.lives > 0)
+		{
+			this.lives--;
+		}
+
+		this.alpha = 0.25;
+
+		this.updateStat('lives');
+
+		if (this.lives > 0)
+		{
+			this.scene.StageTitle(this.scene, "Dead m8");
+
+			this.scene.time.addEvent({
+				delay: 4000,
+				callback: () =>
+				{
+					this.alive = true;
+					this.alpha = 1;
+					this.health = 50;
+					this.updateStat('health');
+				}
+			});
+		}
+		else if (this.lives == 0 && !this.scene.gameover)
+		{
+			this.scene.gameover = true;
+
+			this.scene.StageTitle(this, "GameOver");
 		}
 	}
 
@@ -163,7 +200,7 @@ class ShipSprite extends Sprite
 				enemy.destroy();
 			}
 
-			this.scene.cameras.main.shake(100);
+			this.scene.cameras.main.shake(75);
 		}
 	}
 
@@ -171,9 +208,7 @@ class ShipSprite extends Sprite
 	{
 		this.scene.sfx.play('alien death');
 
-		this.scene.score = this.scene.score + 100;
-
-		this.scene.stats.updateStat('score', this.scene.score);
+		this.scene.incrementScore(100);
 
 		bullet.destroy();
 
