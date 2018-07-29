@@ -55,9 +55,25 @@ class GameScene extends Phaser.Scene
 	{
 		this.enemies = this.physics.add.group();
 
-		this.enemies.add(this.physics.add.sprite(this.grid[3], this.grid[6], 'ufo'));
-		this.enemies.add(this.physics.add.sprite(this.grid[6], this.grid[6], 'ufo'));
-		this.enemies.add(this.physics.add.sprite(this.grid[9], this.grid[6], 'ufo'));
+		// this.enemies.add(this.physics.add.sprite(this.grid[3], this.grid[6], 'ufo'));
+		// this.enemies.add(this.physics.add.sprite(this.grid[6], this.grid[6], 'ufo'));
+		// this.enemies.add(this.physics.add.sprite(this.grid[9], this.grid[6], 'ufo'));
+
+		this.enemies.add(this.physics.add.sprite(this.grid[2], this.grid[2], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[3], this.grid[3], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[4], this.grid[4], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[5], this.grid[5], 'mine'));
+
+		this.enemies.add(this.physics.add.sprite(this.grid[6], this.grid[4], 'mine'));
+
+		this.enemies.add(this.physics.add.sprite(this.grid[7], this.grid[5], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[8], this.grid[4], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[9], this.grid[3], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[10], this.grid[2], 'mine'));
+
+		this.enemies.add(this.physics.add.sprite(this.grid[5], this.grid[2], 'mine'));
+		this.enemies.add(this.physics.add.sprite(this.grid[7], this.grid[2], 'mine'));
+
 	}
 
 	createCollisions()
@@ -71,6 +87,13 @@ class GameScene extends Phaser.Scene
 	update(time, delta)
 	{
 		this.background.update();
+
+		for (var i = 0; i < this.enemies.children.entries.length; i++)
+		{
+			let entry = this.enemies.children.entries[i];
+
+			entry.y = entry.y + (entry.y / 100);
+		}
 
 		if (!this.gameover)
 		{
