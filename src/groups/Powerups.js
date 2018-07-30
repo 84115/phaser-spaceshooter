@@ -8,20 +8,6 @@ class PowerupsGroup extends Group
 		super(scene, x, y, key);
 
 		this.scene = scene;
-
-		// this.powers = [
-		// 	this.scene.physics.add.sprite(this.scene.grid[4], this.scene.grid[15], 'skull'),
-		// 	this.scene.physics.add.sprite(this.scene.grid.centerX, this.scene.grid[15], 'skull'),
-		// 	this.scene.physics.add.sprite(this.scene.grid[8], this.scene.grid[15], 'skull'),
-		// 	this.scene.physics.add.sprite(this.scene.grid[4], this.scene.grid[13], 'orb-red'),
-		// 	this.scene.physics.add.sprite(this.scene.grid.centerX, this.scene.grid[13], 'orb-green'),
-		// 	this.scene.physics.add.sprite(this.scene.grid[8], this.scene.grid[13], 'orb-blue'),
-		// ];
-
-		// for (var i = 0; i < this.powers.length; i++)
-		// {
-		// 	this.add(this.powers[i]);
-		// }
 	}
 
 	handle(powerup)

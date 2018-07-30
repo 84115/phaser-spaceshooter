@@ -5,6 +5,8 @@ class Sprite extends Phaser.GameObjects.Sprite
 	{
 		super(scene, x, y, key);
 
+		this.alive = true;
+
 		this.scene = scene;
 
 		scene.physics.world.enable(this);

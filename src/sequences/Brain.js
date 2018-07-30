@@ -29,6 +29,7 @@ function BrainSequence(scene)
 	}
 
 	var brain = scene.add.follower(path, cord[0], cord[1], 'brain');
+	brain.alive = true;
 
 	scene.physics.world.enable(brain);
 
@@ -54,12 +55,25 @@ function BrainSequence(scene)
 		}
 	});
 
-	setInterval(() =>
-	{
-		brain.projectile.get().setTint(0xff0000).fire(brain.x, brain.y + (brain.height / 2));
-		brain.projectile.get().setTint(0xff0000).fire(brain.x - (brain.width / 2), brain.y);
-		brain.projectile.get().setTint(0xff0000).fire(brain.x + (brain.width / 2), brain.y);
-	}, 1250);
+	brain.timer = scene.time.addEvent({
+		delay: 1250,
+		callback: () =>
+		{
+			if (brain.alive)
+			{
+				brain.projectile.get().setTint(0xff0000).fire(brain.x, brain.y + (brain.height / 2));
+				brain.projectile.get().setTint(0xff0000).fire(brain.x - (brain.width / 2), brain.y);
+				brain.projectile.get().setTint(0xff0000).fire(brain.x + (brain.width / 2), brain.y);
+			}
+			else
+			{
+				brain.timer.remove(false);
+			}
+		},
+		loop: true
+	});
+
+	return brain;
 }
 
 export default BrainSequence;

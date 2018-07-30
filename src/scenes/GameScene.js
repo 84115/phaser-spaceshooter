@@ -56,28 +56,48 @@ class GameScene extends Phaser.Scene
 
 
 
-		this.enemies = this.physics.add.group();
+		// this.enemies = this.physics.add.group();
 		// this.enemies.add(new Enemy(this, this.grid[3], this.grid[6], 'ufo'));
 		// this.enemies.add(new Enemy(this, this.grid[6], this.grid[6], 'ufo'));
 		// this.enemies.add(new Enemy(this, this.grid[9], this.grid[6], 'ufo'));
+		// this.physics.add.collider(this.ship.bullets, this.enemies.children.entries, this.ship.collideBulletEnemy, null, this.ship);
+		// this.ship.collider(this.enemies.children.entries, this.ship.collideShipEnemy);
 
 
 
-		this.mines = this.physics.add.group();
-		// Mines(this, 10, 200);
+		this.mines = new Mines(this, 10, 200);
+		this.mines.patch();
 
 
 
-		this.brain = this.physics.add.sprite(0, 0);
-		Brain(this, 10, 200);
+		// this.brain = Brain(this, 10, 200);
+		// this.physics.add.collider(this.ship.bullets, this.brain, (brain, bullet) =>
+		// {
+		// 	brain.alive = false;
+		// 	brain.destroy();
+		// 	bullet.destroy();
+		// }, null, this.ship);
 
 
 
-		this.powerups = new Powerups(this);
+		// this.powerups = new Powerups(this);
+		// let _powers = [
+		// 	this.physics.add.sprite(this.grid[4], this.grid[15], 'skull'),
+		// 	this.physics.add.sprite(this.grid.centerX, this.grid[15], 'skull'),
+		// 	this.physics.add.sprite(this.grid[8], this.grid[15], 'skull'),
+		// 	this.physics.add.sprite(this.grid[4], this.grid[13], 'orb-red'),
+		// 	this.physics.add.sprite(this.grid.centerX, this.grid[13], 'orb-green'),
+		// 	this.physics.add.sprite(this.grid[8], this.grid[13], 'orb-blue'),
+		// ];
+
+		// for (var i = 0; i < _powers.length; i++)
+		// {
+		// 	this.powerups.add(_powers[i]);
+		// }
 
 
 
-		this.createCollisions();
+		this.ship.collider(this.powerups, this.ship.collideShipPowerUps);
 
 
 
@@ -87,33 +107,13 @@ class GameScene extends Phaser.Scene
 		}
 	}
 
-	createCollisions()
-	{
-		this.physics.add.collider(this.ship.bullets, this.enemies.children.entries, this.ship.collideBulletEnemy, null, this.ship);
-		this.physics.add.collider(this.ship.bullets, this.mines.children.entries, this.ship.collideBulletEnemy, null, this.ship);
-
-		this.ship.collider(this.enemies.children.entries, this.ship.collideShipEnemy);
-		this.ship.collider(this.mines.children.entries, this.ship.collideShipEnemy);
-
-		this.ship.collider(this.powerups, this.ship.collideShipPowerUps);
-	}
-
 	update(time, delta)
 	{
 		this.background.update();
 
-		for (var i = 0; i < this.mines.children.entries.length; i++)
+		if (this.mines)
 		{
-			let mine = this.mines.children.entries[i];
-
-			mine.y = mine.y + 2 + Math.round(mine.y/150);
-
-			if (mine.y >= 640 + 32)
-			{
-				mine
-					.disableBody(true, true)
-					.destroy();
-			}
+			this.mines.update();
 		}
 
 		if (!this.gameover)

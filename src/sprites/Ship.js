@@ -11,7 +11,6 @@ class ShipSprite extends Sprite
 		// this.setDepth(1);
 		// this.setCollideWorldBounds(true);
 
-		this.alive = true;
 		this.lives = 3;
 
 		this.speed = Phaser.Math.GetSpeed(150, 1);
@@ -24,16 +23,14 @@ class ShipSprite extends Sprite
 		this.maxShield = 150;
 		this.shield = this.maxShield;
 
-		this.lastFired = 0;
-		this.lastFiredAlt = 0;
-		this.bulletspeed = 250;
-		this.bulletspeedAlt = 1000;
-
 		this.bullets = this.scene.physics.add.group({
 			classType: () => new Bullet(this.scene),
 			maxSize: 100,
 			runChildUpdate: true
 		});
+		this.bullets.enabled = true;
+		this.bullets.speed = 250;
+		this.bullets.lastFired = 0;
 
 		this.updateStat('health');
 		this.updateStat('shield');
@@ -45,42 +42,41 @@ class ShipSprite extends Sprite
 
 	update(time, delta)
 	{
-		if (this.scene.controller)
+		if (this.alive)
 		{
-			if (this.alive)
+			if (this.scene.controller.spacebar.isDown && time > this.bullets.lastFired)
 			{
-				if (this.scene.controller.spacebar.isDown && time > this.lastFired)
+				var bullet = this.bullets.get();
+
+				if (bullet && this.bullets.enabled)
 				{
-					var bullet = this.bullets.get();
+					bullet.fire(this.x, this.y - 10);
 
-					if (bullet)
-					{
-						bullet.fire(this.x, this.y - 10);
+					this.bullets.lastFired = time + this.bullets.speed;
 
-						this.lastFired = time + this.bulletspeed;
+					this.updateStat('ammo');
 
-						this.scene.sfx.play('shot');
-					}
+					this.scene.sfx.play('shot');
 				}
 			}
+		}
 
-			if (this.scene.controller.left.isDown)
-			{
-				this.x -= this.speed * delta;
-			}
-			else if (this.scene.controller.right.isDown)
-			{
-				this.x += this.speed * delta;
-			}
+		if (this.scene.controller.left.isDown)
+		{
+			this.x -= this.speed * delta;
+		}
+		else if (this.scene.controller.right.isDown)
+		{
+			this.x += this.speed * delta;
+		}
 
-			if (this.scene.controller.up.isDown)
-			{
-				this.y -= this.speed * delta;
-			}
-			else if (this.scene.controller.down.isDown)
-			{
-				this.y += this.speed * delta;
-			}
+		if (this.scene.controller.up.isDown)
+		{
+			this.y -= this.speed * delta;
+		}
+		else if (this.scene.controller.down.isDown)
+		{
+			this.y += this.speed * delta;
 		}
 	}
 
@@ -98,11 +94,11 @@ class ShipSprite extends Sprite
 				break;
 
 			case 'ammo':
-				this.scene.stats.updateStat('ammo', null, this.bullets.maxSize);
+				this.scene.stats.updateStat('ammo', this.bullets.children.size, this.bullets.maxSize);
 				break;
 
 			case 'bulletspeed':
-				this.scene.stats.updateStat('bulletspeed', (1000 / this.bulletspeed) + '@sec');
+				this.scene.stats.updateStat('bulletspeed', (1000 / this.bullets.speed) + '@sec');
 				break;
 
 			case 'speed':
