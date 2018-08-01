@@ -7,6 +7,7 @@ import Enemy from '../sprites/Enemy';
 import Controller from '../objects/Controller';
 import StageTitle from '../util/StageTitle';
 import Animations from '../util/Animations';
+import Queue from '../util/Queue';
 import Powerups from '../groups/Powerups';
 import Mines from '../sequences/Mines';
 import Brain from '../sequences/Brain';
@@ -65,9 +66,15 @@ class GameScene extends Phaser.Scene
 
 
 
-		this.mines = new Mines(this, 10, 200);
-		this.mines.patch();
+		// this.mines = new Mines(this, 10, 200);
+		// this.mines.patch();
+		this.mines = false;
 
+		this.queue = new Queue(this);
+
+		this.queue.add(this.mines, Mines, [10, 200]);
+
+		this.queue.run();
 
 
 		// this.brain = Brain(this, 10, 200);
@@ -113,7 +120,10 @@ class GameScene extends Phaser.Scene
 
 		if (this.mines)
 		{
-			this.mines.update();
+			if (this.mines.update)
+			{
+				this.mines.update();
+			}
 		}
 
 		if (!this.gameover)

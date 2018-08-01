@@ -8,6 +8,29 @@ class MinesSequence extends Group
 
 		this.prev = [];
 		this.count = 0;
+	}
+
+	update()
+	{
+		for (var i = 0; i < this.children.entries.length; i++)
+		{
+			let mine = this.children.entries[i];
+
+			mine.y = mine.y + 2 + Math.round(mine.y/150);
+
+			if (mine.y >= 640 + 32)
+			{
+				mine
+					.disableBody(true, true)
+					.destroy();
+			}
+		}
+	}
+
+	patch()
+	{
+		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
+		this.scene.ship.collider(this.children.entries, this.scene.ship.collideShipEnemy);
 
 		if (scene.background.scroll)
 		{
@@ -40,6 +63,7 @@ class MinesSequence extends Group
 				if (this.count >= limit)
 				{
 					this.timer.remove(false);
+					this.__done = true;
 					this.prev = [];
 					this.count = 0;
 
@@ -53,32 +77,23 @@ class MinesSequence extends Group
 						}
 					});
 				}
+
+				console.log(this.done());
 			},
 			loop: true
 		});
+
+		this.__done = false;
 	}
 
-	update()
+	done()
 	{
-		for (var i = 0; i < this.children.entries.length; i++)
+		if (this.__done)
 		{
-			let mine = this.children.entries[i];
-
-			mine.y = mine.y + 2 + Math.round(mine.y/150);
-
-			if (mine.y >= 640 + 32)
-			{
-				mine
-					.disableBody(true, true)
-					.destroy();
-			}
+			return true;
 		}
-	}
 
-	patch()
-	{
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
-		this.scene.ship.collider(this.children.entries, this.scene.ship.collideShipEnemy);
+		return false;
 	}
 
 }
