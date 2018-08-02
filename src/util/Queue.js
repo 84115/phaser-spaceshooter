@@ -10,7 +10,7 @@ class Queue
 		this.lock = false;
 	}
 
-	add(target=null, sequence, argsArray=[])
+	add(key, sequence, argsArray=[])
 	{
 		let args = [this.scene].concat(argsArray);
 
@@ -20,9 +20,9 @@ class Queue
 		}
 
 		this.sequences.push({
-			"args": args,
+			"args": argsArray,
 			"class": sequence,
-			"target": target
+			"key": key
 		});
 
 		return this;
@@ -40,25 +40,27 @@ class Queue
 
 				if (!this.lock)
 				{
-					console.log(sequence);
-					// sequence.function = (new sequence.class(sequence.args));
-					console.log(sequence.function);
+					this.scene[sequence.key] = new sequence.class(
+						this.scene, sequence.args[0], sequence.args[1]
+					);
+
+					// console.log(sequence.class.name.replace('Group', '').toLowerCase());
+					// console.log(this.scene[sequence].constructor.name.replace('Group').toLowerCase());
 
 					this.lock = true;
 				}
 
-				// Replace with .done
-				if (sequence.function.done())
-				{
-					this.lock = false;
+				// if (this.scene[sequence.key].done())
+				// {
+				// 	this.lock = false;
 
-					this.position++;
-				}
+				// 	this.position++;
+				// }
 
-				if (this.count.position >= this.sequences.length)
-				{
-					this.timer.remove(false);
-				}
+				// if (this.count.position >= this.sequences.length)
+				// {
+				// 	this.timer.remove(false);
+				// }
 			},
 			loop: true
 		});

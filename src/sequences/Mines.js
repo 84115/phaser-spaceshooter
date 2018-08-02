@@ -1,6 +1,6 @@
 import Group from '../groups/Group';
 
-class MinesSequence extends Group
+class MinesGroup extends Group
 {
 	constructor(scene, limit=100, interval=1000)
 	{
@@ -8,29 +8,6 @@ class MinesSequence extends Group
 
 		this.prev = [];
 		this.count = 0;
-	}
-
-	update()
-	{
-		for (var i = 0; i < this.children.entries.length; i++)
-		{
-			let mine = this.children.entries[i];
-
-			mine.y = mine.y + 2 + Math.round(mine.y/150);
-
-			if (mine.y >= 640 + 32)
-			{
-				mine
-					.disableBody(true, true)
-					.destroy();
-			}
-		}
-	}
-
-	patch()
-	{
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
-		this.scene.ship.collider(this.children.entries, this.scene.ship.collideShipEnemy);
 
 		if (scene.background.scroll)
 		{
@@ -63,7 +40,6 @@ class MinesSequence extends Group
 				if (this.count >= limit)
 				{
 					this.timer.remove(false);
-					this.__done = true;
 					this.prev = [];
 					this.count = 0;
 
@@ -74,6 +50,8 @@ class MinesSequence extends Group
 							scene.background.scroll = scene.background.scrollBase;
 
 							this.scene.ship.bullets.enabled = true;
+
+							this.__done = true;
 						}
 					});
 				}
@@ -84,6 +62,29 @@ class MinesSequence extends Group
 		});
 
 		this.__done = false;
+	}
+
+	update()
+	{
+		for (var i = 0; i < this.children.entries.length; i++)
+		{
+			let mine = this.children.entries[i];
+
+			mine.y = mine.y + 2 + Math.round(mine.y/150);
+
+			if (mine.y >= 640 + 32)
+			{
+				mine
+					.disableBody(true, true)
+					.destroy();
+			}
+		}
+	}
+
+	patch()
+	{
+		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
+		this.scene.ship.collider(this.children.entries, this.scene.ship.collideShipEnemy);
 	}
 
 	done()
@@ -98,4 +99,4 @@ class MinesSequence extends Group
 
 }
 
-export default MinesSequence;
+export default MinesGroup;
