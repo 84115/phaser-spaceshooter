@@ -8,7 +8,7 @@ class BootScene extends Phaser.Scene
 
 	preload()
 	{
-		// this.load.setBaseURL('http://labs.phaser.io');
+		this.load.setBaseURL('http://labs.phaser.io');
 
 		this.load.image('ship', 'assets/sprites/shmup-ship.png');
 		this.load.image('bullet', 'assets/sprites/bullet.png');

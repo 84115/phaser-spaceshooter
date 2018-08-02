@@ -72,7 +72,9 @@ class GameScene extends Phaser.Scene
 
 		this.queue = new Queue(this);
 
-		this.queue.add('mines', Mines, [10, 200]);
+		this.queue
+			.add('mines', Mines, [10, 200])
+			.add('mines', Mines, [10, 200]);
 
 		this.queue.run();
 

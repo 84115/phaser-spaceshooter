@@ -14,11 +14,6 @@ class Queue
 	{
 		let args = [this.scene].concat(argsArray);
 
-		if (sequence.patch)
-		{
-			sequence.patch();
-		}
-
 		this.sequences.push({
 			"args": argsArray,
 			"class": sequence,
@@ -44,23 +39,32 @@ class Queue
 						this.scene, sequence.args[0], sequence.args[1]
 					);
 
-					// console.log(sequence.class.name.replace('Group', '').toLowerCase());
-					// console.log(this.scene[sequence].constructor.name.replace('Group').toLowerCase());
+					if (this.scene[sequence.key].patch)
+					{
+						this.scene[sequence.key].patch();
+					}
 
 					this.lock = true;
 				}
 
-				// if (this.scene[sequence.key].done())
-				// {
-				// 	this.lock = false;
+				if (this.scene[sequence.key].done())
+				{
+					this.lock = false;
 
-				// 	this.position++;
-				// }
+					this.scene[sequence.key] = false;
 
-				// if (this.count.position >= this.sequences.length)
-				// {
-				// 	this.timer.remove(false);
-				// }
+					this.position++;
+				}
+
+				if (this.position >= this.sequences.length)
+				{
+					this.timer.remove(false);
+
+					if (this.scene.StageTitle)
+					{
+						this.scene.StageTitle(this.scene, "GameFin!");
+					}
+				}
 			},
 			loop: true
 		});
