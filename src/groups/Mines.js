@@ -8,32 +8,33 @@ class MinesGroup extends Group
 
 		this.prev = [];
 		this.count = 0;
+		this.sequenceDone = false;
 
-		if (scene.background.scroll)
+		if (this.scene.background.scroll)
 		{
-			scene.background.scroll = scene.background.scroll * 12;
+			this.scene.background.scroll = this.scene.background.scrollBase * 12;
 		}
 
 		this.scene.ship.bullets.enabled = false;
 
-		this.timer = scene.time.addEvent({
+		this.timer = this.scene.time.addEvent({
 			delay: interval,
 			callback: () =>
 			{
-				var pos = scene.grid.randomX();
+				var pos = this.scene.grid.randomX();
 
 				for (var i = 0; i <= 11; i++)
 				{
 					if (this.prev.includes(pos))
 					{
-						var pos = scene.grid.randomX();
+						var pos = this.scene.grid.randomX();
 					}
 				}
 
 				this.prev.unshift(pos);
 				this.prev = this.prev.slice(0, 11);
 
-				this.add(scene.physics.add.sprite(pos, scene.grid[0], 'mine').setCircle(16));
+				this.add(this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16));
 
 				this.count++;
 
@@ -43,25 +44,23 @@ class MinesGroup extends Group
 					this.prev = [];
 					this.count = 0;
 
-					scene.time.addEvent({
+					this.scene.time.addEvent({
 						delay: 4000,
 						callback: () =>
 						{
-							scene.background.scroll = scene.background.scrollBase;
+							this.scene.background.scroll = this.scene.background.scrollBase;
 
 							this.scene.ship.bullets.enabled = true;
 
-							this.__done = true;
+							this.sequenceDone = true;
 						}
 					});
 				}
-
-				console.log(this.done());
 			},
 			loop: true
 		});
 
-		this.__done = false;
+		this.sequenceDone = false;
 	}
 
 	update()
@@ -89,12 +88,14 @@ class MinesGroup extends Group
 
 	done()
 	{
-		if (this.__done)
+		if (this.sequenceDone)
 		{
 			return true;
 		}
-
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
 }

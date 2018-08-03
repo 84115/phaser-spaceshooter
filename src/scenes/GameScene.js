@@ -9,7 +9,7 @@ import StageTitle from '../util/StageTitle';
 import Animations from '../util/Animations';
 import Queue from '../util/Queue';
 import Powerups from '../groups/Powerups';
-import Mines from '../sequences/Mines';
+import Mines from '../groups/Mines';
 import Brain from '../sequences/Brain';
 import DebugGrid from '../debug/Grid';
 
@@ -66,17 +66,12 @@ class GameScene extends Phaser.Scene
 
 
 
-		// this.mines = new Mines(this, 10, 200);
-		// this.mines.patch();
-		this.mines = false;
-
 		this.queue = new Queue(this);
 
 		this.queue
 			.add('mines', Mines, [10, 200])
-			.add('mines', Mines, [10, 200]);
-
-		this.queue.run();
+			.add('mines', Mines, [10, 200])
+			.run();
 
 
 		// this.brain = Brain(this, 10, 200);

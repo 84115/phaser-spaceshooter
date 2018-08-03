@@ -10,12 +10,15 @@ class Queue
 		this.lock = false;
 	}
 
-	add(key, sequence, argsArray=[])
+	add(key, sequence, args=[])
 	{
-		let args = [this.scene].concat(argsArray);
+		if (!((args) instanceof Array))
+		{
+			let args = [args];
+		}
 
 		this.sequences.push({
-			"args": argsArray,
+			"args": args,
 			"class": sequence,
 			"key": key
 		});
@@ -35,6 +38,8 @@ class Queue
 
 				if (!this.lock)
 				{
+					// Can't use apply :''''(
+					// Need to manually add sequence.args[n]
 					this.scene[sequence.key] = new sequence.class(
 						this.scene, sequence.args[0], sequence.args[1]
 					);
