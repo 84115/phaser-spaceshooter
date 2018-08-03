@@ -3,12 +3,12 @@ import Sfx from '../objects/Sfx';
 import Background from '../objects/Background';
 import Stats from '../util/Stats';
 import Ship from '../sprites/Ship';
-import Enemy from '../sprites/Enemy';
 import Controller from '../objects/Controller';
 import StageTitle from '../util/StageTitle';
 import Animations from '../util/Animations';
 import Queue from '../util/Queue';
 import Powerups from '../groups/Powerups';
+import Ufos from '../groups/Ufos';
 import Mines from '../groups/Mines';
 import Brain from '../sequences/Brain';
 import DebugGrid from '../debug/Grid';
@@ -55,21 +55,12 @@ class GameScene extends Phaser.Scene
 
 		this.animations = Animations(this);
 
-
-
-		// this.enemies = this.physics.add.group();
-		// this.enemies.add(new Enemy(this, this.grid[3], this.grid[6], 'ufo'));
-		// this.enemies.add(new Enemy(this, this.grid[6], this.grid[6], 'ufo'));
-		// this.enemies.add(new Enemy(this, this.grid[9], this.grid[6], 'ufo'));
-		// this.physics.add.collider(this.ship.bullets, this.enemies.children.entries, this.ship.collideBulletEnemy, null, this.ship);
-		// this.ship.collider(this.enemies.children.entries, this.ship.collideShipEnemy);
-
-
-
 		this.queue = new Queue(this);
 
 		this.queue
+			.add('mines', Ufos)
 			.add('mines', Mines, [10, 200])
+			.add('mines', Ufos)
 			.add('mines', Mines, [10, 200])
 			.run();
 
