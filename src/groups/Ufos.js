@@ -13,34 +13,37 @@ class UfoGroup extends Group
 
 		var tweenList = [];
 
+		// NEEDS TO USE THE GROUP
 		for (var i = 0; i <= 10; i++)
 		{
-			let ufo = new Enemy(this.scene, this.scene.grid[0], this.scene.grid[2 + i], 'ufo');
+			let sprite = this.scene.physics.add.sprite(this.scene.grid[0], this.scene.grid[2+i], 'ufo')
 
-			ufo.projectile = this.scene.physics.add.group({
+			sprite.projectile = this.scene.physics.add.group({
 				classType: () => new Bullet(this.scene, 'bullet', 100, 250, true),
 				maxSize: 10,
 				runChildUpdate: true
 			});
 
-			ufo.timer = this.scene.time.addEvent({
+			sprite.timer = this.scene.time.addEvent({
 				delay: 500,
 				callback: () =>
 				{
-					ufo.bullet = ufo.projectile.get();
+					sprite.bullet = sprite.projectile.get();
 
-					if (ufo && ufo.bullet)
+					if (sprite && sprite.bullet)
 					{
-						ufo.bullet.fire(ufo.x, ufo.y);
+						sprite.bullet.fire(sprite.x, sprite.y);
 					}
 				},
 				loop: true
 			});
 
-			this.add(ufo);
+			this.add(sprite);
+
+			let xxx = this.getChildren()[this.getChildren().length-1];
 
 			tweenList.push({
-				targets: ufo,
+				targets: xxx,
 				x: this.scene.grid[12],
 				ease: 'Power1',
 				duration: 2000,
