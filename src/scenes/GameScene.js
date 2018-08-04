@@ -104,14 +104,14 @@ class GameScene extends Phaser.Scene
 
 	update(time, delta)
 	{
-		this.background.update(time, delta);
-
 		if (!this.gameover)
 		{
-			this.queue.update(time, delta);
-
 			this.ship.update(time, delta);
+
+			this.queue.update(time, delta);
 		}
+
+		this.background.update(time, delta);
 	}
 
 	incrementScore(amount=0)
