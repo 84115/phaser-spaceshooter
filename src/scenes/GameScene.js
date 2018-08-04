@@ -16,7 +16,7 @@ import DebugGrid from '../debug/Grid';
 class GameScene extends Phaser.Scene
 {
 
-	constructor(test)
+	constructor()
 	{
 		super({ key: 'GameScene' });
 	}

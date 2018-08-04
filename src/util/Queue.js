@@ -1,5 +1,6 @@
 class Queue
 {
+
 	constructor(scene)
 	{
 		this.scene = scene;
@@ -75,7 +76,7 @@ class Queue
 		});
 	}
 
-	update()
+	update(time, delta)
 	{
 		let sequence = this.sequences[this.position];
 
@@ -89,7 +90,7 @@ class Queue
 				{
 					if (key.update)
 					{
-						key.update();
+						key.update(time, delta);
 					}
 				}
 			}

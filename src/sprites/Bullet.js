@@ -2,6 +2,7 @@ import Sprite from '../sprites/Sprite';
 
 class Bullet extends Sprite
 {
+
 	constructor(scene, damage=100, speed=400, reverse=false)
 	{
 		super(scene, 0, 0, 'bullet');

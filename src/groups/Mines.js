@@ -2,6 +2,7 @@ import Group from '../groups/Group';
 
 class MinesGroup extends Group
 {
+
 	constructor(scene, limit=100, interval=1000)
 	{
 		super(scene);
@@ -34,7 +35,10 @@ class MinesGroup extends Group
 				this.prev.unshift(pos);
 				this.prev = this.prev.slice(0, 11);
 
-				this.add(this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16));
+				let mine = this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16);
+				mine.speed = Phaser.Math.GetSpeed(Phaser.Math.RND.between(175, 225), 1);
+
+				this.add(mine);
 
 				this.count++;
 
@@ -52,6 +56,8 @@ class MinesGroup extends Group
 
 							this.scene.ship.bullets.enabled = true;
 
+							this.clear();
+
 							this.sequenceDone = true;
 						}
 					});
@@ -59,17 +65,15 @@ class MinesGroup extends Group
 			},
 			loop: true
 		});
-
-		this.sequenceDone = false;
 	}
 
 	update(time, delta)
 	{
-		for (var i = 0; i < this.children.entries.length; i++)
+		for (var i = 0; i < this.getChildren().length; i++)
 		{
-			let mine = this.children.entries[i];
+			let mine = this.getChildren()[i];
 
-			mine.y = mine.y + 2 + Math.round(mine.y/150);
+			mine.y += mine.speed * delta;
 
 			if (mine.y >= 640 + 32)
 			{
@@ -82,8 +86,8 @@ class MinesGroup extends Group
 
 	patch()
 	{
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
-		this.scene.ship.collider(this.children.entries, this.scene.ship.collideShipEnemy);
+		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
+		this.scene.ship.collider(this.getChildren(), this.scene.ship.collideShipEnemy);
 	}
 
 	done()

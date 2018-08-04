@@ -1,7 +1,6 @@
 import 'phaser';
 import BootScene from './scenes/BootScene';
 import GameScene from './scenes/GameScene';
-import TitleScene from './scenes/TitleScene';
 
 let debug = true;
 
@@ -22,7 +21,6 @@ const config = {
     pixelArt: true,
     scene: [
         BootScene,
-        TitleScene,
         GameScene
     ]
 };

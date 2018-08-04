@@ -2,6 +2,7 @@ import Image from '../images/Image';
 
 class BackgroundObject
 {
+
 	constructor(scene, key)
 	{
 		this.scene = scene;
@@ -36,6 +37,7 @@ class BackgroundObject
 			this.scene.background.b.y = this.scene.background.b.y + this.scene.background.scroll;
 		}
 	}
+
 }
 
 export default BackgroundObject;

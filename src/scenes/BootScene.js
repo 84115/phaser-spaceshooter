@@ -1,7 +1,7 @@
 class BootScene extends Phaser.Scene
 {
 
-	constructor(test)
+	constructor()
 	{
 		super({ key: 'BootScene' });
 	}
@@ -24,11 +24,14 @@ class BootScene extends Phaser.Scene
 		this.load.image('orb-blue', 'assets/sprites/orb-blue.png');
 		this.load.image('font', 'assets/fonts/retro/ulm.png');
 
-	    this.load.spritesheet('explode', 'assets/sprites/boom32wh12.png', {
-	    	frameWidth: 32,
-	    	frameHeight: 32,
-	    	endFrame: 11
-	    });
+		this.load.spritesheet('explode', 'assets/sprites/boom32wh12.png', {
+			frameWidth: 32,
+			frameHeight: 32,
+			endFrame: 11
+		});
+
+		// TBA
+		// this.load.image('mine', 'assets/sprites/asteroid_32x32x55.png');
 
 		this.load.audio('sfx', [
 			'assets/audio/SoundEffects/fx_mixdown.ogg',
@@ -38,12 +41,9 @@ class BootScene extends Phaser.Scene
 
 	create()
 	{
-		this.scene.start('TitleScene');
+		this.scene.start('GameScene');
 	}
 
-	update()
-	{
-	}
 }
 
 export default BootScene;

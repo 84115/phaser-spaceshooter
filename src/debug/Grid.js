@@ -1,6 +1,5 @@
 function DebugGrid(scene)
 {
-
 	var debugGrid = scene.add
 		.graphics()
 		.lineStyle(1, 0x2ECC40);
@@ -43,7 +42,6 @@ function DebugGrid(scene)
 	}
 
 	return debugGrid;
-
 }
 
 export default DebugGrid;

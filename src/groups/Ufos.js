@@ -30,7 +30,7 @@ class UfoGroup extends Group
 				{
 					sprite.bullet = sprite.projectile.get();
 
-					if (sprite.bullet && sprite)
+					if (sprite && sprite.bullet)
 					{
 						sprite.bullet.fire(sprite.x, sprite.y);
 					}
@@ -40,7 +40,7 @@ class UfoGroup extends Group
 
 			this.add(sprite);
 
-			let xxx = this.children.entries[this.children.entries.length-1];
+			let xxx = this.getChildren()[this.getChildren().length-1];
 
 			tweenList.push({
 				targets: xxx,
@@ -60,8 +60,8 @@ class UfoGroup extends Group
 
 	patch()
 	{
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
-		this.scene.physics.add.collider(this.scene.ship, this.children.entries, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
+		this.scene.physics.add.collider(this.scene.ship, this.getChildren(), this.scene.ship.collideShipEnemy, null, this.scene.ship);
 	}
 
 }

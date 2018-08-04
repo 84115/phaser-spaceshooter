@@ -11,7 +11,7 @@ class Group extends Phaser.GameObjects.Group
 
 	done()
 	{
-		if (this.children.entries.length === 0)
+		if (this.getChildren().length === 0)
 		{
 			return true;
 		}
