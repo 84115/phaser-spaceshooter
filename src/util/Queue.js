@@ -74,6 +74,28 @@ class Queue
 			loop: true
 		});
 	}
+
+	update()
+	{
+		let sequence = this.sequences[this.position];
+
+		if (sequence)
+		{
+			if (sequence.key)
+			{
+				let key = this.scene[sequence.key];
+
+				if (key)
+				{
+					if (key.update)
+					{
+						key.update();
+					}
+				}
+			}
+		}
+	}
+
 }
 
 export default Queue;

@@ -63,7 +63,7 @@ class MinesGroup extends Group
 		this.sequenceDone = false;
 	}
 
-	update()
+	update(time, delta)
 	{
 		for (var i = 0; i < this.children.entries.length; i++)
 		{

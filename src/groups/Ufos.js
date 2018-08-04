@@ -11,12 +11,6 @@ class UfoGroup extends Group
 
 		this.scene = scene;
 
-		this.sequenceDone = false;
-
-		// this.add(new Enemy(this.scene, this.scene.grid[3], this.scene.grid[6], 'ufo'));
-		// this.add(new Enemy(this.scene, this.scene.grid[6], this.scene.grid[6], 'ufo'));
-		// this.add(new Enemy(this.scene, this.scene.grid[9], this.scene.grid[6], 'ufo'));
-
 		var tweenList = [];
 
 		// NEEDS TO USE THE GROUP
@@ -46,8 +40,10 @@ class UfoGroup extends Group
 
 			this.add(sprite);
 
+			let xxx = this.children.entries[this.children.entries.length-1];
+
 			tweenList.push({
-				targets: this.children.entries[this.children.entries.length-1],
+				targets: xxx,
 				x: this.scene.grid[12],
 				ease: 'Power1',
 				duration: 2000,
@@ -57,10 +53,7 @@ class UfoGroup extends Group
 
 		var timeline = this.scene.tweens.timeline({
 			tweens: tweenList,
-			onComplete: function()
-			{
-				this.sequenceDone = true;
-			}
+			onComplete: () => this.clear(true)
 		});
 
 	}
@@ -69,18 +62,6 @@ class UfoGroup extends Group
 	{
 		this.scene.physics.add.collider(this.scene.ship.bullets, this.children.entries, this.scene.ship.collideBulletEnemy, null, this.scene.ship);
 		this.scene.physics.add.collider(this.scene.ship, this.children.entries, this.scene.ship.collideShipEnemy, null, this.scene.ship);
-	}
-
-	done()
-	{
-		if (this.children.entries.length === 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 
 }
