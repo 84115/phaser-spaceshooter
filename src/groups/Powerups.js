@@ -7,15 +7,10 @@ class PowerupsGroup extends Group
 	{
 		super(scene, x, y, key);
 
-		this.scene = scene;
-	}
-
-	handle(powerup)
-	{
 		// Default args
 		// amount :: default = no-change
 		// time 0 :: 0=perma
-		var powerupTriggers = {
+		this.triggers = {
 			"skull": {
 				callback: this.firerate,
 				args: [2, 5000]
@@ -33,8 +28,32 @@ class PowerupsGroup extends Group
 				args: [0.05, 5000]
 			},
 		};
+	}
 
-		var powerupFn = powerupTriggers[powerup.texture.key];
+	startGenerator(interval=7500, limit=4)
+	{
+		this.timer = this.scene.time.addEvent({
+			delay: interval,
+			callback: () =>
+			{
+				if (this.getChildren().length <= limit)
+				{
+					this.add(this.scene.physics.add.sprite(
+						this.scene.grid.randomX(),
+						this.scene.grid.randomX(),
+						Phaser.Utils.Array.GetRandom(Object.keys(this.triggers))
+					));
+				}
+			},
+			loop: true
+		});
+
+		return this;
+	}
+
+	handle(powerup)
+	{
+		var powerupFn = this.triggers[powerup.texture.key];
 
 		if (powerupFn)
 		{

@@ -5,15 +5,12 @@ import Bullet from '../sprites/Bullet';
 class UfoGroup extends Group
 {
 
-	constructor(scene)
+	constructor(scene, tint)
 	{
 		super(scene);
 
-		this.scene = scene;
+		this.tweens = [];
 
-		var tweenList = [];
-
-		// NEEDS TO USE THE GROUP
 		for (var i = 0; i <= 10; i++)
 		{
 			let sprite = this.scene.physics.add.sprite(this.scene.grid[0], this.scene.grid[2+i], 'ufo')
@@ -32,27 +29,35 @@ class UfoGroup extends Group
 
 					if (sprite && sprite.bullet)
 					{
+						if (tint)
+						{
+							sprite.bullet.setTint(tint);
+						}
+
 						sprite.bullet.fire(sprite.x, sprite.y);
 					}
 				},
 				loop: true
 			});
 
+			if (tint)
+			{
+				sprite.setTint(tint);
+			}
+
 			this.add(sprite);
 
-			let xxx = this.getChildren()[this.getChildren().length-1];
-
-			tweenList.push({
-				targets: xxx,
+			this.tweens.push({
+				targets: this.getChildrenHead(),
 				x: this.scene.grid[12],
 				ease: 'Power1',
-				duration: 2000,
-				offset: 1000*(i+1)
-			})
+				duration: 2500,
+				offset: (1000 * (i + 1))
+			});
 		}
 
-		var timeline = this.scene.tweens.timeline({
-			tweens: tweenList,
+		this.timeline = this.scene.tweens.timeline({
+			tweens: this.tweens,
 			onComplete: () => this.clear(true)
 		});
 
@@ -60,8 +65,13 @@ class UfoGroup extends Group
 
 	patch()
 	{
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
 		this.scene.physics.add.collider(this.scene.ship, this.getChildren(), this.scene.ship.collideShipEnemy, null, this.scene.ship);
+		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
+
+		for (var i = 0; i < this.getChildren().length; i++)
+		{
+			this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+		}
 	}
 
 }

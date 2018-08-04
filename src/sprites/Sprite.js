@@ -5,12 +5,12 @@ class Sprite extends Phaser.GameObjects.Sprite
 	{
 		super(scene, x, y, key);
 
-		this.alive = true;
-
 		this.scene = scene;
 
-		scene.physics.world.enable(this);
-		scene.add.existing(this);
+		this.alive = true;
+
+		this.scene.physics.world.enable(this);
+		this.scene.add.existing(this);
 	}
 
 	damage(amount=0)

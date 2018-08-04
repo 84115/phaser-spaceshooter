@@ -3,7 +3,7 @@ import Group from '../groups/Group';
 class MinesGroup extends Group
 {
 
-	constructor(scene, limit=100, interval=1000)
+	constructor(scene, tint, limit=100, interval=1000)
 	{
 		super(scene);
 
@@ -37,6 +37,11 @@ class MinesGroup extends Group
 
 				let mine = this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16);
 				mine.speed = Phaser.Math.GetSpeed(Phaser.Math.RND.between(175, 225), 1);
+
+				if (tint)
+				{
+					mine.setTint(mine);
+				}
 
 				this.add(mine);
 

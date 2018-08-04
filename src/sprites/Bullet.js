@@ -7,9 +7,8 @@ class Bullet extends Sprite
 	{
 		super(scene, 0, 0, 'bullet');
 
-		this.scene = scene;
-
-		if (reverse) {
+		if (reverse)
+		{
 			speed = -speed;
 		}
 

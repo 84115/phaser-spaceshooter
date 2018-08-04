@@ -5,8 +5,10 @@ class Group extends Phaser.GameObjects.Group
 	{
 		super(scene, x, y, key);
 
-		scene.physics.world.enable(this);
-		scene.add.existing(this);
+		this.scene = scene;
+
+		this.scene.physics.world.enable(this);
+		this.scene.add.existing(this);
 	}
 
 	done()
@@ -19,6 +21,11 @@ class Group extends Phaser.GameObjects.Group
 		{
 			return false;
 		}
+	}
+
+	getChildrenHead()
+	{
+		return this.getChildren()[this.getChildren().length - 1];
 	}
 
 }

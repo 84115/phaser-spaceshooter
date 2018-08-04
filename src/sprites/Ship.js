@@ -8,7 +8,6 @@ class ShipSprite extends Sprite
 	{
 		super(scene, x, y, key);
 
-		// this.setDepth(1);
 		// this.setCollideWorldBounds(true);
 
 		this.lives = 3;
