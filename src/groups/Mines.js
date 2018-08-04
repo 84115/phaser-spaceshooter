@@ -1,3 +1,4 @@
+import Enemy from '../sprites/Enemy';
 import Group from '../groups/Group';
 
 class MinesGroup extends Group
@@ -35,7 +36,8 @@ class MinesGroup extends Group
 				this.prev.unshift(pos);
 				this.prev = this.prev.slice(0, 11);
 
-				let mine = this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16);
+				// new Enemy(this.scene, // does not have setCircle, look into adding it to sprite
+				let mine = new Enemy(this.scene, pos, this.scene.grid[0], 'mine').setCircle(16);
 				mine.speed = Phaser.Math.GetSpeed(Phaser.Math.RND.between(175, 225), 1);
 
 				this.add(mine);

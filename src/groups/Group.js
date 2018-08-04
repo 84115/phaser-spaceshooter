@@ -1,4 +1,4 @@
-class Group extends Phaser.GameObjects.Group
+class Group extends Phaser.Physics.Arcade.Group
 {
 
 	constructor(scene, x, y, key)

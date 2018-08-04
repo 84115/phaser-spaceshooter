@@ -1,4 +1,4 @@
-class Sprite extends Phaser.GameObjects.Sprite
+class Sprite extends Phaser.Physics.Arcade.Sprite
 {
 
 	constructor(scene, x, y, key)
