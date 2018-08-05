@@ -23,12 +23,12 @@ class ShipSprite extends Sprite
 		this.shield = this.maxShield;
 
 		this.bullets = this.scene.physics.add.group({
-			classType: () => new ShipBullet(this.scene),
+			classType: () => new ShipBullet(this.scene, 'bullet-2'),
 			maxSize: 100,
 			runChildUpdate: true
 		});
 		this.bullets.enabled = true;
-		this.bullets.speed = 200;
+		this.bullets.speed = 250;
 		this.bullets.lastFired = 0;
 		this.bullets.tint;
 
@@ -230,10 +230,23 @@ class ShipSprite extends Sprite
 
 		if (this.bullets.frozen)
 		{
-			enemy.setTint(0x00ffff);
-			enemy.timer.paused = true;
-			enemy.getParent().timeline.data[enemy.index].pause();
+			if (enemy.setTint)
+			{
+				enemy.setTint(0x00ffff);
+			}
+
+			if (enemy.timer)
+			{
+				enemy.timer.paused = true;
+			}
+
+			if (enemy.getParent)
+			{
+				enemy.getParent().timeline.data[enemy.index].pause();
+			}
 		}
+
+		enemy.damage(75);
 
 		if (!enemy.hitTween)
 		{
@@ -244,8 +257,6 @@ class ShipSprite extends Sprite
 				ease: enemy.wiggleEase
 			});
 		}
-
-		enemy.damage(75);
 	}
 
 	collideShipPowerUps(ship, powerup)

@@ -47,7 +47,7 @@ class PowerupsGroup extends Group
 		};
 	}
 
-	start(interval=500, limit=5)
+	start(interval=5000, limit=3)
 	{
 		this.timer = this.scene.time.addEvent({
 			delay: interval,

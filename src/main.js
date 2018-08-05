@@ -2,7 +2,7 @@ import 'phaser';
 import BootScene from './scenes/BootScene';
 import GameScene from './scenes/GameScene';
 
-let debug = true;
+let debug = !true;
 
 const config = {
     type: Phaser.WEBGL,

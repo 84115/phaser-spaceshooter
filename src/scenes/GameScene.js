@@ -46,11 +46,12 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
-			.add('ufos', Ufos)
-			// .add('ufos', Ufos, [0x00ffff]) // light-blue
-			// .add('ufos', Ufos, [0xff00ff]) // purple
-			// .add('ufos', Ufos, [0xffff00]) // green
-			.add('mines', Mines, [null, 10, 200])
+			.add('ufos', Ufos, [null, null, 'alien'])
+			.add('mines', Mines, [null, 30, 200, true])
+			.add('ufos', Ufos, [0x00ffff, null]) // light-blue
+			.add('ufos', Ufos, [0xff00ff, null]) // purple
+			.add('ufos', Ufos, [0xffff00, null]) // green
+			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 			.run();
 
 		// this.brain = Brain(this, 10, 200);

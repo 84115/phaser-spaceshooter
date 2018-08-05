@@ -42,7 +42,7 @@ class Queue
 					// Can't use apply :''''(
 					// Need to manually add sequence.args[n]
 					this.scene[sequence.key] = new sequence.class(
-						this.scene, sequence.args[0], sequence.args[1]
+						this.scene, sequence.args[0], sequence.args[1], sequence.args[2], sequence.args[3], sequence.args[4], sequence.args[5], sequence.args[6], sequence.args[7], sequence.args[8] , sequence.args[9]
 					);
 
 					if (this.scene[sequence.key].patch)

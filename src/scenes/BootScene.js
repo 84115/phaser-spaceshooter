@@ -40,7 +40,8 @@ class BootScene extends Phaser.Scene
 		});
 
 		// TBA
-		this.load.image('mine', 'assets/sprites/asteroid_32x32x55.png');
+		// this.load.image('asteroids', 'assets/sprites/asteroid_32x32x55.png');
+		this.load.image('asteroid', 'assets/sprites/asteroid.png');
 
 		this.load.audio('sfx', [
 			'assets/audio/SoundEffects/fx_mixdown.ogg',

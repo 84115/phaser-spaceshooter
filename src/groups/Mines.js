@@ -1,9 +1,10 @@
 import Group from '../groups/Group';
+import Enemy from '../sprites/Enemy';
 
 class MinesGroup extends Group
 {
 
-	constructor(scene, tint, limit=100, interval=1000)
+	constructor(scene, tint, limit=100, interval=1000, disableWeapon=false, key='mine')
 	{
 		super(scene);
 
@@ -16,7 +17,10 @@ class MinesGroup extends Group
 			this.scene.background.scroll = this.scene.background.scrollBase * 12;
 		}
 
-		this.scene.ship.bullets.enabled = false;
+		if (disableWeapon)
+		{
+			this.scene.ship.bullets.enabled = false;
+		}
 
 		this.timer = this.scene.time.addEvent({
 			delay: interval,
@@ -35,8 +39,11 @@ class MinesGroup extends Group
 				this.prev.unshift(pos);
 				this.prev = this.prev.slice(0, 11);
 
-				let mine = this.scene.physics.add.sprite(pos, this.scene.grid[0], 'mine').setCircle(16);
+				let mine = new Enemy(this.scene, pos, this.scene.grid[0], key)
+				// mine.setCircle(16);
 				mine.speed = Phaser.Math.GetSpeed(Phaser.Math.RND.between(175, 225), 1);
+				mine.maxHealth = 1;
+				mine.health = mine.maxHealth;
 
 				if (tint)
 				{
@@ -59,7 +66,10 @@ class MinesGroup extends Group
 						{
 							this.scene.background.scroll = this.scene.background.scrollBase;
 
-							this.scene.ship.bullets.enabled = true;
+							if (disableWeapon)
+							{
+								this.scene.ship.bullets.enabled = true;
+							}
 
 							this.clear();
 
@@ -82,9 +92,7 @@ class MinesGroup extends Group
 
 			if (mine.y >= 640 + 32)
 			{
-				mine
-					.disableBody(true, true)
-					.destroy();
+				mine.kill();
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import Bullet from '../sprites/Bullet';
 class UfoGroup extends Group
 {
 
-	constructor(scene, tint)
+	constructor(scene, tint, pattern, key='ufo')
 	{
 		super(scene);
 
@@ -13,7 +13,7 @@ class UfoGroup extends Group
 
 		for (var i = 0; i <= 10; i++)
 		{
-			let sprite = new Enemy(this.scene, this.scene.grid[0], this.scene.grid[2 + i], 'ufo');
+			let sprite = new Enemy(this.scene, this.scene.grid[0], this.scene.grid[2 + i], key);
 
 			sprite.index = i;
 
@@ -58,7 +58,7 @@ class UfoGroup extends Group
 				targets: this.getChildrenHead(),
 				x: this.scene.grid[12],
 				ease: 'Power1',
-				duration: 2500,
+				duration: 4000,
 				offset: (1000 * (i + 1))
 			});
 		}
