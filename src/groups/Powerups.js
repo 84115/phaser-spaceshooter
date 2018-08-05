@@ -15,6 +15,11 @@ class PowerupsGroup extends Group
 				callback: this.firerate,
 				args: [2, 5000, true]
 			},
+			// "orb": {
+			// 	callback: this.health,
+			// 	args: [100],
+			// 	tint: 0xff00ff
+			// },
 			"orb-red": {
 				callback: this.health,
 				args: [100]
@@ -28,6 +33,10 @@ class PowerupsGroup extends Group
 				args: [0.05, 5000]
 			},
 			"slime": {
+				callback: this.poison,
+				args: [5000]
+			},
+			"flame": {
 				callback: this.poison,
 				args: [5000]
 			},
@@ -48,11 +57,20 @@ class PowerupsGroup extends Group
 				{
 					if (this.getChildren().length <= limit)
 					{
-						this.add(this.scene.physics.add.sprite(
+						let randomKey = Phaser.Utils.Array.GetRandom(Object.keys(this.triggers));
+
+						let randomSprite = this.scene.physics.add.sprite(
 							this.scene.grid.randomX(true),
 							this.scene.grid.randomY(true),
-							Phaser.Utils.Array.GetRandom(Object.keys(this.triggers))
-						));
+							randomKey
+						);
+
+						if (this.triggers[randomKey].tint)
+						{
+							randomSprite.setTint(this.triggers[randomKey].tint);
+						}
+
+						this.add(randomSprite);
 					}
 				}
 			},
