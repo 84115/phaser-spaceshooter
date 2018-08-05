@@ -1,5 +1,5 @@
 import Sprite from '../sprites/Sprite';
-import Bullet from '../sprites/Bullet';
+import ShipBullet from '../sprites/ShipBullet';
 
 class ShipSprite extends Sprite
 {
@@ -8,7 +8,7 @@ class ShipSprite extends Sprite
 	{
 		super(scene, x, y, key);
 
-		// this.setCollideWorldBounds(true);
+		this.body.setCollideWorldBounds(true);
 
 		this.lives = 3;
 
@@ -23,13 +23,14 @@ class ShipSprite extends Sprite
 		this.shield = this.maxShield;
 
 		this.bullets = this.scene.physics.add.group({
-			classType: () => new Bullet(this.scene),
+			classType: () => new ShipBullet(this.scene),
 			maxSize: 100,
 			runChildUpdate: true
 		});
 		this.bullets.enabled = true;
-		this.bullets.speed = 250;
+		this.bullets.speed = 200;
 		this.bullets.lastFired = 0;
+		this.bullets.tint;
 
 		this.updateStat('health');
 		this.updateStat('shield');
@@ -208,18 +209,43 @@ class ShipSprite extends Sprite
 
 		this.scene.incrementScore(100);
 
-		bullet.destroy();
-
-		this.scene.add
-			.sprite(enemy.x, enemy.y, 'explode')
-			.anims.play('explode-anim');
-
-		if (enemy.disableBody)
+		if (!this.bullets.pierce)
 		{
-			enemy.disableBody(true, true);
+			bullet.destroy();
 		}
 
-		enemy.destroy();
+		if (this.bullets.poisoned)
+		{
+			enemy.setTint(0xffff00);
+
+			if (!enemy.poisonTimer)
+			{
+				enemy.poisonTimer = this.scene.time.addEvent({
+					delay: 500,
+					callback: () => enemy.damage(25),
+					loop: true
+				});
+			}
+		}
+
+		if (this.bullets.frozen)
+		{
+			enemy.setTint(0x00ffff);
+			enemy.timer.paused = true;
+			enemy.getParent().timeline.data[enemy.index].pause();
+		}
+
+		if (!enemy.hitTween)
+		{
+			enemy.hitTween = this.scene.tweens.add({
+				targets: enemy,
+				y: enemy.y + 10,
+				duration: 5000,
+				ease: enemy.wiggleEase
+			});
+		}
+
+		enemy.damage(75);
 	}
 
 	collideShipPowerUps(ship, powerup)

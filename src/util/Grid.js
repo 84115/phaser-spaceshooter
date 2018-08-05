@@ -18,12 +18,24 @@ function Axis(size=32)
 		return Phaser.Math.RND.integerInRange(start, stop);
 	};
 
-	array.randomIndexX = function randomIndex()
+	array.randomIndexX = function randomIndex(padded=false)
 	{
 		var offset = 1;
-		var start = offset;
+		var start = offset  + (padded ? 1 : 0);
+
 		// Clean up logic here, hardcoded! :0
-		var stop = array.length - 1 - offset - 9;
+		var stop = (array.length - 1 - offset - 9) + (padded ? -1 : 0);
+
+		return Phaser.Math.RND.integerInRange(start, stop);
+	};
+
+	array.randomIndexY = function randomIndex(padded=false)
+	{
+		var offset = 1;
+		var start = offset  + (padded ? 1 : 0);
+
+		// Clean up logic here, hardcoded! :0
+		var stop = (array.length - 1 - offset) + (padded ? -1 : 0);
 
 		return Phaser.Math.RND.integerInRange(start, stop);
 	};
@@ -33,9 +45,14 @@ function Axis(size=32)
 		return array[array.randomIndex()];
 	}
 
-	array.randomX = function randomX()
+	array.randomX = function randomX(padded=false)
 	{
-		return array[array.randomIndexX()];
+		return array[array.randomIndexX(padded)];
+	}
+
+	array.randomY = function randomY(padded=false)
+	{
+		return array[array.randomIndexY(padded)];
 	}
 
 	array.centerIndex = 6;

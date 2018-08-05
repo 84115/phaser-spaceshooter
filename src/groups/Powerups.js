@@ -13,7 +13,7 @@ class PowerupsGroup extends Group
 		this.triggers = {
 			"skull": {
 				callback: this.firerate,
-				args: [2, 5000]
+				args: [2, 5000, true]
 			},
 			"orb-red": {
 				callback: this.health,
@@ -27,26 +27,59 @@ class PowerupsGroup extends Group
 				callback: this.speed,
 				args: [0.05, 5000]
 			},
+			"slime": {
+				callback: this.poison,
+				args: [5000]
+			},
+			"ice": {
+				callback: this.freeze,
+				args: [5000]
+			},
 		};
 	}
 
-	startGenerator(interval=7500, limit=4)
+	start(interval=500, limit=5)
 	{
 		this.timer = this.scene.time.addEvent({
 			delay: interval,
 			callback: () =>
 			{
-				if (this.getChildren().length <= limit)
+				if (!this.timer.paused)
 				{
-					this.add(this.scene.physics.add.sprite(
-						this.scene.grid.randomX(),
-						this.scene.grid.randomX(),
-						Phaser.Utils.Array.GetRandom(Object.keys(this.triggers))
-					));
+					if (this.getChildren().length <= limit)
+					{
+						this.add(this.scene.physics.add.sprite(
+							this.scene.grid.randomX(true),
+							this.scene.grid.randomY(true),
+							Phaser.Utils.Array.GetRandom(Object.keys(this.triggers))
+						));
+					}
 				}
 			},
 			loop: true
 		});
+
+		return this;
+	}
+
+	pause()
+	{
+		this.timer.paused = true;
+
+		return this;
+	}
+
+	resume()
+	{
+		this.timer.paused = false;
+
+		return this;
+	}
+
+	stop()
+	{
+		this.pause();
+		this.clear();
 
 		return this;
 	}
@@ -61,11 +94,15 @@ class PowerupsGroup extends Group
 		}
 	}
 
-	firerate(scene, amount=1, time=0)
+	firerate(scene, amount=1, time=0, pierce=false)
 	{
-		scene.ship.bulletspeed = scene.ship.bulletspeed / amount;
-
+		scene.ship.bullets.speed = scene.ship.bullets.speed / amount;
 		scene.ship.updateStat('bulletspeed');
+
+		scene.ship.bullets.pierce = true;
+
+		scene.ship.setTint(0xff0000);
+		scene.ship.bullets.tint = 0xff0000;
 
 		if (time)
 		{
@@ -73,9 +110,13 @@ class PowerupsGroup extends Group
 				delay: time,
 				callback: function()
 				{
-					scene.ship.bulletspeed = scene.ship.bulletspeed * amount;
-
+					scene.ship.bullets.speed = scene.ship.bullets.speed * amount;
 					scene.ship.updateStat('bulletspeed');
+
+					scene.ship.bullets.pierce = true;
+
+					scene.ship.setTint();
+					scene.ship.bullets.tint = false;
 				}
 			});
 		}
@@ -114,6 +155,44 @@ class PowerupsGroup extends Group
 		scene.ship.shield = scene.ship.maxShield;
 
 		scene.ship.updateStat('shield');
+	}
+
+	poison(scene, time=100)
+	{
+		scene.ship.setTint(0xffff00);
+		scene.ship.bullets.tint = 0xffff00;
+		scene.ship.bullets.poisoned = true;
+
+		if (time)
+		{
+			scene.time.addEvent({
+				delay: time,
+				callback: function() {
+					scene.ship.setTint();
+					scene.ship.bullets.tint = false;
+					scene.ship.bullets.poisoned = false;
+				}
+			});
+		}
+	}
+
+	freeze(scene, time=100)
+	{
+		scene.ship.setTint(0x00ffff);
+		scene.ship.bullets.tint = 0x00ffff;
+		scene.ship.bullets.frozen = true;
+
+		if (time)
+		{
+			scene.time.addEvent({
+				delay: time,
+				callback: function() {
+					scene.ship.setTint();
+					scene.ship.bullets.tint = false;
+					scene.ship.bullets.frozen = false;
+				}
+			});
+		}
 	}
 
 }

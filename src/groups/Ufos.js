@@ -13,7 +13,11 @@ class UfoGroup extends Group
 
 		for (var i = 0; i <= 10; i++)
 		{
-			let sprite = this.scene.physics.add.sprite(this.scene.grid[0], this.scene.grid[2+i], 'ufo')
+			let sprite = new Enemy(this.scene, this.scene.grid[0], this.scene.grid[2 + i], 'ufo');
+
+			sprite.index = i;
+
+			sprite.getParent = () => this;
 
 			sprite.projectile = this.scene.physics.add.group({
 				classType: () => new Bullet(this.scene, 'bullet', 100, 250, true),
@@ -25,16 +29,19 @@ class UfoGroup extends Group
 				delay: 500,
 				callback: () =>
 				{
-					sprite.bullet = sprite.projectile.get();
-
-					if (sprite && sprite.bullet)
+					if (!sprite.timer.paused)
 					{
-						if (tint)
-						{
-							sprite.bullet.setTint(tint);
-						}
+						sprite.bullet = sprite.projectile.get();
 
-						sprite.bullet.fire(sprite.x, sprite.y);
+						if (sprite && sprite.bullet)
+						{
+							if (tint)
+							{
+								sprite.bullet.setTint(tint);
+							}
+
+							sprite.bullet.fire(sprite.x, sprite.y);
+						}
 					}
 				},
 				loop: true
@@ -60,7 +67,6 @@ class UfoGroup extends Group
 			tweens: this.tweens,
 			onComplete: () => this.clear(true)
 		});
-
 	}
 
 	patch()

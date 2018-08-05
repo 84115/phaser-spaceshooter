@@ -20,9 +20,19 @@ class EnemySprite extends Sprite
 
 		if (this.health <= 0)
 		{
-			this
-				.disableBody(true, true)
-				.destroy();
+			if (this.scene)
+			{
+				this.scene.add
+					.sprite(this.x, this.y, 'explode')
+					.anims.play('explode-anim');
+			}
+
+			if (this.disableBody)
+			{
+				this.disableBody(true, true);
+			}
+
+			this.destroy();
 		}
 	}
 

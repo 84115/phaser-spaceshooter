@@ -46,9 +46,10 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
-			.add('mines', Ufos, [0x00ffff]) // light-blue
-			.add('mines', Ufos, [0xff00ff]) // purple
-			.add('mines', Ufos, [0xffff00]) // green
+			.add('ufos', Ufos)
+			// .add('ufos', Ufos, [0x00ffff]) // light-blue
+			// .add('ufos', Ufos, [0xff00ff]) // purple
+			// .add('ufos', Ufos, [0xffff00]) // green
 			.add('mines', Mines, [null, 10, 200])
 			.run();
 
@@ -61,7 +62,7 @@ class GameScene extends Phaser.Scene
 		// }, null, this.ship);
 
 		this.powerups = new Powerups(this);
-		this.powerups.startGenerator();
+		this.powerups.start();
 		this.ship.collider(this.powerups, this.ship.collideShipPowerUps);
 
 		if (this.physics.config.debug)
