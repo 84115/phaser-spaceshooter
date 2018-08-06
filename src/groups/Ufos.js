@@ -5,15 +5,46 @@ import Bullet from '../sprites/Bullet';
 class UfoGroup extends Group
 {
 
-	constructor(scene, tint, pattern, key='ufo')
+	constructor(scene, tint, pattern='leftToRight', key='ufo')
 	{
 		super(scene);
 
 		this.tweens = [];
 
-		for (var i = 0; i <= 10; i++)
+		let data = this.getSequence(pattern);
+
+		for (var i = 0; i <= data.coords.length-1; i++)
 		{
-			let sprite = new Enemy(this.scene, this.scene.grid[0], this.scene.grid[2 + i], key);
+			let coord = data.coords[i];
+
+			if (('ease' in coord) && typeof coord.duration == 'string')
+			{
+				var ease = coord.ease;
+			}
+			else
+			{
+				var ease = data.ease ? data.ease : 'Power1';
+			}
+
+			if (('duration' in coord) && typeof coord.duration == 'number')
+			{
+				var duration = coord.duration;
+			}
+			else
+			{
+				var duration = data.duration ? data.duration : 5000;
+			}
+
+			if (('offset' in coord) && typeof coord.offset == 'number')
+			{
+				var offset = coord.offset;
+			}
+			else
+			{
+				var offset = data.offset ? data.offset : 1000;
+			}
+
+			let sprite = new Enemy(this.scene, this.scene.grid[coord.start.x], this.scene.grid[coord.start.y], key);
 
 			sprite.index = i;
 
@@ -54,13 +85,24 @@ class UfoGroup extends Group
 
 			this.add(sprite);
 
-			this.tweens.push({
+			let tween = {
 				targets: this.getChildrenHead(),
-				x: this.scene.grid[12],
-				ease: 'Power1',
-				duration: 4000,
-				offset: (1000 * (i + 1))
-			});
+				ease: ease,
+				duration: duration,
+				offset: (offset * (i + 1))
+			};
+
+			if (('x' in coord.stop) && typeof coord.stop.x == 'number')
+			{
+				tween.x = this.scene.grid[coord.stop.x];
+			}
+
+			if (('y' in coord.stop) && typeof coord.stop.y == 'number')
+			{
+				tween.y = this.scene.grid[coord.stop.y];
+			}
+
+			this.tweens.push(tween);
 		}
 
 		this.timeline = this.scene.tweens.timeline({
@@ -78,6 +120,45 @@ class UfoGroup extends Group
 		{
 			this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
 		}
+	}
+
+	getSequence(key)
+	{
+		var table = {
+			"leftToRight": {
+				ease: 'Power1',
+				duration: 5000,
+				offset: 1000,
+				coords: [
+					{ start: { x: 0, y: 2 }, stop: { x: 12, y: 2 } },
+					{ start: { x: 0, y: 3 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 4 }, stop: { x: 12, y: 4 } },
+					{ start: { x: 0, y: 5 }, stop: { x: 12, y: 5 } },
+					{ start: { x: 0, y: 6 }, stop: { x: 12, y: 6 } },
+					{ start: { x: 0, y: 7 }, stop: { x: 12, y: 7 } },
+					{ start: { x: 0, y: 8 }, stop: { x: 12, y: 8 } },
+					{ start: { x: 0, y: 9 }, stop: { x: 12, y: 9 } },
+				]
+			},
+
+			"rightToLeft": {
+				ease: 'Power1',
+				duration: 5000,
+				offset: 1000,
+				coords: [
+					{ start: { x: 12, y: 2 }, stop: { x: 0, y: 2 } },
+					{ start: { x: 12, y: 3 }, stop: { x: 0, y: 3 } },
+					{ start: { x: 12, y: 4 }, stop: { x: 0, y: 4 } },
+					{ start: { x: 12, y: 5 }, stop: { x: 0, y: 5 } },
+					{ start: { x: 12, y: 6 }, stop: { x: 0, y: 6 } },
+					{ start: { x: 12, y: 7 }, stop: { x: 0, y: 7 } },
+					{ start: { x: 12, y: 8 }, stop: { x: 0, y: 8 } },
+					{ start: { x: 12, y: 9 }, stop: { x: 0, y: 9 } },
+				]
+			},
+		};
+
+		return table[key];
 	}
 
 }
