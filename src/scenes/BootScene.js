@@ -8,11 +8,9 @@ class BootScene extends Phaser.Scene
 
 	preload()
 	{
-		// this.load.setBaseURL('http://labs.phaser.io');
-
 		this.load.image('ship', 'assets/sprites/shmup-ship.png');
 
-		this.load.image('sky', 'assets/skies/space3.png');
+		this.load.image('sky', 'assets/sprites/space.png');
 
 		this.load.image('bullet', 'assets/sprites/bullet.png');
 		this.load.image('bullet-2', 'assets/sprites/enemy-bullet.png');
@@ -31,7 +29,7 @@ class BootScene extends Phaser.Scene
 		this.load.image('flame', 'assets/sprites/flame.png');
 		this.load.image('ice', 'assets/sprites/diamond.png');
 
-		this.load.image('font', 'assets/fonts/retro/ulm.png');
+		this.load.image('font', 'assets/sprites/ulm.png');
 
 		this.load.spritesheet('explode', 'assets/sprites/boom32wh12.png', {
 			frameWidth: 32,
@@ -44,8 +42,8 @@ class BootScene extends Phaser.Scene
 		this.load.image('asteroid', 'assets/sprites/asteroid.png');
 
 		this.load.audio('sfx', [
-			'assets/audio/SoundEffects/fx_mixdown.ogg',
-			'assets/audio/SoundEffects/fx_mixdown.mp3'
+			'assets/audio/mixdown.ogg',
+			'assets/audio/mixdown.mp3'
 		]);
 	}
 
