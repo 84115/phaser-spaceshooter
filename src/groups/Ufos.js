@@ -57,7 +57,7 @@ class UfoGroup extends Group
 			});
 
 			sprite.timer = this.scene.time.addEvent({
-				delay: 500,
+				delay: 750,
 				callback: () =>
 				{
 					if (!sprite.timer.paused)
@@ -107,6 +107,8 @@ class UfoGroup extends Group
 
 		this.timeline = this.scene.tweens.timeline({
 			tweens: this.tweens,
+			// todo, look into clear and if it stops timer, if not add that to kill?
+			// also only clear if offscreen
 			onComplete: () => this.clear(true)
 		});
 	}
@@ -154,6 +156,39 @@ class UfoGroup extends Group
 					{ start: { x: 12, y: 7 }, stop: { x: 0, y: 7 } },
 					{ start: { x: 12, y: 8 }, stop: { x: 0, y: 8 } },
 					{ start: { x: 12, y: 9 }, stop: { x: 0, y: 9 } },
+				]
+			},
+			"crossroad": {
+				ease: 'Power1',
+				duration: 3000,
+				offset: 300,
+				coords: [
+					{ start: { x: 12, y: 2 }, stop: { x: 0, y: 2 } },
+					{ start: { x: 0, y: 3 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 12, y: 4 }, stop: { x: 0, y: 4 } },
+					{ start: { x: 0, y: 5 }, stop: { x: 12, y: 5 } },
+					{ start: { x: 12, y: 6 }, stop: { x: 0, y: 6 } },
+					{ start: { x: 0, y: 7 }, stop: { x: 12, y: 7 } },
+					{ start: { x: 12, y: 8 }, stop: { x: 0, y: 8 } },
+					{ start: { x: 0, y: 9 }, stop: { x: 12, y: 9 } },
+				]
+			},
+			"wip": {
+				ease: 'Power1',
+				duration: 6000,
+				offset: 1000,
+				coords: [
+					{ start: { x: 0, y: 0 }, stop: { x: 7, y: 19 } },
+					{ start: { x: 12, y: 0 }, stop: { x: 5, y: 19 } },
+
+					{ start: { x: 0, y: 0 }, stop: { x: 8, y: 18 } },
+					{ start: { x: 12, y: 0 }, stop: { x: 4, y: 18 } },
+
+					{ start: { x: 0, y: 0 }, stop: { x: 9, y: 17 } },
+					{ start: { x: 12, y: 0 }, stop: { x: 3, y: 17 } },
+
+					{ start: { x: 0, y: 0 }, stop: { x: 10, y: 16 } },
+					{ start: { x: 12, y: 0 }, stop: { x: 2, y: 16 } },
 				]
 			},
 		};
