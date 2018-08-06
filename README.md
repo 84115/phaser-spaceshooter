@@ -10,7 +10,7 @@ Navigate into your workspace directory.
 
 Run:
 
-```git clone https://github.com/84115/phaser3-es6-tds.git```
+```git clone https://github.com/84115/phaser-spaceshooter.git```
 
 ## 2. Install node.js and npm:
 
