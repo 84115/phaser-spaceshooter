@@ -27,6 +27,13 @@ class Queue
 		return this;
 	}
 
+	level(label=0)
+	{
+		this.add('StageTitle', this.scene.StageTitle, ["Level:" + label]);
+
+		return this;
+	}
+
 	run()
 	{
 		this.position = 0;
@@ -36,13 +43,14 @@ class Queue
 			callback: () =>
 			{
 				let sequence = this.sequences[this.position];
+				let args = sequence.args;
 
 				if (!this.lock)
 				{
 					// Can't use apply :''''(
 					// Need to manually add sequence.args[n]
 					this.scene[sequence.key] = new sequence.class(
-						this.scene, sequence.args[0], sequence.args[1], sequence.args[2], sequence.args[3], sequence.args[4], sequence.args[5], sequence.args[6], sequence.args[7], sequence.args[8] , sequence.args[9]
+						this.scene, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9]
 					);
 
 					if (this.scene[sequence.key].patch)

@@ -39,21 +39,28 @@ class GameScene extends Phaser.Scene
 		this.controller = Controller(this);
 
 		this.StageTitle = StageTitle;
-		this.StageTitle(this, "Level:1");
+		this.StageTitle.done = () => true;
 
 		this.animations = Animations(this);
 
 		this.queue = new Queue(this);
 
 		this.queue
+
+			.level(1)
 			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
 			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50])
 			.add('ufos', Ufos, [null, 'crossroad', 'alien', 50])
+
+			.level(2)
 			.add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
 			.add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
 			.add('ufos', Ufos, [0xffff00, 'leftToRight']) // green
+
+			.level(3)
 			.add('mines', Mines, [null, 30, 200, true])
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
+
 			.run();
 
 		// this.brain = Brain(this, 10, 200);

@@ -28,6 +28,8 @@ function StageTitle(scene, message="Hello World")
 			.setCenterAlign()
 			.setScale(1);
 
+		scene.title.done = () => true;
+
 		scene.tweens.add({
 			targets: scene.title,
 			x: scene.grid[3] - 6,
