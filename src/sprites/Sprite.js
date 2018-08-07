@@ -28,6 +28,11 @@ class Sprite extends Phaser.GameObjects.Sprite
 			this.disableBody(true, true);
 		}
 
+		if (this.timer)
+		{
+			this.timer.reset(false);
+		}
+
 		this.destroy();
 	}
 

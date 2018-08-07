@@ -46,7 +46,8 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
-			.add('ufos', Ufos, [null, 'wip', 'alien', 50])
+			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50])
 			.add('ufos', Ufos, [null, 'crossroad', 'alien', 50])
 			.add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
 			.add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
@@ -77,11 +78,14 @@ class GameScene extends Phaser.Scene
 		if (!this.gameover)
 		{
 			this.ship.update(time, delta);
-
-			this.queue.update(time, delta);
 		}
 
+		this.queue.update(time, delta);
+
 		this.background.update(time, delta);
+
+		// if (this.ufos) console.log('ufos', this.ufos.getChildren().length);
+		// if (this.mines) console.log('mines', this.mines.getChildren().length);
 	}
 
 	incrementScore(amount=0)

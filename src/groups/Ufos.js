@@ -5,7 +5,7 @@ import Bullet from '../sprites/Bullet';
 class UfoGroup extends Group
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100)
+	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750)
 	{
 		super(scene);
 
@@ -56,27 +56,30 @@ class UfoGroup extends Group
 				runChildUpdate: true
 			});
 
-			sprite.timer = this.scene.time.addEvent({
-				delay: 750,
-				callback: () =>
-				{
-					if (!sprite.timer.paused)
+			if (weaponInterval)
+			{
+				sprite.timer = this.scene.time.addEvent({
+					delay: weaponInterval,
+					callback: () =>
 					{
-						sprite.bullet = sprite.projectile.get();
-
-						if (sprite && sprite.bullet)
+						if (!sprite.timer.paused)
 						{
-							if (tint)
-							{
-								sprite.bullet.setTint(tint);
-							}
+							sprite.bullet = sprite.projectile.get();
 
-							sprite.bullet.fire(sprite.x, sprite.y);
+							if (sprite && sprite.bullet)
+							{
+								if (tint)
+								{
+									sprite.bullet.setTint(tint);
+								}
+
+								sprite.bullet.fire(sprite.x, sprite.y);
+							}
 						}
-					}
-				},
-				loop: true
-			});
+					},
+					loop: true
+				});
+			}
 
 			if (tint)
 			{
@@ -107,9 +110,15 @@ class UfoGroup extends Group
 
 		this.timeline = this.scene.tweens.timeline({
 			tweens: this.tweens,
-			// todo, look into clear and if it stops timer, if not add that to kill?
-			// also only clear if offscreen
-			onComplete: () => this.clear(true)
+			onComplete: () =>
+			{
+				for (var i = this.getChildren().length - 1; i >= 0; i--)
+				{
+					this.getChildren()[i].kill();
+				}
+
+				this.clear(true);
+			}
 		});
 	}
 
@@ -173,7 +182,7 @@ class UfoGroup extends Group
 					{ start: { x: 0, y: 9 }, stop: { x: 12, y: 9 } },
 				]
 			},
-			"wip": {
+			"diagTopLeftToBottomRight": {
 				ease: 'Power1',
 				duration: 6000,
 				offset: 1000,
@@ -189,6 +198,33 @@ class UfoGroup extends Group
 
 					{ start: { x: 0, y: 0 }, stop: { x: 10, y: 16 } },
 					{ start: { x: 12, y: 0 }, stop: { x: 2, y: 16 } },
+				]
+			},
+			"wallBottomLeftToTopRight": {
+				ease: 'Power1',
+				duration: 7500,
+				offset: 500,
+				coords: [
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
+					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
 				]
 			},
 		};
