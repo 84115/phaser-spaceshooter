@@ -227,6 +227,36 @@ class UfoGroup extends Group
 					{ start: { x: 0, y: 15 }, stop: { x: 12, y: 3 } },
 				]
 			},
+			// "static": {
+			// 	ease: 'Power1',
+			// 	duration: 1000000,
+			// 	offset: 0,
+			// 	coords: [
+			// 		{ start: { x: 1, y: 1 }, stop: { x: 1, y: 1 } },
+			// 		{ start: { x: 2, y: 1 }, stop: { x: 2, y: 1 } },
+			// 		{ start: { x: 3, y: 1 }, stop: { x: 3, y: 1 } },
+			// 		{ start: { x: 4, y: 1 }, stop: { x: 4, y: 1 } },
+			// 		{ start: { x: 5, y: 1 }, stop: { x: 5, y: 1 } },
+			// 		{ start: { x: 6, y: 1 }, stop: { x: 6, y: 1 } },
+			// 		{ start: { x: 9, y: 1 }, stop: { x: 9, y: 1 } },
+			// 		{ start: { x: 10, y: 1 }, stop: { x: 10, y: 1 } },
+
+			// 		{ start: { x: 1, y: 2 }, stop: { x: 1, y: 2 } },
+			// 		{ start: { x: 10, y: 2 }, stop: { x: 10, y: 2 } },
+
+			// 		{ start: { x: 1, y: 3 }, stop: { x: 1, y: 3 } },
+			// 		{ start: { x: 10, y: 3 }, stop: { x: 10, y: 3 } },
+
+			// 		{ start: { x: 1, y: 4 }, stop: { x: 1, y: 4 } },
+			// 		{ start: { x: 2, y: 4 }, stop: { x: 2, y: 4 } },
+			// 		{ start: { x: 3, y: 4 }, stop: { x: 3, y: 4 } },
+			// 		{ start: { x: 4, y: 4 }, stop: { x: 4, y: 4 } },
+			// 		{ start: { x: 5, y: 4 }, stop: { x: 5, y: 4 } },
+			// 		{ start: { x: 6, y: 4 }, stop: { x: 6, y: 4 } },
+			// 		{ start: { x: 9, y: 4 }, stop: { x: 9, y: 4 } },
+			// 		{ start: { x: 10, y: 4 }, stop: { x: 10, y: 4 } },
+			// 	]
+			// },
 		};
 
 		return table[key];

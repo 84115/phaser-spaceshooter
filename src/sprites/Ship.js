@@ -156,6 +156,7 @@ class ShipSprite extends Sprite
 
 		if (this.lives > 0)
 		{
+			console.log(this.scene.StageTitle);
 			this.scene.StageTitle(this.scene, "Dead m8");
 
 			this.scene.time.addEvent({

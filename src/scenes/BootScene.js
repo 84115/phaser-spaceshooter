@@ -20,6 +20,8 @@ class BootScene extends Phaser.Scene
 		this.load.image('alien', 'assets/sprites/space-baddie.png');
 		this.load.image('brain', 'assets/sprites/brain.png');
 
+		this.load.image('steel', 'assets/sprites/steel-1.png');
+
 		this.load.image('orb', 'assets/sprites/orb.png');
 		this.load.image('orb-red', 'assets/sprites/orb-red.png');
 		this.load.image('orb-green', 'assets/sprites/orb-green.png');

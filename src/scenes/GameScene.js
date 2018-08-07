@@ -39,13 +39,14 @@ class GameScene extends Phaser.Scene
 		this.controller = Controller(this);
 
 		this.StageTitle = StageTitle;
-		this.StageTitle.done = () => true;
 
 		this.animations = Animations(this);
 
 		this.queue = new Queue(this);
 
 		this.queue
+
+			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
 
 			.level(1)
 			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
@@ -62,6 +63,8 @@ class GameScene extends Phaser.Scene
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
 			.run();
+
+		window.queue = this.queue;
 
 		// this.brain = Brain(this, 10, 200);
 		// this.physics.add.collider(this.ship.bullets, this.brain, (brain, bullet) =>

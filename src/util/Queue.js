@@ -29,7 +29,33 @@ class Queue
 
 	level(label=0)
 	{
-		this.add('StageTitle', this.scene.StageTitle, ["Level:" + label]);
+		this.add('title', this.scene.StageTitle, ["Level:" + label]);
+
+		return this;
+	}
+
+	previous()
+	{
+		let sequence = this.sequences[this.position];
+
+		this.lock = false;
+
+		this.scene[sequence.key] = false;
+
+		this.position--;
+
+		return this;
+	}
+
+	next()
+	{
+		let sequence = this.sequences[this.position];
+
+		this.lock = false;
+
+		this.scene[sequence.key] = false;
+
+		this.position++;
 
 		return this;
 	}
@@ -65,7 +91,10 @@ class Queue
 				{
 					this.lock = false;
 
-					this.scene[sequence.key] = false;
+					if (sequence.key !== 'title')
+					{
+						this.scene[sequence.key] = false;
+					}
 
 					this.position++;
 				}
