@@ -3,11 +3,11 @@ import Sprite from '../sprites/Sprite';
 class EnemySprite extends Sprite
 {
 
-	constructor(scene, x, y, key)
+	constructor(scene, x, y, key, health=100)
 	{
 		super(scene, x, y, key);
 
-		this.maxHealth = 100;
+		this.maxHealth = health;
 		this.health = this.maxHealth;
 	}
 

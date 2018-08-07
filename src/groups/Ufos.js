@@ -5,7 +5,7 @@ import Bullet from '../sprites/Bullet';
 class UfoGroup extends Group
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo')
+	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100)
 	{
 		super(scene);
 
@@ -44,7 +44,7 @@ class UfoGroup extends Group
 				var offset = data.offset ? data.offset : 1000;
 			}
 
-			let sprite = new Enemy(this.scene, this.scene.grid[coord.start.x], this.scene.grid[coord.start.y], key);
+			let sprite = new Enemy(this.scene, this.scene.grid[coord.start.x], this.scene.grid[coord.start.y], key, health);
 
 			sprite.index = i;
 

@@ -214,6 +214,12 @@ class ShipSprite extends Sprite
 			bullet.destroy();
 		}
 
+		if (enemy.timer)
+		{
+			enemy.timer
+				.remove(false);
+		}
+
 		if (this.bullets.poisoned)
 		{
 			enemy.setTint(0xffff00);

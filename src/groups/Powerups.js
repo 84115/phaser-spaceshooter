@@ -49,6 +49,8 @@ class PowerupsGroup extends Group
 
 	start(interval=5000, limit=3)
 	{
+		this.scene.ship.collider(this, this.scene.ship.collideShipPowerUps);
+
 		this.timer = this.scene.time.addEvent({
 			delay: interval,
 			callback: () =>
