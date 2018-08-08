@@ -11,6 +11,10 @@ class Group extends Phaser.GameObjects.Group
 		this.scene.add.existing(this);
 	}
 
+	patch()
+	{
+	}
+
 	done()
 	{
 		if (this.getChildren().length === 0)

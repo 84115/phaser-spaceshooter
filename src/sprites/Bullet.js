@@ -12,8 +12,13 @@ class Bullet extends Sprite
 		this.direction = direction;
 	}
 
-	fire(x=0, y=0)
+	fire(x=0, y=0, direction)
 	{
+		if (direction)
+		{
+			this.direction = direction;
+		}
+
 		this.setPosition(x, y)
 			.setActive(true)
 			.setVisible(true);
@@ -34,6 +39,11 @@ class Bullet extends Sprite
 		return this.isOffscreenX() || this.isOffscreenY();
 	}
 
+	getDirections()
+	{
+		return ['up', 'upRight', 'right', 'downRight', 'down', 'downLeft', 'left', 'upLeft'];
+	}
+
 	update(time, delta)
 	{
 		if (this.direction === 'up' || this.direction === 'upLeft' || this.direction === 'upRight')
@@ -45,11 +55,11 @@ class Bullet extends Sprite
 			this.y += this.speed * delta;
 		}
 
-		if (this.direction === 'left' || this.direction === 'upLeft' || this.direction === 'upRight')
+		if (this.direction === 'left' || this.direction === 'upLeft' || this.direction === 'downLeft')
 		{
 			this.x -= this.speed * delta;
 		}
-		else if (this.direction === 'right' || this.direction === 'downLeft' || this.direction === 'downRight')
+		else if (this.direction === 'right' || this.direction === 'upRight' || this.direction === 'downRight')
 		{
 			this.x += this.speed * delta;
 		}
