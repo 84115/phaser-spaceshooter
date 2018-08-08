@@ -51,7 +51,7 @@ class UfoGroup extends Group
 			sprite.getParent = () => this;
 
 			sprite.projectile = this.scene.physics.add.group({
-				classType: () => new Bullet(this.scene, 'bullet', 100, 250, true),
+				classType: () => new Bullet(this.scene, 'bullet', 100, 250),
 				maxSize: 10,
 				runChildUpdate: true
 			});

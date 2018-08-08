@@ -10,6 +10,7 @@ import Queue from '../util/Queue';
 import Powerups from '../groups/Powerups';
 import Ufos from '../groups/Ufos';
 import Mines from '../groups/Mines';
+import Spikes from '../groups/Spikes';
 import Brain from '../sequences/Brain';
 import DebugGrid from '../debug/Grid';
 
@@ -45,6 +46,7 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
+			// .add('spikes', Spikes, [null])
 
 			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
 

@@ -23,7 +23,7 @@ class ShipSprite extends Sprite
 		this.shield = this.maxShield;
 
 		this.bullets = this.scene.physics.add.group({
-			classType: () => new ShipBullet(this.scene, 'bullet-2'),
+			classType: () => new ShipBullet(this.scene, 'bullet-2', 100, 400, 'up'),
 			maxSize: 100,
 			runChildUpdate: true
 		});

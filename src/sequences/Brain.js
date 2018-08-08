@@ -42,7 +42,7 @@ function BrainSequence(scene)
 	});
 
 	brain.projectile = scene.physics.add.group({
-		classType: () => new Bullet(scene, 'bullet', 100, 250, true),
+		classType: () => new Bullet(scene, 'bullet', 100, 250),
 		maxSize: 50,
 		runChildUpdate: true
 	});
