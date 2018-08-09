@@ -13,8 +13,6 @@ function Axis(size=32)
 		var start = offset;
 		var stop = array.length - 1 - offset;
 
-		console.log(stop)
-
 		return Phaser.Math.RND.integerInRange(start, stop);
 	};
 

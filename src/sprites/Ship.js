@@ -156,7 +156,6 @@ class ShipSprite extends Sprite
 
 		if (this.lives > 0)
 		{
-			console.log(this.scene.StageTitle);
 			this.scene.StageTitle(this.scene, "Dead m8");
 
 			this.scene.time.addEvent({
@@ -215,7 +214,7 @@ class ShipSprite extends Sprite
 			bullet.destroy();
 		}
 
-		if (enemy.timer)
+		if (enemy.timer && enemy.stunnable)
 		{
 			enemy.timer
 				.remove(false);
@@ -255,7 +254,7 @@ class ShipSprite extends Sprite
 
 		enemy.damage(75);
 
-		if (!enemy.hitTween)
+		if (!enemy.hitTween && enemy.stunnable)
 		{
 			enemy.hitTween = this.scene.tweens.add({
 				targets: enemy,

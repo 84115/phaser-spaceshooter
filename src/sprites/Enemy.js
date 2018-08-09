@@ -9,6 +9,8 @@ class EnemySprite extends Sprite
 
 		this.maxHealth = health;
 		this.health = this.maxHealth;
+
+		this.stunnable = true;
 	}
 
 	damage(amount=0)
@@ -20,19 +22,9 @@ class EnemySprite extends Sprite
 
 		if (this.health <= 0)
 		{
-			if (this.scene)
-			{
-				this.scene.add
-					.sprite(this.x, this.y, 'explode')
-					.anims.play('explode-anim');
-			}
-
-			if (this.disableBody)
-			{
-				this.disableBody(true, true);
-			}
-
-			this.destroy();
+			this
+				.explode()
+				.kill();
 		}
 	}
 

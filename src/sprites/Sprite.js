@@ -9,8 +9,11 @@ class Sprite extends Phaser.GameObjects.Sprite
 
 		this.alive = true;
 
-		this.scene.physics.world.enable(this);
-		this.scene.add.existing(this);
+		if (this.scene)
+		{
+			this.scene.physics.world.enable(this);
+			this.scene.add.existing(this);
+		}
 	}
 
 	damage(amount=0)
@@ -19,6 +22,18 @@ class Sprite extends Phaser.GameObjects.Sprite
 		{
 			this.health = this.health - amount;
 		}
+	}
+
+	explode()
+	{
+		if (this.scene)
+		{
+			this.scene.add
+				.sprite(this.x, this.y, 'explode')
+				.anims.play('explode-anim');
+		}
+
+		return this;
 	}
 
 	kill()

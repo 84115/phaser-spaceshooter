@@ -39,8 +39,7 @@ class MinesGroup extends Group
 				this.prev.unshift(pos);
 				this.prev = this.prev.slice(0, 11);
 
-				let mine = new Enemy(this.scene, pos, this.scene.grid[0], key)
-				// mine.setCircle(16);
+				let mine = new Enemy(this.scene, pos, this.scene.grid[0], key);
 				mine.speed = Phaser.Math.GetSpeed(Phaser.Math.RND.between(175, 225), 1);
 				mine.maxHealth = 1;
 				mine.health = mine.maxHealth;
@@ -101,6 +100,8 @@ class MinesGroup extends Group
 	{
 		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
 		this.scene.ship.collider(this.getChildren(), this.scene.ship.collideShipEnemy);
+
+		return this;
 	}
 
 	done()

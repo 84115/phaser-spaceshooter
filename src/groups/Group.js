@@ -7,12 +7,16 @@ class Group extends Phaser.GameObjects.Group
 
 		this.scene = scene;
 
-		this.scene.physics.world.enable(this);
-		this.scene.add.existing(this);
+		if (this.scene)
+		{
+			this.scene.physics.world.enable(this);
+			this.scene.add.existing(this);
+		}
 	}
 
 	patch()
 	{
+		return this;
 	}
 
 	done()

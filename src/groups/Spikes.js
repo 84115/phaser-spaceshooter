@@ -45,6 +45,8 @@ class SpikeGroup extends Group
 			loop: true
 		});
 
+		sprite.stunnable = false;
+
 		this.add(sprite);
 	}
 
