@@ -6,6 +6,9 @@ class TweenableGroup extends Group
 	constructor(scene, x, y, key)
 	{
 		super(scene, x, y, key);
+
+		this.tweens = [];
+		this.timeline = undefined;
 	}
 
 	createTimeline()
@@ -93,6 +96,8 @@ class TweenableGroup extends Group
 			},
 			"wallBottomLeftToTopRight": {
 				ease: 'Power1',
+				// duration: 500,
+				// offset: 50,
 				duration: 7500,
 				offset: 500,
 				coords: [

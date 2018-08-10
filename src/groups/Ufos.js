@@ -9,9 +9,8 @@ class UfoGroup extends TweenableGroup
 	{
 		super(scene);
 
-		this.tweens = [];
-
 		let data;
+
 		if (typeof pattern === "string")
 		{
 			data = this.getSequence(pattern);
@@ -96,24 +95,48 @@ class UfoGroup extends TweenableGroup
 
 			this.add(sprite);
 
-			let tween = {
+			let tweens = [];
+
+			tweens[0] = {
 				targets: this.getChildrenHead(),
 				ease: ease,
 				duration: duration,
-				offset: (offset * (i + 1))
+				offset: (duration * 0) + (offset * (i + 1))
 			};
+			// tweens[1] = {
+			// 	targets: this.getChildrenHead(),
+			// 	ease: ease,
+			// 	duration: duration,
+			// 	offset: (duration * 1) + (offset * (i + 1)),
+			// 	x: this.scene.grid[6],
+			// 	y: this.scene.grid[6],
+			// };
+			// tweens[2] = {
+			// 	targets: this.getChildrenHead(),
+			// 	ease: ease,
+			// 	duration: duration,
+			// 	offset: (duration * 2) + (offset * (i + 1)),
+			// 	x: this.scene.grid[9],
+			// 	y: this.scene.grid[9],
+			// };
 
 			if (('x' in coord.stop) && typeof coord.stop.x == 'number')
 			{
-				tween.x = this.scene.grid[coord.stop.x];
+				tweens[0].x = this.scene.grid[coord.stop.x];
 			}
 
 			if (('y' in coord.stop) && typeof coord.stop.y == 'number')
 			{
-				tween.y = this.scene.grid[coord.stop.y];
+				tweens[0].y = this.scene.grid[coord.stop.y];
 			}
 
-			this.tweens.push(tween);
+			// Can't loop, will be unstable,
+			// so cap it to 5
+			if (tweens[0]) this.tweens.push(tweens[0]);
+			if (tweens[1]) this.tweens.push(tweens[1]);
+			if (tweens[2]) this.tweens.push(tweens[2]);
+			if (tweens[3]) this.tweens.push(tweens[3]);
+			if (tweens[4]) this.tweens.push(tweens[4]);
 		}
 
 		this.createTimeline();

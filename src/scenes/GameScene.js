@@ -46,8 +46,8 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
-			.level(0)
-			.add('spikes', Spikes, [null])
+			// .level(0)
+			// .add('spikes', Spikes, [null])
 
 			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
 
