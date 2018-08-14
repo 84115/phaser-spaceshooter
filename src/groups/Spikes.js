@@ -9,7 +9,7 @@ class SpikeGroup extends Group
 	{
 		super(scene);
 
-		let sprite = new Enemy(
+		this.sprite = new Enemy(
 			this.scene,
 			this.scene.grid[6],
 			this.scene.grid[6],
@@ -17,37 +17,24 @@ class SpikeGroup extends Group
 			200
 		);
 
-		sprite.projectile = this.scene.physics.add.group({
+		this.sprite.projectile = this.scene.physics.add.group({
 			classType: () => new Bullet(this.scene, 'bullet', 2000, 50),
 			maxSize: 8*8,
 			runChildUpdate: true
 		});
 
-		sprite.directions = sprite.projectile.get().getDirections();
+		this.sprite.directions = this.sprite.projectile.get().getDirections();
 
-		sprite.timer = this.scene.time.addEvent({
+		this.sprite.timer = this.scene.time.addEvent({
 			delay: 2000,
-			callback: () =>
-			{
-				if (!sprite.timer.paused)
-				{
-					for (var i = 0; i < sprite.directions.length; i++)
-					{
-						sprite.bullet = sprite.projectile.get();
-
-						if (sprite && sprite.bullet)
-						{
-							sprite.bullet.fire(sprite.x, sprite.y, sprite.directions[i]);
-						}
-					}
-				}
-			},
+			callback: this.animate,
+			callbackScope: this,
 			loop: true
 		});
 
-		sprite.stunnable = false;
+		this.sprite.stunnable = false;
 
-		this.add(sprite);
+		this.add(this.sprite);
 	}
 
 	patch()
@@ -59,6 +46,24 @@ class SpikeGroup extends Group
 		{
 			this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
 		}
+	}
+
+	animate()
+	{
+		if (!this.sprite.timer.paused)
+		{
+			for (var i = 0; i < this.sprite.directions.length; i++)
+			{
+				this.sprite.bullet = this.sprite.projectile.get();
+
+				if (this.sprite && this.sprite.bullet)
+				{
+					this.sprite.bullet.fire(this.sprite.x, this.sprite.y, this.sprite.directions[i]);
+				}
+			}
+		}
+
+		return this;
 	}
 
 }
