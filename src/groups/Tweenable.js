@@ -11,6 +11,29 @@ class TweenableGroup extends Group
 		this.timeline = undefined;
 	}
 
+	fillData(data)
+	{
+		for (var i = 0; i < data.coords.length; i++)
+		{
+			if (!('ease' in data.coords[i] && typeof data.coords[i].duration == 'string'))
+			{
+				data.coords[i].ease = data.ease ? data.ease : 'Power1';
+			}
+
+			if (!('duration' in data.coords[i] && typeof data.coords[i].duration == 'number'))
+			{
+				data.coords[i].duration = data.duration ? data.duration : 5000;
+			}
+
+			if (!('offset' in data.coords[i] && typeof data.coords[i].offset == 'number'))
+			{
+				data.coords[i].offset = data.offset ? data.offset : 1000;
+			}
+		}
+
+		return data;
+	}
+
 	createTimeline()
 	{
 		this.timeline = this.scene.tweens.timeline({
@@ -27,7 +50,19 @@ class TweenableGroup extends Group
 		});
 	}
 
-	getSequence(key)
+	getSequence(pattern)
+	{
+		if (typeof pattern === "string")
+		{
+			return this.lookupSequences(pattern);
+		}
+		else
+		{
+			return pattern;
+		}
+	}
+
+	lookupSequences(key)
 	{
 		var table = {
 			"leftToRight": {

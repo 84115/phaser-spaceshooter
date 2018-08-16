@@ -1,8 +1,8 @@
-import Group from '../groups/Group';
+import TweenableGroup from '../groups/Tweenable';
 import Enemy from '../sprites/Enemy';
 import Bullet from '../sprites/Bullet';
 
-class SpikeGroup extends Group
+class SpikeGroup extends TweenableGroup
 {
 
 	constructor(scene)

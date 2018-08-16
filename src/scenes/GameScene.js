@@ -47,27 +47,25 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 			.level(0)
-			.add('spikes', Spikes, [null])
+			// .add('spikes', Spikes, [null])
 
 			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
 
 			// .level(1)
-			// .add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
-			// .add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50])
-			// .add('ufos', Ufos, [null, 'crossroad', 'alien', 50])
+			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50])
+			.add('ufos', Ufos, [null, 'crossroad', 'alien', 50])
 
 			// .level(2)
 			// .add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
 			// .add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
 			// .add('ufos', Ufos, [0xffff00, 'leftToRight']) // green
 
-			.level(3)
-			.add('mines', Mines, [null, 30, 200, true])
-			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
+			// .level(3)
+			// .add('mines', Mines, [null, 30, 200, true])
+			// .add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
 			.run();
-
-		window.queue = this.queue;
 
 		// this.brain = Brain(this, 10, 200);
 		// this.physics.add.collider(this.ship.bullets, this.brain, (brain, bullet) =>
