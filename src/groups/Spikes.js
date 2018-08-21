@@ -1,8 +1,8 @@
-import TweenableGroup from '../groups/Tweenable';
+import SequencableGroup from '../groups/Sequencable';
 import Enemy from '../sprites/Enemy';
 import Bullet from '../sprites/Bullet';
 
-class SpikeGroup extends TweenableGroup
+class SpikeGroup extends SequencableGroup
 {
 
 	constructor(scene)
@@ -27,7 +27,7 @@ class SpikeGroup extends TweenableGroup
 
 		this.sprite.timer = this.scene.time.addEvent({
 			delay: 2000,
-			callback: this.animate,
+			callback: this.fire,
 			callbackScope: this,
 			loop: true
 		});
@@ -48,7 +48,7 @@ class SpikeGroup extends TweenableGroup
 		}
 	}
 
-	animate()
+	fire()
 	{
 		if (!this.sprite.timer.paused)
 		{

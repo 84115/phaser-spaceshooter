@@ -1,15 +1,15 @@
-import TweenableGroup from '../groups/Tweenable';
+import SequencableGroup from '../groups/Sequencable';
 import Enemy from '../sprites/Enemy';
 import Bullet from '../sprites/Bullet';
 
-class UfoGroup extends TweenableGroup
+class UfoGroup extends SequencableGroup
 {
 
 	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750)
 	{
 		super(scene);
 
-		let data = this.fillData(this.getSequence(pattern));
+		let data = this.getSequence(pattern);
 
 		for (var i = 0; i < data.coords.length; i++)
 		{
@@ -34,67 +34,28 @@ class UfoGroup extends TweenableGroup
 			{
 				sprite.timer = this.scene.time.addEvent({
 					delay: weaponInterval,
-					callback: () =>
-					{
-						if (!sprite.timer.paused)
-						{
-							sprite.bullet = sprite.projectile.get();
-
-							if (sprite && sprite.bullet)
-							{
-								if (tint)
-								{
-									sprite.bullet.setTint(tint);
-								}
-
-								sprite.bullet.fire(sprite.x, sprite.y);
-							}
-						}
-					},
+					callback: this.fire,
+					callbackScope: sprite,
 					loop: true
 				});
 			}
 
 			if (tint)
 			{
+				sprite.tint = tint;
 				sprite.setTint(tint);
 			}
 
 			this.add(sprite);
 
-			let tweens = [];
-
-			tweens[0] = {
+			this.tweens.push({
 				targets: this.getChildrenHead(),
 				ease: data.coords[i].ease,
 				duration: data.coords[i].duration,
 				offset: (data.coords[i].duration * 0) + (data.coords[i].offset * (i + 1)),
 				x: this.scene.grid[data.coords[i].stop.x],
 				y: this.scene.grid[data.coords[i].stop.y],
-			};
-			// tweens[1] = {
-			// 	targets: this.getChildrenHead(),
-			// 	ease: data.coords[i].ease,
-			// 	duration: data.coords[i].duration,
-			// 	offset: (data.coords[i].duration * 1) + (data.coords[i].offset * (i + 1)),
-			// 	x: this.scene.grid[6],
-			// 	y: this.scene.grid[6],
-			// };
-			// tweens[2] = {
-			// 	targets: this.getChildrenHead(),
-			// 	ease: data.coords[i].ease,
-			// 	duration: data.coords[i].duration,
-			// 	offset: (data.coords[i].duration * 2) + (data.coords[i].offset * (i + 1)),
-			// 	x: this.scene.grid[9],
-			// 	y: this.scene.grid[9],
-			// };
-
-			// Can't loop, will be unstable,
-			// so cap it to 4
-			if (tweens[0]) this.tweens.push(tweens[0]);
-			if (tweens[1]) this.tweens.push(tweens[1]);
-			if (tweens[2]) this.tweens.push(tweens[2]);
-			if (tweens[3]) this.tweens.push(tweens[3]);
+			});
 		}
 
 		this.createTimeline();
@@ -110,6 +71,27 @@ class UfoGroup extends TweenableGroup
 			if (this.getChildren()[i].projectile)
 			{
 				this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+			}
+		}
+	}
+
+	// @scope=sprite
+	fire()
+	{
+		let sprite = this;
+
+		if (!sprite.timer.paused)
+		{
+			sprite.bullet = sprite.projectile.get();
+
+			if (sprite && sprite.bullet)
+			{
+				if (sprite.tint)
+				{
+					sprite.bullet.setTint(sprite.tint);
+				}
+
+				sprite.bullet.fire(sprite.x, sprite.y);
 			}
 		}
 	}
