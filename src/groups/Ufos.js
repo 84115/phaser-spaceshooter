@@ -15,8 +15,8 @@ class UfoGroup extends SequencableGroup
 		{
 			let sprite = new Enemy(
 				this.scene,
-				this.scene.grid[data.coords[i].start.x],
-				this.scene.grid[data.coords[i].start.y],
+				data.coords[i].start.x,
+				data.coords[i].start.y,
 				key,
 				health);
 
@@ -34,7 +34,7 @@ class UfoGroup extends SequencableGroup
 			{
 				sprite.timer = this.scene.time.addEvent({
 					delay: weaponInterval,
-					callback: this.fire,
+					callback: sprite.fire,
 					callbackScope: sprite,
 					loop: true
 				});
@@ -48,6 +48,7 @@ class UfoGroup extends SequencableGroup
 
 			this.add(sprite);
 
+			// this.addSequence(x, y, duration, ease, offset);
 			this.tweens.push({
 				targets: this.getChildrenHead(),
 				ease: data.coords[i].ease,
@@ -71,27 +72,6 @@ class UfoGroup extends SequencableGroup
 			if (this.getChildren()[i].projectile)
 			{
 				this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
-			}
-		}
-	}
-
-	// @scope=sprite
-	fire()
-	{
-		let sprite = this;
-
-		if (!sprite.timer.paused)
-		{
-			sprite.bullet = sprite.projectile.get();
-
-			if (sprite && sprite.bullet)
-			{
-				if (sprite.tint)
-				{
-					sprite.bullet.setTint(sprite.tint);
-				}
-
-				sprite.bullet.fire(sprite.x, sprite.y);
 			}
 		}
 	}

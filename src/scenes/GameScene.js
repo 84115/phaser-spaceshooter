@@ -35,7 +35,7 @@ class GameScene extends Phaser.Scene
 		this.grid = Grid(32);
 		this.sfx = Sfx(this);
 
-		this.ship = new Ship(this, this.grid.centerX, this.grid[19], 'ship');
+		this.ship = new Ship(this, 6, 19, 'ship');
 
 		this.controller = Controller(this);
 

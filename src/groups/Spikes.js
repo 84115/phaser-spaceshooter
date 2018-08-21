@@ -9,17 +9,11 @@ class SpikeGroup extends SequencableGroup
 	{
 		super(scene);
 
-		this.sprite = new Enemy(
-			this.scene,
-			this.scene.grid[6],
-			this.scene.grid[6],
-			'mine',
-			200
-		);
+		this.sprite = new Enemy(this.scene, 6, 6, 'mine', 200);
 
 		this.sprite.projectile = this.scene.physics.add.group({
 			classType: () => new Bullet(this.scene, 'bullet', 2000, 50),
-			maxSize: 8*8,
+			maxSize: 8 * 8,
 			runChildUpdate: true
 		});
 

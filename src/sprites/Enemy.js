@@ -28,6 +28,26 @@ class EnemySprite extends Sprite
 		}
 	}
 
+	fire()
+	{
+		if (!this.timer.paused || !this.timer)
+		{
+			this.bullet = this.projectile.get();
+
+			if (this.bullet)
+			{
+				if (this.tint)
+				{
+					this.bullet.setTint(this.tint);
+				}
+
+				this.bullet.fire(this.x, this.y);
+			}
+		}
+
+		return this;
+	}
+
 }
 
 export default EnemySprite;
