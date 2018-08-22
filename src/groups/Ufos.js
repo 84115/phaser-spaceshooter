@@ -1,6 +1,5 @@
 import SequencableGroup from '../groups/Sequencable';
-import Enemy from '../sprites/Enemy';
-import Bullet from '../sprites/Bullet';
+import Ufo from '../sprites/Ufo';
 
 class UfoGroup extends SequencableGroup
 {
@@ -13,10 +12,10 @@ class UfoGroup extends SequencableGroup
 
 		for (var i = 0; i < data.coords.length; i++)
 		{
-			let sprite = new Enemy(
+			let sprite = new Ufo(
 				this.scene,
-				data.coords[i].start.x,
-				data.coords[i].start.y,
+				this.scene.grid[data.coords[i].start.x],
+				this.scene.grid[data.coords[i].start.y],
 				key,
 				health);
 
@@ -24,20 +23,9 @@ class UfoGroup extends SequencableGroup
 
 			sprite.getParent = () => this;
 
-			sprite.projectile = this.scene.physics.add.group({
-				classType: () => new Bullet(this.scene, 'bullet', 100, 250),
-				maxSize: 10,
-				runChildUpdate: true
-			});
-
-			if (weaponInterval)
+			if (sprite.startWeaponTimer && weaponInterval)
 			{
-				sprite.timer = this.scene.time.addEvent({
-					delay: weaponInterval,
-					callback: sprite.fire,
-					callbackScope: sprite,
-					loop: true
-				});
+				sprite.startWeaponTimer(weaponInterval);
 			}
 
 			if (tint)
@@ -48,7 +36,6 @@ class UfoGroup extends SequencableGroup
 
 			this.add(sprite);
 
-			// this.addSequence(x, y, duration, ease, offset);
 			this.tweens.push({
 				targets: this.getChildrenHead(),
 				ease: data.coords[i].ease,

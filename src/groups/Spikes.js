@@ -1,34 +1,54 @@
 import SequencableGroup from '../groups/Sequencable';
-import Enemy from '../sprites/Enemy';
+import Spike from '../sprites/Spike';
 import Bullet from '../sprites/Bullet';
 
 class SpikeGroup extends SequencableGroup
 {
 
-	constructor(scene)
+	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750)
 	{
 		super(scene);
 
-		this.sprite = new Enemy(this.scene, 6, 6, 'mine', 200);
+		let data = this.getSequence(pattern);
 
-		this.sprite.projectile = this.scene.physics.add.group({
-			classType: () => new Bullet(this.scene, 'bullet', 2000, 50),
-			maxSize: 8 * 8,
-			runChildUpdate: true
-		});
+		for (var i = 0; i < data.coords.length; i++)
+		{
+			// data.coords[i].start
+			let sprite = new Spike(
+				this.scene,
+				this.scene.grid[data.coords[i].start.x],
+				this.scene.grid[data.coords[i].start.y],
+				'mine',
+				200);
 
-		this.sprite.directions = this.sprite.projectile.get().getDirections();
+			sprite.index = i;
 
-		this.sprite.timer = this.scene.time.addEvent({
-			delay: 2000,
-			callback: this.fire,
-			callbackScope: this,
-			loop: true
-		});
+			sprite.getParent = () => this;
 
-		this.sprite.stunnable = false;
+			if (sprite.startWeaponTimer && weaponInterval)
+			{
+				sprite.startWeaponTimer(weaponInterval);
+			}
 
-		this.add(this.sprite);
+			if (tint)
+			{
+				sprite.tint = tint;
+				sprite.setTint(tint);
+			}
+
+			this.add(sprite);
+
+			this.tweens.push({
+				targets: this.getChildrenHead(),
+				ease: data.coords[i].ease,
+				duration: data.coords[i].duration,
+				offset: (data.coords[i].duration * 0) + (data.coords[i].offset * (i + 1)),
+				x: this.scene.grid[data.coords[i].stop.x],
+				y: this.scene.grid[data.coords[i].stop.y],
+			});
+		}
+
+		this.createTimeline();
 	}
 
 	patch()
@@ -40,24 +60,6 @@ class SpikeGroup extends SequencableGroup
 		{
 			this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
 		}
-	}
-
-	fire()
-	{
-		if (!this.sprite.timer.paused)
-		{
-			for (var i = 0; i < this.sprite.directions.length; i++)
-			{
-				this.sprite.bullet = this.sprite.projectile.get();
-
-				if (this.sprite && this.sprite.bullet)
-				{
-					this.sprite.bullet.fire(this.sprite.x, this.sprite.y, this.sprite.directions[i]);
-				}
-			}
-		}
-
-		return this;
 	}
 
 }

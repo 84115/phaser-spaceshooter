@@ -48,6 +48,19 @@ class EnemySprite extends Sprite
 		return this;
 	}
 
+	startWeaponTimer(weaponInterval)
+	{
+		if (weaponInterval)
+		{
+			this.timer = this.scene.time.addEvent({
+				delay: weaponInterval,
+				callback: this.fire,
+				callbackScope: this,
+				loop: true
+			});
+		}
+	}
+
 }
 
 export default EnemySprite;

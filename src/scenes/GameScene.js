@@ -35,7 +35,7 @@ class GameScene extends Phaser.Scene
 		this.grid = Grid(32);
 		this.sfx = Sfx(this);
 
-		this.ship = new Ship(this, 6, 19, 'ship');
+		this.ship = new Ship(this, this.grid[6], this.grid[19], 'ship');
 
 		this.controller = Controller(this);
 
@@ -47,7 +47,7 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 			.level(0)
-			// .add('spikes', Spikes, [null])
+			.add('spikes', Spikes, [null, 'rightToLeft'])
 
 			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
 
