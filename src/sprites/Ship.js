@@ -1,16 +1,12 @@
-import Sprite from '../sprites/Sprite';
+import PlayerSprite from '../sprites/Player';
 import ShipBullet from '../sprites/ShipBullet';
 
-class ShipSprite extends Sprite
+class ShipSprite extends PlayerSprite
 {
 
 	constructor(scene, x, y, key)
 	{
 		super(scene, x, y, key);
-
-		this.body.setCollideWorldBounds(true);
-
-		this.lives = 3;
 
 		this.speed = Phaser.Math.GetSpeed(150, 1);
 
@@ -120,10 +116,7 @@ class ShipSprite extends Sprite
 	{
 		if (this.alive)
 		{
-			if (this.health && amount)
-			{
-				this.health = this.health - amount;
-			}
+			super.damage(amount);
 
 			if (this.health > 0)
 			{
@@ -133,50 +126,8 @@ class ShipSprite extends Sprite
 			}
 			else
 			{
-				this.lifeLoss();
+				this.kill();
 			}
-		}
-	}
-
-	lifeLoss()
-	{
-		this.alive = false;
-		this.health = 0;
-
-		this.updateStat('health');
-
-		if (this.lives > 0)
-		{
-			this.lives--;
-		}
-
-		this.alpha = 0.25;
-
-		this.updateStat('lives');
-
-		if (this.lives > 0)
-		{
-			this.scene.StageTitle(this.scene, "Dead m8");
-
-			this.scene.time.addEvent({
-				delay: 4000,
-				callback: () =>
-				{
-					this.alive = true;
-					this.alpha = 1;
-					this.health = this.maxHealth;
-					this.shield = this.maxShield;
-
-					this.updateStat('health');
-					this.updateStat('shield');
-				}
-			});
-		}
-		else if (this.lives == 0 && !this.scene.gameover)
-		{
-			this.scene.gameover = true;
-
-			this.scene.StageTitle(this, "GameOver");
 		}
 	}
 
