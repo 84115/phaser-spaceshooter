@@ -51,6 +51,12 @@ class Sprite extends Phaser.GameObjects.Sprite
 		this.destroy();
 	}
 
+	setTint(tint)
+	{
+		this.tintColor = tint;
+		super.setTint(tint);
+	}
+
 	collider(b, callback)
 	{
 		this.scene.physics.add.collider(this, b, callback, null, this);

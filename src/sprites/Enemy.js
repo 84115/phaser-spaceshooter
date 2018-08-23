@@ -32,16 +32,16 @@ class EnemySprite extends Sprite
 	{
 		if (!this.timer.paused || !this.timer)
 		{
-			this.bullet = this.projectile.get();
+			let bullet = this.projectile.get();
 
-			if (this.bullet)
+			if (bullet)
 			{
-				if (this.tint)
+				if (this.tintColor)
 				{
-					this.bullet.setTint(this.tint);
+					bullet.setTint(this.tintColor);
 				}
 
-				this.bullet.fire(this.x, this.y);
+				bullet.fire(this.x, this.y);
 			}
 		}
 

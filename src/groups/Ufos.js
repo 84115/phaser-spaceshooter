@@ -12,10 +12,12 @@ class UfoGroup extends SequencableGroup
 
 		for (var i = 0; i < data.coords.length; i++)
 		{
+			let coord = data.coords[i];
+
 			let sprite = new Ufo(
 				this.scene,
-				this.scene.grid[data.coords[i].start.x],
-				this.scene.grid[data.coords[i].start.y],
+				this.scene.grid[coord.start.x],
+				this.scene.grid[coord.start.y],
 				key,
 				health);
 
@@ -30,20 +32,10 @@ class UfoGroup extends SequencableGroup
 
 			if (tint)
 			{
-				sprite.tint = tint;
-				sprite.setTint(tint);
+				sprite.setTint(sprite.tintColor);
 			}
 
-			this.add(sprite);
-
-			this.tweens.push({
-				targets: this.getChildrenHead(),
-				ease: data.coords[i].ease,
-				duration: data.coords[i].duration,
-				offset: (data.coords[i].duration * 0) + (data.coords[i].offset * (i + 1)),
-				x: this.scene.grid[data.coords[i].stop.x],
-				y: this.scene.grid[data.coords[i].stop.y],
-			});
+			this.addSequence(sprite, coord);
 		}
 
 		this.createTimeline();

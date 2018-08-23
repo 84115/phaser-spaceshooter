@@ -5,7 +5,7 @@ import Bullet from '../sprites/Bullet';
 class SpikeGroup extends SequencableGroup
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750)
+	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=5000)
 	{
 		super(scene);
 
@@ -13,11 +13,12 @@ class SpikeGroup extends SequencableGroup
 
 		for (var i = 0; i < data.coords.length; i++)
 		{
-			// data.coords[i].start
+			let coord = data.coords[i];
+
 			let sprite = new Spike(
 				this.scene,
-				this.scene.grid[data.coords[i].start.x],
-				this.scene.grid[data.coords[i].start.y],
+				this.scene.grid[coord.start.x],
+				this.scene.grid[coord.start.y],
 				'mine',
 				200);
 
@@ -32,20 +33,10 @@ class SpikeGroup extends SequencableGroup
 
 			if (tint)
 			{
-				sprite.tint = tint;
 				sprite.setTint(tint);
 			}
 
-			this.add(sprite);
-
-			this.tweens.push({
-				targets: this.getChildrenHead(),
-				ease: data.coords[i].ease,
-				duration: data.coords[i].duration,
-				offset: (data.coords[i].duration * 0) + (data.coords[i].offset * (i + 1)),
-				x: this.scene.grid[data.coords[i].stop.x],
-				y: this.scene.grid[data.coords[i].stop.y],
-			});
+			this.addSequence(sprite, coord);
 		}
 
 		this.createTimeline();

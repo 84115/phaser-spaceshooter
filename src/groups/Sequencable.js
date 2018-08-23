@@ -69,6 +69,19 @@ class SequencableGroup extends Group
 		return this.fillData(this.trySequenceTemplate(sequence));
 	}
 
+	addSequence(sprite, coord)
+	{
+		this.add(sprite);
+
+		this.tweens.push({
+			targets: this.getChildrenHead(),
+			ease: coord.ease,
+			duration: coord.duration,
+			offset: (coord.duration * 0) + (coord.offset * (sprite.index + 1)),
+			x: this.scene.grid[coord.stop.x],
+			y: this.scene.grid[coord.stop.y],
+		});
+	}
 }
 
 export default SequencableGroup;

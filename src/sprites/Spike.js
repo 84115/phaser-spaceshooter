@@ -21,7 +21,7 @@ class SpikeSprite extends EnemySprite
 
 	fire()
 	{
-		if (!this.timer.paused)
+		if (!this.timer.paused || !this.timer)
 		{
 			for (var i = 0; i < this.directions.length; i++)
 			{
@@ -29,6 +29,11 @@ class SpikeSprite extends EnemySprite
 
 				if (this && bullet)
 				{
+					if (this.tintColor)
+					{
+						bullet.setTint(this.tintColor);
+					}
+
 					bullet.fire(this.x, this.y, this.directions[i]);
 				}
 			}

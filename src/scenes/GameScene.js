@@ -46,24 +46,25 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
-			.level(0)
-			.add('spikes', Spikes, [null, 'rightToLeft'])
+			.level(1)
+			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
 
-			// .add('ufos', Ufos, [null, 'static', 'steel', 50, 0])
+			.level(2)
+			.add('spikes', Spikes, [0xff00ff, 'randSpikes'])
 
-			// .level(1)
-			// .add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
-			// .add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50])
-			// .add('ufos', Ufos, [null, 'crossroad', 'alien', 50])
+			.level(3)
+			.add('ufos', Ufos, [null, 'fallDiagLeftToRight', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'fallDiagRightToLeft', 'alien', 50, 0])
 
-			// .level(2)
+			.add('ufos', Ufos, [null, 'crossroad'])
 			.add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
 			.add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
 			.add('ufos', Ufos, [0xffff00, 'leftToRight']) // green
 
-			// .level(3)
-			// .add('mines', Mines, [null, 30, 200, true])
-			// .add('mines', Mines, [null, 500, 50, false, 'asteroid'])
+			.level(4)
+			.add('mines', Mines, [null, 30, 200, true])
+			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
 			.run();
 
@@ -94,9 +95,6 @@ class GameScene extends Phaser.Scene
 		this.queue.update(time, delta);
 
 		this.background.update(time, delta);
-
-		// if (this.ufos) console.log('ufos', this.ufos.getChildren().length);
-		// if (this.mines) console.log('mines', this.mines.getChildren().length);
 	}
 
 	incrementScore(amount=0)

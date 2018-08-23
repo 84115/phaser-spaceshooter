@@ -10,7 +10,7 @@ class UfoSprite extends EnemySprite
 
 		this.projectile = this.scene.physics.add.group({
 			classType: () => new Bullet(this.scene, 'bullet', 100, 250),
-			maxSize: 10,
+			maxSize: 10 * 1,
 			runChildUpdate: true
 		});
 	}
