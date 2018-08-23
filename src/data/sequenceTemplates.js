@@ -103,6 +103,57 @@ let sequenceTemplates =
 		]
 	},
 
+	"fallDiagLeftToRight":
+	{
+		ease: 'Ease',
+		duration: 4000,
+		offset: 200,
+		coords: [
+			{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+			{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
+			{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
+			{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
+			{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
+			{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
+			{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
+			{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
+			{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
+		]
+	},
+
+	"fallDiagRightToLeft":
+	{
+		ease: 'Ease',
+		duration: 4000,
+		offset: 100,
+		coords: [
+			{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
+			{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
+			{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
+			{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
+			{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
+			{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
+			{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
+			{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
+			{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+		]
+	},
+
+	"randSpikes":
+	{
+		ease: 'Ease',
+		duration: 5000,
+		offset: 0,
+		coords: [
+			{ start: { x: 8, y: 21 }, stop: { x: 8, y: 0 } },
+			{ start: { x: 10, y: 21 }, stop: { x: 10, y: 0 } },
+			{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
+			{ start: { x: 0, y: 2 }, stop: { x: 11, y: 2 } },
+			{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+			{ start: { x: 12, y: 20 }, stop: { x: 0, y: 20 } },
+		]
+	},
+
 	// "static":
 	// {
 	// 	ease: 'Power1',
