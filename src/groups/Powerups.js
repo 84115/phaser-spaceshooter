@@ -3,7 +3,7 @@ import SequencableGroup from '../groups/Sequencable';
 class PowerupsGroup extends SequencableGroup
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo')
+	constructor(scene, tint, pattern='powerupOne', key)
 	{
 		super(scene);
 
@@ -13,7 +13,7 @@ class PowerupsGroup extends SequencableGroup
 		this.triggers = {
 			"skull": {
 				callback: this.firerate,
-				args: [2, 5000, true]
+				args: [2, 10000, true]
 			},
 			// "orb": {
 			// 	callback: this.health,
@@ -30,19 +30,19 @@ class PowerupsGroup extends SequencableGroup
 			},
 			"orb-green": {
 				callback: this.speed,
-				args: [0.05, 5000]
+				args: [0.05, 10000]
 			},
 			"slime": {
 				callback: this.poison,
-				args: [5000]
+				args: [10000]
 			},
 			"flame": {
 				callback: this.poison,
-				args: [5000]
+				args: [10000]
 			},
 			"ice": {
 				callback: this.freeze,
-				args: [5000]
+				args: [10000]
 			},
 		};
 
@@ -52,7 +52,15 @@ class PowerupsGroup extends SequencableGroup
 		{
 			let coord = data.coords[i];
 
-			let randomKey = Phaser.Utils.Array.GetRandom(Object.keys(this.triggers));
+			let randomKey;
+			if (key)
+			{
+				randomKey = key;
+			}
+			else
+			{
+				randomKey = Phaser.Utils.Array.GetRandom(Object.keys(this.triggers));
+			}
 
 			let sprite = this.scene.physics.add.sprite(
 				this.scene.grid[coord.start.x],

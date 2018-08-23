@@ -48,36 +48,41 @@ class GameScene extends Phaser.Scene
 		this.queue
 
 			.level(1)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'orb-red'])
 			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
 			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
 
 			.level(2)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'orb-green'])
 			.add('spikes', Spikes, [0xff00ff, 'randSpikes'])
 
 			.level(3)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'slime'])
 			.add('ufos', Ufos, [null, 'fallDiagSnake', 'alien', 50, 0])
 			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('ufos', Ufos, [null, 'fallGapsOne', 'alien', 50, 0])
 			.add('ufos', Ufos, [null, 'fallGapsTwo', 'alien', 50, 0])
 
 			.level(4)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
 			.add('ufos', Ufos, [null, 'fallDiagLeftToRight', 'alien', 50, 0])
+			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
 			.add('ufos', Ufos, [null, 'fallDiagRightToLeft', 'alien', 50, 0])
 
 			.level(5)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'orb-red'])
 			.add('ufos', Ufos, [null, 'crossroad'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'fire'])
 			.add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
+			.add('powerups', Powerups, [null, 'powerupOne', 'fire'])
 			.add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
+			.add('powerups', Powerups, [null, 'powerupOne', 'fire'])
 			.add('ufos', Ufos, [0xffff00, 'leftToRight']) // green
 
 			.level(6)
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'orb-red'])
 			.add('mines', Mines, [null, 30, 200, true])
+			.add('powerups', Powerups, [null, 'powerupOne', 'skull'])
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
 			.run();
