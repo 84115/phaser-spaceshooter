@@ -32,7 +32,7 @@ class UfoGroup extends SequencableGroup
 
 			if (tint)
 			{
-				sprite.setTint(sprite.tintColor);
+				sprite.setTint(tint);
 			}
 
 			this.addSequence(sprite, coord);

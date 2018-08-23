@@ -46,23 +46,37 @@ class GameScene extends Phaser.Scene
 		this.queue = new Queue(this);
 
 		this.queue
+
 			.level(1)
+			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
 			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
 
 			.level(2)
+			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('spikes', Spikes, [0xff00ff, 'randSpikes'])
 
 			.level(3)
+			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('ufos', Ufos, [null, 'fallDiagSnake', 'alien', 50, 0])
+			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('ufos', Ufos, [null, 'fallGapsOne', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'fallGapsTwo', 'alien', 50, 0])
+
+			.level(4)
+			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('ufos', Ufos, [null, 'fallDiagLeftToRight', 'alien', 50, 0])
 			.add('ufos', Ufos, [null, 'fallDiagRightToLeft', 'alien', 50, 0])
 
+			.level(5)
+			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('ufos', Ufos, [null, 'crossroad'])
 			.add('ufos', Ufos, [0x00ffff, 'leftToRight']) // light-blue
 			.add('ufos', Ufos, [0xff00ff, 'rightToLeft']) // purple
 			.add('ufos', Ufos, [0xffff00, 'leftToRight']) // green
 
-			.level(4)
+			.level(6)
+			.add('powerups', Powerups, [null, 'powerupOne'])
 			.add('mines', Mines, [null, 30, 200, true])
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
@@ -75,9 +89,6 @@ class GameScene extends Phaser.Scene
 		// 	brain.destroy();
 		// 	bullet.destroy();
 		// }, null, this.ship);
-
-		this.powerups = new Powerups(this);
-		this.powerups.start();
 
 		if (this.physics.config.debug)
 		{

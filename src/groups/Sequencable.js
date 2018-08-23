@@ -40,16 +40,41 @@ class SequencableGroup extends Group
 	{
 		this.timeline = this.scene.tweens.timeline({
 			tweens: this.tweens,
-			onComplete: () =>
-			{
-				for (var i = this.getChildren().length - 1; i >= 0; i--)
-				{
-					this.getChildren()[i].kill();
-				}
-
-				this.clear(true);
-			}
+			onComplete: this.cleanupChildren,
+			callbackScope: this
 		});
+	}
+
+	cleanupChildren()
+	{
+		for (var i = this.getChildren().length - 1; i >= 0; i--)
+		{
+			let child = this.getChildren()[i];
+
+			if (child.timer)
+			{
+				child.timer.reset(false);
+			}
+
+			if (this.getChildren()[i].kill)
+			{
+				this.getChildren()[i].kill();
+			}
+			else
+			{
+				// if (child.disableBody)
+				// {
+				// 	child.disableBody(true, true);
+				// }
+
+				// if (child.destroy)
+				// {
+				// 	child.destroy();
+				// }
+			}
+		}
+
+		this.clear(true);
 	}
 
 	trySequenceTemplate(sequence)

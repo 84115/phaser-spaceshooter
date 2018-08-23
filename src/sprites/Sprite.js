@@ -48,7 +48,10 @@ class Sprite extends Phaser.GameObjects.Sprite
 			this.timer.reset(false);
 		}
 
-		this.destroy();
+		if (this.destroy)
+		{
+			this.destroy();
+		}
 	}
 
 	setTint(tint)

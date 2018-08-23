@@ -1,11 +1,11 @@
-import Group from '../groups/Group';
+import SequencableGroup from '../groups/Sequencable';
 
-class PowerupsGroup extends Group
+class PowerupsGroup extends SequencableGroup
 {
 
-	constructor(scene, x, y, key)
+	constructor(scene, tint, pattern='leftToRight', key='ufo')
 	{
-		super(scene, x, y, key);
+		super(scene);
 
 		// Default args
 		// amount :: default = no-change
@@ -45,11 +45,59 @@ class PowerupsGroup extends Group
 				args: [5000]
 			},
 		};
+
+		let data = this.getSequence(pattern);
+
+		for (var i = 0; i < data.coords.length; i++)
+		{
+			let coord = data.coords[i];
+
+			let randomKey = Phaser.Utils.Array.GetRandom(Object.keys(this.triggers));
+
+			let sprite = this.scene.physics.add.sprite(
+				this.scene.grid[coord.start.x],
+				this.scene.grid[coord.start.y],
+				randomKey
+			);
+
+			if (this.triggers[randomKey].tint)
+			{
+				sprite.setTint(this.triggers[randomKey].tint);
+			}
+
+			sprite.index = i;
+
+			sprite.getParent = () => this;
+
+			if (sprite.startWeaponTimer && weaponInterval)
+			{
+				sprite.startWeaponTimer(weaponInterval);
+			}
+
+			if (tint)
+			{
+				sprite.setTint(sprite.tintColor);
+			}
+
+			this.addSequence(sprite, coord);
+		}
+
+		this.createTimeline();
+	}
+
+	patch()
+	{
+		if (this.scene.ship)
+		{
+			this.scene.ship.collider(this, this.scene.ship.collideShipPowerUps);	
+		}
+
+		return this;
 	}
 
 	start(interval=5000, limit=3)
 	{
-		this.scene.ship.collider(this, this.scene.ship.collideShipPowerUps);
+		this.patch();
 
 		this.timer = this.scene.time.addEvent({
 			delay: interval,
