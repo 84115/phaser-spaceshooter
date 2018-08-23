@@ -16,13 +16,6 @@ class SpikeSprite extends EnemySprite
 
 		this.directions = this.projectile.get().getDirections();
 
-		this.timer = this.scene.time.addEvent({
-			delay: 2000,
-			callback: this.fire,
-			callbackScope: this,
-			loop: true
-		});
-
 		this.stunnable = false;
 	}
 
@@ -32,11 +25,11 @@ class SpikeSprite extends EnemySprite
 		{
 			for (var i = 0; i < this.directions.length; i++)
 			{
-				this.bullet = this.projectile.get();
+				let bullet = this.projectile.get();
 
-				if (this && this.bullet)
+				if (this && bullet)
 				{
-					this.bullet.fire(this.x, this.y, this.directions[i]);
+					bullet.fire(this.x, this.y, this.directions[i]);
 				}
 			}
 		}
