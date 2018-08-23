@@ -49,20 +49,6 @@ class UfoGroup extends SequencableGroup
 		this.createTimeline();
 	}
 
-	patch()
-	{
-		this.scene.physics.add.collider(this.scene.ship, this.getChildren(), this.scene.ship.collideShipEnemy, null, this.scene.ship);
-		this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
-
-		for (var i = 0; i < this.getChildren().length; i++)
-		{
-			if (this.getChildren()[i].projectile)
-			{
-				this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
-			}
-		}
-	}
-
 }
 
 export default UfoGroup;
