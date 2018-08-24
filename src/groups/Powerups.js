@@ -11,39 +11,83 @@ class PowerupsGroup extends SequencableGroup
 		// amount :: default = no-change
 		// time 0 :: 0=perma
 		this.triggers = {
-			"skull": {
-				callback: this.firerate,
-				args: [2, 10000, true]
-			},
-			// "orb": {
-			// 	callback: this.health,
-			// 	args: [100],
-			// 	tint: 0xff00ff
+			// "game-life": {
+			// 	key: "orb",
+			// 	callback: () => (false)
 			// },
-			"orb-red": {
+			// "game-multiplier": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "game-credit": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+
+			"ship-health": {
+				key: "orb-red",
 				callback: this.health,
 				args: [100]
 			},
-			"orb-blue": {
+			"ship-shield": {
+				key: "orb-blue",
 				callback: this.shield,
 				args: [100]
 			},
-			"orb-green": {
+			"ship-speed": {
+				key: "orb-green",
 				callback: this.speed,
 				args: [0.05, 10000]
 			},
-			"slime": {
+			// "ship-invincible": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+
+			"gun-pierce": {
+				key: "skull",
+				callback: this.firerate,
+				args: [2, 10000, true]
+			},
+			"gun-poision": {
+				key: "slime",
 				callback: this.poison,
 				args: [10000]
 			},
-			"flame": {
+			"gun-flame": {
+				key: "flame",
 				callback: this.poison,
 				args: [10000]
 			},
-			"ice": {
+			"gun-ice": {
+				key: "ice",
 				callback: this.freeze,
 				args: [10000]
 			},
+			// "gun-speed": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "gun-spread": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "gun-size": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "gun-explosive": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "gun-laser": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
+			// "gun-bounce": {
+			// 	key: "orb",
+			// 	callback: () => (false)
+			// },
 		};
 
 		let data = this.getSequence(pattern);
@@ -52,25 +96,14 @@ class PowerupsGroup extends SequencableGroup
 		{
 			let coord = data.coords[i];
 
-			let randomKey;
-			if (key)
-			{
-				randomKey = key;
-			}
-			else
-			{
-				randomKey = Phaser.Utils.Array.GetRandom(Object.keys(this.triggers));
-			}
-
 			let sprite = this.scene.physics.add.sprite(
 				this.scene.grid[coord.start.x],
 				this.scene.grid[coord.start.y],
-				randomKey
-			);
+				key);
 
-			if (this.triggers[randomKey].tint)
+			if (this.triggers[key].tint)
 			{
-				sprite.setTint(this.triggers[randomKey].tint);
+				sprite.setTint(this.triggers[key].tint);
 			}
 
 			sprite.index = i;
@@ -170,7 +203,7 @@ class PowerupsGroup extends SequencableGroup
 		}
 	}
 
-	firerate(scene, amount=1, time=0, pierce=false)
+	firerate(scene, amount=1, duration=0, pierce=false)
 	{
 		scene.ship.bullets.speed = scene.ship.bullets.speed / amount;
 		scene.ship.updateStat('bulletspeed');
@@ -180,11 +213,11 @@ class PowerupsGroup extends SequencableGroup
 		scene.ship.setTint(0xff0000);
 		scene.ship.bullets.tint = 0xff0000;
 
-		if (time)
+		if (duration)
 		{
 			scene.time.addEvent({
-				delay: time,
-				callback: function()
+				delay: duration,
+				callback: () =>
 				{
 					scene.ship.bullets.speed = scene.ship.bullets.speed * amount;
 					scene.ship.updateStat('bulletspeed');
@@ -198,17 +231,18 @@ class PowerupsGroup extends SequencableGroup
 		}
 	}
 
-	speed(scene, amount=0, time=0)
+	speed(scene, amount=0, duration=0)
 	{
 		scene.ship.speed = Math.round((scene.ship.speed + amount) * 100) / 100;
 
 		scene.ship.updateStat('speed');
 
-		if (time)
+		if (duration)
 		{
 			scene.time.addEvent({
-				delay: time,
-				callback: function() {
+				delay: duration,
+				callback: () =>
+				{
 					scene.ship.speed = Math.round((scene.ship.speed - amount) * 100) / 100;
 
 					scene.ship.updateStat('speed');
@@ -233,17 +267,18 @@ class PowerupsGroup extends SequencableGroup
 		scene.ship.updateStat('shield');
 	}
 
-	poison(scene, time=100)
+	poison(scene, duration=100)
 	{
 		scene.ship.setTint(0xffff00);
 		scene.ship.bullets.tint = 0xffff00;
 		scene.ship.bullets.poisoned = true;
 
-		if (time)
+		if (duration)
 		{
 			scene.time.addEvent({
-				delay: time,
-				callback: function() {
+				delay: duration,
+				callback: () =>
+				{
 					scene.ship.setTint();
 					scene.ship.bullets.tint = false;
 					scene.ship.bullets.poisoned = false;
@@ -252,17 +287,18 @@ class PowerupsGroup extends SequencableGroup
 		}
 	}
 
-	freeze(scene, time=100)
+	freeze(scene, duration=100)
 	{
 		scene.ship.setTint(0x00ffff);
 		scene.ship.bullets.tint = 0x00ffff;
 		scene.ship.bullets.frozen = true;
 
-		if (time)
+		if (duration)
 		{
 			scene.time.addEvent({
-				delay: time,
-				callback: function() {
+				delay: duration,
+				callback: () =>
+				{
 					scene.ship.setTint();
 					scene.ship.bullets.tint = false;
 					scene.ship.bullets.frozen = false;
