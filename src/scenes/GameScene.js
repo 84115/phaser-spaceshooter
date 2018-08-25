@@ -47,20 +47,21 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 
-			.level(1)
-			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
-			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
-			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
+			// .level(1)
+			// .add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
+			// .add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
+			// .add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
 
-			.level(2)
-			.add('powerups', Powerups, [null, 'powerupOne', 'ship-speed'])
-			.add('spikes', Spikes, [0xff00ff, 'randSpikes'])
+			// .level(2)
+			// .add('powerups', Powerups, [null, 'powerupOne', 'ship-speed'])
+			// .add('spikes', Spikes, [0xff00ff, 'randSpikes'])
 
 			.level(3)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-poision'])
 			.add('ufos', Ufos, [null, 'fallDiagSnake', 'alien', 50, 0])
-			.add('powerups', Powerups, [null, 'powerupOne'])
+			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
 			.add('ufos', Ufos, [null, 'fallGapsOne', 'alien', 50, 0])
+			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
 			.add('ufos', Ufos, [null, 'fallGapsTwo', 'alien', 50, 0])
 
 			.level(4)

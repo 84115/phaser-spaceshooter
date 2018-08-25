@@ -92,38 +92,45 @@ class PowerupsGroup extends SequencableGroup
 
 		let data = this.getSequence(pattern);
 
-		for (var i = 0; i < data.coords.length; i++)
+		let powerup = this.triggers[key];
+
+		if (powerup)
 		{
-			let coord = data.coords[i];
-
-			let sprite = this.scene.physics.add.sprite(
-				this.scene.grid[coord.start.x],
-				this.scene.grid[coord.start.y],
-				key);
-
-			if (this.triggers[key].tint)
+			for (var i = 0; i < data.coords.length; i++)
 			{
-				sprite.setTint(this.triggers[key].tint);
+				let coord = data.coords[i];
+
+				let sprite = this.scene.physics.add.sprite(
+					this.scene.grid[coord.start.x],
+					this.scene.grid[coord.start.y],
+					powerup.key);
+
+				sprite.lookup = key;
+
+				if (powerup.tint)
+				{
+					sprite.setTint(powerup.tint);
+				}
+
+				sprite.index = i;
+
+				sprite.getParent = () => this;
+
+				if (sprite.startWeaponTimer && weaponInterval)
+				{
+					sprite.startWeaponTimer(weaponInterval);
+				}
+
+				if (tint)
+				{
+					sprite.setTint(sprite.tintColor);
+				}
+
+				this.addSequence(sprite, coord);
 			}
 
-			sprite.index = i;
-
-			sprite.getParent = () => this;
-
-			if (sprite.startWeaponTimer && weaponInterval)
-			{
-				sprite.startWeaponTimer(weaponInterval);
-			}
-
-			if (tint)
-			{
-				sprite.setTint(sprite.tintColor);
-			}
-
-			this.addSequence(sprite, coord);
+			this.createTimeline();
 		}
-
-		this.createTimeline();
 	}
 
 	patch()
@@ -195,7 +202,7 @@ class PowerupsGroup extends SequencableGroup
 
 	handle(powerup)
 	{
-		var powerupFn = this.triggers[powerup.texture.key];
+		var powerupFn = this.triggers[powerup.lookup];
 
 		if (powerupFn)
 		{
