@@ -14,6 +14,11 @@ class UfoSprite extends EnemySprite
 			runChildUpdate: true
 		});
 	}
+
+	update(time, delta)
+	{
+		this.followSpriteAngle(this.scene.ship);
+	}
 }
 
 export default UfoSprite;

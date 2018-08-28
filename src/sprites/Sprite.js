@@ -74,6 +74,15 @@ class Sprite extends Phaser.GameObjects.Sprite
 		return Math.sin(current1) * Math.cos(current2);
 	}
 
+	followSpriteAngle(target)
+	{
+		let adjustment = 90;
+
+		if (target)
+		{
+			this.rotation = Math.atan2(target.y - this.y, target.x - this.x) + adjustment;
+		}
+	}
 }
 
 export default Sprite;

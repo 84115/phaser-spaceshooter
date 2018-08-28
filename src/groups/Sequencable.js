@@ -107,6 +107,7 @@ class SequencableGroup extends Group
 			y: this.scene.grid[coord.stop.y],
 		});
 	}
+
 }
 
 export default SequencableGroup;

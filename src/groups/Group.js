@@ -14,6 +14,22 @@ class Group extends Phaser.GameObjects.Group
 		}
 	}
 
+	update(time, delta)
+	{
+		if (this.getChildren())
+		{
+			for (var i = 0; i < this.getChildren().length; i++)
+			{
+				let child = this.getChildren()[i];
+
+				if (child.update)
+				{
+					child.update(time, delta);
+				}
+			}
+		}
+	}
+
 	patch()
 	{
 		if (this.scene.ship)
