@@ -1,14 +1,20 @@
-function ControllerObject(scene)
+class Controller
 {
-	var controller = {};
 
-	controller.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-	controller.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-	controller.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-	controller.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-	controller.spacebar = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+	constructor(scene)
+	{
+		this.scene = scene;
 
-	return controller;
+		this.keyboard = this.scene.input.keyboard;
+
+		this.up = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+		this.left = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+		this.down = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+		this.right = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+		this.spacebar = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+	}
+
 }
 
-export default ControllerObject;
+export default Controller;

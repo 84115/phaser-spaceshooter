@@ -37,11 +37,11 @@ class GameScene extends Phaser.Scene
 
 		this.ship = new Ship(this, this.grid[6], this.grid[19], 'ship');
 
-		this.controller = Controller(this);
+		this.controller = new Controller(this);
 
 		this.StageTitle = StageTitle;
 
-		this.animations = Animations(this);
+		this.animations = new Animations(this);
 
 		this.queue = new Queue(this);
 
