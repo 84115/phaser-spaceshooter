@@ -47,11 +47,27 @@ class BootScene extends Phaser.Scene
 			'assets/audio/mixdown.ogg',
 			'assets/audio/mixdown.mp3'
 		]);
+
+		let progress = this.add.graphics();
+
+		this.load.on('progress', value =>
+		{
+			progress.clear();
+			progress.fillStyle(0xffffff, 1);
+			progress.fillRect(0, this.sys.game.config.height / 2, this.sys.game.config.width * value, 60);
+		});
+
+		this.load.on('complete', () =>
+		{
+			progress.destroy();
+
+			this.scene.start('GameScene');
+		});
 	}
 
 	create()
 	{
-		this.scene.start('GameScene');
+		// this.scene.start('GameScene');
 	}
 
 }
