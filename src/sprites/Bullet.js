@@ -10,6 +10,7 @@ class Bullet extends Sprite
 		this.damage = damage;
 		this.speed = Phaser.Math.GetSpeed(speed, 1);
 		this.direction = direction;
+		this.shootable = false;
 	}
 
 	fire(x=0, y=0, direction)

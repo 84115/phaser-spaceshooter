@@ -216,6 +216,15 @@ class ShipSprite extends PlayerSprite
 		}
 	}
 
+	collideBulletEnemyBullet(enemy, bullet)
+	{
+		this.scene.sfx.play('alien death');
+
+		this.scene.incrementScore(5);
+
+		bullet.destroy();
+	}
+
 	collideShipPowerUps(ship, powerup)
 	{
 		this.scene.powerups.handle(powerup);

@@ -1,5 +1,6 @@
 import EnemySprite from '../sprites/Enemy';
 import Bullet from '../sprites/Bullet';
+import Beam from '../sprites/Beam';
 
 class UfoSprite extends EnemySprite
 {
@@ -9,7 +10,8 @@ class UfoSprite extends EnemySprite
 		super(scene, x, y, key);
 
 		this.projectile = this.scene.physics.add.group({
-			classType: () => new Bullet(this.scene, 'bullet', 100, 250),
+			// classType: () => new Bullet(this.scene, 'bullet', 100, 250),
+			classType: () => new Beam(this.scene),
 			maxSize: 10 * 1,
 			runChildUpdate: true
 		});

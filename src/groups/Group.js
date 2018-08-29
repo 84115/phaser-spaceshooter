@@ -43,9 +43,16 @@ class Group extends Phaser.GameObjects.Group
 
 			for (var i = 0; i < this.getChildren().length; i++)
 			{
-				if (this.getChildren()[i].projectile)
+				let child = this.getChildren()[i];
+
+				if (child)
 				{
-					this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+					this.scene.physics.add.collider(this.scene.ship, child, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+
+					if (this.scene.ship.bullets && child.shootable)
+					{
+						this.scene.physics.add.collider(this.scene.ship.bullets, child, this.scene.ship.collideBulletEnemyBullet, null, this.scene.ship);
+					}
 				}
 			}
 		}
