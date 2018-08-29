@@ -20,10 +20,12 @@ class Stats
 		for (let i = 0; i < statsProps.length; i++)
 		{
 			scene.statsData[statsProps[i]] = scene.add
-				.text(0, (16 * i), "")
-				.setFontFamily("courier")
-				.setFontSize(16)
+				.text(5, 2+(12 * i), "")
+				.setFontFamily("monospace")
+				.setFontSize(12)
 				.setColor('#fff');
+
+			scene.statsData[statsProps[i]].alpha = 0.8;
 		}
 	}
 

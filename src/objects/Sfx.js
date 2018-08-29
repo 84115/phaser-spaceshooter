@@ -29,7 +29,6 @@ class Sfx
 
 	play(key="")
 	{
-		console.log(key);
 		if (key)
 		{
 			this.audio.play(key);

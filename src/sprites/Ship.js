@@ -94,7 +94,7 @@ class ShipSprite extends PlayerSprite
 				break;
 
 			case 'bulletspeed':
-				this.scene.stats.updateStat('bulletspeed', (1000 / this.bullets.speed) + '@sec');
+				this.scene.stats.updateStat('bulletspeed', (1000 / this.bullets.speed) + '@s');
 				break;
 
 			case 'speed':

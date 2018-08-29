@@ -27,7 +27,14 @@ class UfoGroup extends SequencableGroup
 
 			if (angle)
 			{
-				sprite.angle = angle;
+				if (angle.x && angle.y)
+				{
+					sprite.trackObject = angle;
+				}
+				else
+				{
+					sprite.angle = angle;
+				}
 			}
 
 			if (sprite.startWeaponTimer && weaponInterval)

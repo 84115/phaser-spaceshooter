@@ -11,6 +11,8 @@ class EnemySprite extends Sprite
 		this.health = this.maxHealth;
 
 		this.stunnable = true;
+
+		this.trackObject = false;
 	}
 
 	damage(amount=0)
@@ -58,6 +60,14 @@ class EnemySprite extends Sprite
 				callbackScope: this,
 				loop: true
 			});
+		}
+	}
+
+	update(time, delta)
+	{
+		if (this.trackObject)
+		{
+			this.followSpriteAngle(this.trackObject);
 		}
 	}
 

@@ -206,109 +206,109 @@ class PowerupsGroup extends SequencableGroup
 
 		if (powerupFn)
 		{
-			powerupFn.callback.apply(null, [this.scene].concat(powerupFn.args));
+			powerupFn.callback.apply(this, powerupFn.args);
 		}
 	}
 
-	firerate(scene, amount=1, duration=0, pierce=false)
+	firerate(amount=1, duration=0, pierce=false)
 	{
-		scene.ship.bullets.speed = scene.ship.bullets.speed / amount;
-		scene.ship.updateStat('bulletspeed');
+		this.scene.ship.bullets.speed = this.scene.ship.bullets.speed / amount;
+		this.scene.ship.updateStat('bulletspeed');
 
-		scene.ship.bullets.pierce = true;
+		this.scene.ship.bullets.pierce = true;
 
-		scene.ship.setTint(0xff0000);
-		scene.ship.bullets.tint = 0xff0000;
+		this.scene.ship.setTint(0xff0000);
+		this.scene.ship.bullets.tint = 0xff0000;
 
 		if (duration)
 		{
-			scene.time.addEvent({
+			this.scene.time.addEvent({
 				delay: duration,
 				callback: () =>
 				{
-					scene.ship.bullets.speed = scene.ship.bullets.speed * amount;
-					scene.ship.updateStat('bulletspeed');
+					this.scene.ship.bullets.speed = this.scene.ship.bullets.speed * amount;
+					this.scene.ship.updateStat('bulletspeed');
 
-					scene.ship.bullets.pierce = true;
+					this.scene.ship.bullets.pierce = true;
 
-					scene.ship.setTint();
-					scene.ship.bullets.tint = false;
+					this.scene.ship.setTint();
+					this.scene.ship.bullets.tint = false;
 				}
 			});
 		}
 	}
 
-	speed(scene, amount=0, duration=0)
+	speed(amount=0, duration=0)
 	{
-		scene.ship.speed = Math.round((scene.ship.speed + amount) * 100) / 100;
+		this.scene.ship.speed = Math.round((this.scene.ship.speed + amount) * 100) / 100;
 
-		scene.ship.updateStat('speed');
+		this.scene.ship.updateStat('speed');
 
 		if (duration)
 		{
-			scene.time.addEvent({
+			this.scene.time.addEvent({
 				delay: duration,
 				callback: () =>
 				{
-					scene.ship.speed = Math.round((scene.ship.speed - amount) * 100) / 100;
+					this.scene.ship.speed = Math.round((this.scene.ship.speed - amount) * 100) / 100;
 
-					scene.ship.updateStat('speed');
+					this.scene.ship.updateStat('speed');
 				}
 			});
 		}
 	}
 
-	health(scene, amount=100)
+	health(amount=100)
 	{
-		scene.ship.maxHealth = scene.ship.maxHealth + amount;
-		scene.ship.health = scene.ship.maxHealth;
+		this.scene.ship.maxHealth = this.scene.ship.maxHealth + amount;
+		this.scene.ship.health = this.scene.ship.maxHealth;
 
-		scene.ship.updateStat('health');
+		this.scene.ship.updateStat('health');
 	}
 
-	shield(scene, amount=100)
+	shield(amount=100)
 	{
-		scene.ship.maxShield = scene.ship.maxShield + amount;
-		scene.ship.shield = scene.ship.maxShield;
+		this.scene.ship.maxShield = this.scene.ship.maxShield + amount;
+		this.scene.ship.shield = this.scene.ship.maxShield;
 
-		scene.ship.updateStat('shield');
+		this.scene.ship.updateStat('shield');
 	}
 
-	poison(scene, duration=100)
+	poison(duration=100)
 	{
-		scene.ship.setTint(0xffff00);
-		scene.ship.bullets.tint = 0xffff00;
-		scene.ship.bullets.poisoned = true;
+		this.scene.ship.setTint(0xffff00);
+		this.scene.ship.bullets.tint = 0xffff00;
+		this.scene.ship.bullets.poisoned = true;
 
 		if (duration)
 		{
-			scene.time.addEvent({
+			this.scene.time.addEvent({
 				delay: duration,
 				callback: () =>
 				{
-					scene.ship.setTint();
-					scene.ship.bullets.tint = false;
-					scene.ship.bullets.poisoned = false;
+					this.scene.ship.setTint();
+					this.scene.ship.bullets.tint = false;
+					this.scene.ship.bullets.poisoned = false;
 				}
 			});
 		}
 	}
 
-	freeze(scene, duration=100)
+	freeze(duration=100)
 	{
-		scene.ship.setTint(0x00ffff);
-		scene.ship.bullets.tint = 0x00ffff;
-		scene.ship.bullets.frozen = true;
+		this.scene.ship.setTint(0x00ffff);
+		this.scene.ship.bullets.tint = 0x00ffff;
+		this.scene.ship.bullets.frozen = true;
 
 		if (duration)
 		{
-			scene.time.addEvent({
+			this.scene.time.addEvent({
 				delay: duration,
 				callback: () =>
 				{
-					scene.ship.setTint();
-					scene.ship.bullets.tint = false;
-					scene.ship.bullets.frozen = false;
+					this.scene.ship.setTint();
+					this.scene.ship.bullets.tint = false;
+					this.scene.ship.bullets.frozen = false;
 				}
 			});
 		}

@@ -36,14 +36,10 @@ class GameScene extends Phaser.Scene
 		this.tile = this.width / 10;
 		this.grid = Grid(this.width, this.height);
 
-		this.sfx = new Sfx(this);
-
 		this.ship = new Ship(this, this.grid[6], this.grid[19], 'ship');
-
+		this.sfx = new Sfx(this);
 		this.controller = new Controller(this);
-
 		this.StageTitle = StageTitle;
-
 		this.animations = new Animations(this);
 
 		this.queue = new Queue(this);
@@ -52,6 +48,7 @@ class GameScene extends Phaser.Scene
 
 			.level(0)
 			.add('ufos', Ufos, [0xff00ff, 'strikeTopBottomRandom', 'ship', 50, 0, 180])
+			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0, this.ship])
 
 			.level(1)
 			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
