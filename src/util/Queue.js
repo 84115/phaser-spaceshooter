@@ -29,7 +29,17 @@ class Queue
 
 	level(label=0)
 	{
-		this.add('title', this.scene.StageTitle, ["Level:" + label]);
+		this.message("Level:" + label);
+
+		return this;
+	}
+
+	message(label="")
+	{
+		if (label)
+		{
+			this.add('title', this.scene.StageTitle, [label]);
+		}
 
 		return this;
 	}
