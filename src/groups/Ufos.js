@@ -4,7 +4,7 @@ import Ufo from '../sprites/Ufo';
 class UfoGroup extends SequencableGroup
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750)
+	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=750, angle=0)
 	{
 		super(scene);
 
@@ -24,6 +24,11 @@ class UfoGroup extends SequencableGroup
 			sprite.index = i;
 
 			sprite.getParent = () => this;
+
+			if (angle)
+			{
+				sprite.angle = angle;
+			}
 
 			if (sprite.startWeaponTimer && weaponInterval)
 			{
