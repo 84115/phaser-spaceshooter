@@ -11,7 +11,6 @@ import Powerups from '../groups/Powerups';
 import Ufos from '../groups/Ufos';
 import Mines from '../groups/Mines';
 import Spikes from '../groups/Spikes';
-import Brain from '../sequences/Brain';
 import DebugGrid from '../debug/Grid';
 
 class GameScene extends Phaser.Scene
@@ -37,7 +36,7 @@ class GameScene extends Phaser.Scene
 		this.tile = this.width / 10;
 		this.grid = Grid(this.width, this.height);
 
-		this.sfx = Sfx(this);
+		this.sfx = new Sfx(this);
 
 		this.ship = new Ship(this, this.grid[6], this.grid[19], 'ship');
 
@@ -51,14 +50,17 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 
-			// .level(1)
-			// .add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
-			// .add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
-			// .add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
+			.level(0)
+			.add('ufos', Ufos, [0xff00ff, 'strikeTopBottomRandom', 'ship', 50, 0, 180])
 
-			// .level(2)
-			// .add('powerups', Powerups, [null, 'powerupOne', 'ship-speed'])
-			// .add('spikes', Spikes, [0xff00ff, 'randSpikes'])
+			.level(1)
+			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
+			.add('ufos', Ufos, [null, 'wallBottomLeftToTopRight', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'diagTopLeftToBottomRight', 'alien', 50, 0])
+
+			.level(2)
+			.add('powerups', Powerups, [null, 'powerupOne', 'ship-speed'])
+			.add('spikes', Spikes, [0xff00ff, 'randSpikes'])
 
 			.level(3)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-poision'])
@@ -91,14 +93,6 @@ class GameScene extends Phaser.Scene
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 
 			.run();
-
-		// this.brain = Brain(this, 10, 200);
-		// this.physics.add.collider(this.ship.bullets, this.brain, (brain, bullet) =>
-		// {
-		// 	brain.alive = false;
-		// 	brain.destroy();
-		// 	bullet.destroy();
-		// }, null, this.ship);
 
 		if (this.physics.config.debug)
 		{
