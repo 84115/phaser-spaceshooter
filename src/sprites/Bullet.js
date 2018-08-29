@@ -27,12 +27,12 @@ class Bullet extends Sprite
 
 	isOffscreenX()
 	{
-		return this.x > 320 + 32 || this.x < -32;
+		return this.x > this.scene.width + 32 || this.x < -32;
 	}
 
 	isOffscreenY()
 	{
-		return this.y > 640 + 32 || this.y < -32;
+		return this.y > this.scene.height + 32 || this.y < -32;
 	}
 
 	isOffscreen()

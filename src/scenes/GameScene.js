@@ -32,7 +32,11 @@ class GameScene extends Phaser.Scene
 		this.stats = new Stats(this);
 		this.stats.updateStat('score', this.score);
 
-		this.grid = Grid(32);
+		this.width = this.sys.game.config.width;
+		this.height = this.sys.game.config.height;
+		this.tile = this.width / 10;
+		this.grid = Grid(this.width, this.height);
+
 		this.sfx = Sfx(this);
 
 		this.ship = new Ship(this, this.grid[6], this.grid[19], 'ship');
