@@ -165,12 +165,14 @@ class ShipSprite extends PlayerSprite
 			bullet.destroy();
 		}
 
+		// Refactor then move function to Enemy class
 		if (enemy.timer && enemy.stunnable)
 		{
 			enemy.timer
 				.remove(false);
 		}
 
+		// Refactor then move function to Enemy class
 		if (this.bullets.poisoned)
 		{
 			enemy.setTint(0xffff00);
@@ -185,6 +187,7 @@ class ShipSprite extends PlayerSprite
 			}
 		}
 
+		// Refactor then move function to Enemy class
 		if (this.bullets.frozen)
 		{
 			if (enemy.setTint)
@@ -205,6 +208,7 @@ class ShipSprite extends PlayerSprite
 
 		enemy.damage(75);
 
+		// Refactor then move function to Enemy class
 		if (!enemy.hitTween && enemy.stunnable)
 		{
 			enemy.hitTween = this.scene.tweens.add({

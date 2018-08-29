@@ -1,4 +1,5 @@
 class Image extends Phaser.GameObjects.Image
+
 {
 
 	constructor(scene, x, y, key)
