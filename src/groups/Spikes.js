@@ -1,6 +1,5 @@
 import SequencableGroup from '../groups/Sequencable';
 import Spike from '../sprites/Spike';
-import Bullet from '../sprites/Bullet';
 
 class SpikeGroup extends SequencableGroup
 {
