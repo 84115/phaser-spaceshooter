@@ -1,6 +1,6 @@
 import Sprite from '../sprites/Sprite';
 
-class Beam extends Sprite
+class Tracker extends Sprite
 {
 
 	constructor(scene, key='bullet', damage=100, speed=400, direction='down')
@@ -25,6 +25,13 @@ class Beam extends Sprite
 			.setVisible(true);
 	}
 
+	update(time, delta)
+	{
+		this.followSpriteAngle(this.scene.ship);
+
+		this.scene.physics.moveToObject(this, this.scene.ship);
+	}
+
 }
 
-export default Beam;
+export default Tracker;

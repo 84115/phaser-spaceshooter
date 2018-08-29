@@ -1,5 +1,6 @@
 import EnemySprite from '../sprites/Enemy';
 import Bullet from '../sprites/Bullet';
+import Tracker from '../sprites/Tracker';
 import Beam from '../sprites/Beam';
 
 class UfoSprite extends EnemySprite
@@ -11,7 +12,8 @@ class UfoSprite extends EnemySprite
 
 		this.projectile = this.scene.physics.add.group({
 			// classType: () => new Bullet(this.scene, 'bullet', 100, 250),
-			classType: () => new Beam(this.scene),
+			// classType: () => new Beam(this.scene),
+			classType: () => new Tracker(this.scene),
 			maxSize: 10 * 1,
 			runChildUpdate: true
 		});
