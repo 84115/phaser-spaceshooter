@@ -121,7 +121,7 @@ let sequenceTemplates =
 		]
 	},
 
-	"fallDiagRightToLeft":
+	"strikeTopBottomRandom":
 	{
 		ease: 'Ease',
 		duration: 4000,
@@ -137,6 +137,24 @@ let sequenceTemplates =
 			{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
 			{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
 		]
+	},
+
+	"strikeTopBottomRandom":
+	{
+		ease: 'Ease',
+		duration: 1500,
+		offset: 250,
+		coords: Phaser.Utils.Array.Shuffle([
+			{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+			{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
+			{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
+			{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
+			{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
+			{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
+			{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
+			{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
+			{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
+		])
 	},
 
 	"fallDiagSnake":
