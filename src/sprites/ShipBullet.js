@@ -7,13 +7,7 @@ class ShipBullet extends Bullet
 	{
 		if (this.scene.ship.bullets.tint)
 		{
-			if (this.scene.ship.bullets.tint instanceof Array)
-			{
-				this.setTint.apply(this.scene.ship.bullets.tint);
-			}
-			else {
-				this.setTint(this.scene.ship.bullets.tint);
-			}
+			this.setTint(this.scene.ship.bullets.tint);
 		}
 		else
 		{
