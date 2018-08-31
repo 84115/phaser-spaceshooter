@@ -60,7 +60,7 @@ class GameScene extends Phaser.Scene
 
 			.level(3)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-poision'])
-			.add('ufos', Ufos, [null, 'fallDiagSnake', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'strikeTopBottomSnake', 'alien', 50, 0])
 			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
 			.add('ufos', Ufos, [null, 'fallGapsOne', 'alien', 50, 0])
 			.add('powerups', Powerups, [null, 'powerupOne', 'ice'])
@@ -69,7 +69,6 @@ class GameScene extends Phaser.Scene
 			.level(4)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-ice'])
 			.add('ufos', Ufos, [null, 'fallDiagLeftToRight', 'alien', 50, 0])
-			.add('powerups', Powerups, [null, 'powerupOne', 'gun-ice'])
 			.add('ufos', Ufos, [null, 'fallDiagRightToLeft', 'alien', 50, 0])
 
 			.level(5)

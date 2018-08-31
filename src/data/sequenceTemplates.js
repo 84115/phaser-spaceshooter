@@ -1,6 +1,6 @@
 let sequences = {};
 
-let clone = (lookup) => sequences[lookup].coords.slice();
+let clone = (lookup, clip=0) => clip ? sequences[lookup].coords.slice(0, clip) : sequences[lookup].coords.slice();
 
 let glue = (...arrays) => [].concat(...arrays);
 
@@ -94,23 +94,6 @@ sequences["wallBottomLeftToTopRight"] = {
 	]
 };
 
-sequences["fallDiagLeftToRight"] = {
-	ease: 'Ease',
-	duration: 4000,
-	offset: 200,
-	coords: [
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
-	]
-};
-
 sequences["strikeTopBottom"] = {
 	ease: 'Ease',
 	duration: 1500,
@@ -149,53 +132,30 @@ sequences["strikeTopBottomRandom"] = {
 	coords: randomise(clone("strikeTopBottomLeftRight"))
 };
 
-sequences["fallDiagSnake"] = {
+sequences["strikeTopBottomSnake"] = {
 	ease: 'Ease',
 	duration: 3000,
 	offset: 150,
-	coords: [
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+	coords: glue(
+		clone("strikeTopBottomLeftRight", -1),
+		clone("strikeTopBottomRightLeft", -1),
+		clone("strikeTopBottomLeftRight", -1),
+		clone("strikeTopBottomRightLeft")
+	)
+};
 
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
+sequences["fallDiagLeftToRight"] = {
+	ease: 'Ease',
+	duration: 4000,
+	offset: 200,
+	coords: clone("strikeTopBottomLeftRight")
+};
 
-		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
-
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
-
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-
-		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
-
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
-	]
+sequences["fallDiagRightToLeft"] = {
+	ease: 'Ease',
+	duration: 4000,
+	offset: 200,
+	coords: clone("strikeTopBottomLeftRight").reverse()
 };
 
 sequences["fallGapsOne"] = {
@@ -274,12 +234,12 @@ sequences["glue"] = {
 	duration: 1500,
 	offset: 100,
 	coords: glue(
-		clone("strikeTopBottomLeftRight"),
+		clone("strikeTopBottomLeftRight", -1),
 		clone("strikeTopBottomRightLeft"),
 		clone("strikeTopBottomRandom"),
 		clone("strikeTopBottomRandom"),
+		clone("strikeTopBottomRightLeft", -1),
 		clone("strikeTopBottomLeftRight"),
-		clone("strikeTopBottomRightLeft"),
 		clone("strikeTopBottomRandom"),
 		clone("strikeTopBottomRandom")
 	)
