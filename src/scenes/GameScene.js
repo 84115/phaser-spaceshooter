@@ -46,8 +46,7 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 
-			.level(0)
-			.add('ufos', Ufos, [0xff00ff, 'glue', 'ship', 50, 0, 180])
+			.add('ufos', Ufos, [null, 'artillery', 'alien', 50, 0])
 
 			.level(1)
 			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
@@ -84,6 +83,12 @@ class GameScene extends Phaser.Scene
 			.level(6)
 			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
 			.add('mines', Mines, [null, 30, 200, true])
+
+			.level(7)
+			.add('powerups', Powerups, [null, 'powerupOne', 'gun-ice'])
+			.add('ufos', Ufos, [0xff00ff, 'glue', 'ship', 50, 0, 180])
+
+			.level(8)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-pierce'])
 			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
 

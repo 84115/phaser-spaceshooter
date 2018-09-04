@@ -4,7 +4,16 @@ let clone = (lookup, clip=0) => clip ? sequences[lookup].coords.slice(0, clip) :
 
 let glue = (...arrays) => [].concat(...arrays);
 
-let randomise = Phaser.Utils.Array.Shuffle;
+let reverse = (lookup) => clone(lookup).reverse()
+
+let shuffle = (lookup) => Phaser.Utils.Array.Shuffle(clone(lookup));
+
+let range = (start, stop) => Phaser.Utils.Array.NumberArray(start, stop);
+
+let times = (items, amount=1) => Array.prototype.map.call(range(1, amount), () => items);
+
+// let flipX = ...
+// let flipY = ...
 
 sequences["leftToRight"] = {
 	ease: 'Power1',
@@ -26,7 +35,7 @@ sequences["rightToLeft"] = {
 	ease: 'Power1',
 	duration: 5000,
 	offset: 1000,
-	coords: clone("leftToRight").reverse()
+	coords: reverse("leftToRight")
 };
 
 sequences["crossroad"] = {
@@ -122,14 +131,14 @@ sequences["strikeTopBottomRightLeft"] = {
 	ease: 'Ease',
 	duration: 1500,
 	offset: 250,
-	coords: clone("strikeTopBottomLeftRight").reverse()
+	coords: reverse("strikeTopBottomLeftRight")
 };
 
 sequences["strikeTopBottomRandom"] = {
 	ease: 'Ease',
 	duration: 1500,
 	offset: 250,
-	coords: randomise(clone("strikeTopBottomLeftRight"))
+	coords: shuffle("strikeTopBottomLeftRight")
 };
 
 sequences["strikeTopBottomSnake"] = {
@@ -155,7 +164,7 @@ sequences["fallDiagRightToLeft"] = {
 	ease: 'Ease',
 	duration: 4000,
 	offset: 200,
-	coords: clone("strikeTopBottomLeftRight").reverse()
+	coords: reverse("strikeTopBottomLeftRight")
 };
 
 sequences["fallGapsOne"] = {
@@ -243,6 +252,13 @@ sequences["glue"] = {
 		clone("strikeTopBottomRandom"),
 		clone("strikeTopBottomRandom")
 	)
+};
+
+sequences["artillery"] = {
+	ease: 'Ease',
+	duration: 4000,
+	offset: 1000,
+	coords: times({ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } }, 5)
 };
 
 export default sequences;
