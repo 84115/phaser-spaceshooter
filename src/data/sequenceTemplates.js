@@ -1,6 +1,10 @@
 let sequences = {};
 
-let clone = (lookup, clip=0) => clip ? sequences[lookup].coords.slice(0, clip) : sequences[lookup].coords.slice();
+let map = (data, callback) => Array.prototype.map.call(data, callback);
+
+let clone = (lookup, clip=0) => clip ?
+	sequences[lookup].coords.slice(0, clip) :
+	sequences[lookup].coords.slice();
 
 let glue = (...arrays) => [].concat(...arrays);
 
@@ -10,10 +14,24 @@ let shuffle = (lookup) => Phaser.Utils.Array.Shuffle(clone(lookup));
 
 let range = (start, stop) => Phaser.Utils.Array.NumberArray(start, stop);
 
-let times = (items, amount=1) => Array.prototype.map.call(range(1, amount), () => items);
+let times = (items, amount=1) => map(range(1, amount), () => items);
 
 // let flipX = ...
 // let flipY = ...
+
+let swap = (items, axis=x) => map(items, (obj) => {
+	let temp = obj.start[axis];
+
+	obj.start[axis] = obj.stop[axis];
+	obj.stop[axis] = temp;
+
+	return obj;
+});
+
+let swapX = (items) => swap(items, "x");
+let swapY = (items) => swap(items, "y");
+
+
 
 sequences["leftToRight"] = {
 	ease: 'Power1',
@@ -108,15 +126,15 @@ sequences["strikeTopBottom"] = {
 	duration: 1500,
 	offset: 250,
 	coords: [
-		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 22 } },
+		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 22 } },
+		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 22 } },
+		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 22 } },
+		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 22 } },
+		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 22 } },
+		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 22 } },
+		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 22 } },
+		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 22 } },
 	]
 };
 
@@ -172,12 +190,12 @@ sequences["fallGapsOne"] = {
 	duration: 4000,
 	offset: 1,
 	coords: [
-		{ start: { x: 1, y: 0 }, stop: { x: 1, y: 21 } },
-		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 21 } },
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
-		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 21 } },
-		{ start: { x: 11, y: 0 }, stop: { x: 11, y: 21 } },
+		{ start: { x: 1, y: 0 }, stop: { x: 1, y: 22 } },
+		{ start: { x: 3, y: 0 }, stop: { x: 3, y: 22 } },
+		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 22 } },
+		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 22 } },
+		{ start: { x: 9, y: 0 }, stop: { x: 9, y: 22 } },
+		{ start: { x: 11, y: 0 }, stop: { x: 11, y: 22 } },
 	]
 };
 
@@ -186,11 +204,11 @@ sequences["fallGapsTwo"] = {
 	duration: 4000,
 	offset: 1,
 	coords: [
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 21 } },
-		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 21 } },
+		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 22 } },
+		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 22 } },
+		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 22 } },
+		{ start: { x: 8, y: 0 }, stop: { x: 8, y: 22 } },
+		{ start: { x: 10, y: 0 }, stop: { x: 10, y: 22 } },
 	]
 };
 
@@ -199,11 +217,11 @@ sequences["randSpikes"] = {
 	duration: 2500,
 	offset: 0,
 	coords: [
-		{ start: { x: 8, y: 21 }, stop: { x: 8, y: 0 } },
-		{ start: { x: 10, y: 21 }, stop: { x: 10, y: 0 } },
-		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 21 } },
+		{ start: { x: 8, y: 22 }, stop: { x: 8, y: 0 } },
+		{ start: { x: 10, y: 22 }, stop: { x: 10, y: 0 } },
+		{ start: { x: 4, y: 0 }, stop: { x: 4, y: 22 } },
 		{ start: { x: 0, y: 2 }, stop: { x: 11, y: 2 } },
-		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } },
+		{ start: { x: 2, y: 0 }, stop: { x: 2, y: 22 } },
 		{ start: { x: 12, y: 20 }, stop: { x: 0, y: 20 } },
 	]
 };
@@ -213,7 +231,7 @@ sequences["powerupOne"] = {
 	duration: 5000,
 	offset: 1,
 	coords: [
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
+		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 22 } },
 	]
 };
 
@@ -222,8 +240,8 @@ sequences["powerupTwo"] = {
 	duration: 6000,
 	offset: 1,
 	coords: [
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
+		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 22 } },
+		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 22 } },
 	]
 };
 
@@ -232,9 +250,9 @@ sequences["powerupThree"] = {
 	duration: 6000,
 	offset: 1,
 	coords: [
-		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 21 } },
-		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 21 } },
-		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 21 } },
+		{ start: { x: 5, y: 0 }, stop: { x: 5, y: 22 } },
+		{ start: { x: 6, y: 0 }, stop: { x: 6, y: 22 } },
+		{ start: { x: 7, y: 0 }, stop: { x: 7, y: 22 } },
 	]
 };
 
@@ -258,7 +276,27 @@ sequences["artillery"] = {
 	ease: 'Ease',
 	duration: 4000,
 	offset: 1000,
-	coords: times({ start: { x: 2, y: 0 }, stop: { x: 2, y: 21 } }, 5)
+	coords: times({ start: { x: 2, y: 0 }, stop: { x: 2, y: 22 } }, 5)
 };
+
+// Not really cloning properly yet
+sequences["artilleryAlt"] = {
+	ease: 'Ease',
+	duration: 4000,
+	offset: 1000,
+	coords: swapY(
+		times({ start: { x: 2, y: 0 }, stop: { x: 2, y: 22 } }, 5)
+	)
+};
+
+
+
+// 0-12
+// 0-22
+// var z = range(0, stop=22).reverse()
+// z[0] == 22
+// but  do above mapping over a value
+
+
 
 export default sequences;

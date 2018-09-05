@@ -3,7 +3,7 @@ function Axis(baseSize=32)
 	var size = baseSize / 10;
 	var array = [-size];
 
-	for (var i = 1; i < 22; i++)
+	for (var i = 1; i <= 22; i++)
 	{
 		array[i] = array[i - 1] + size;
 	}
