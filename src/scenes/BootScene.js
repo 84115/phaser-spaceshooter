@@ -40,6 +40,7 @@ class BootScene extends Phaser.Scene
 		// Projectiles
 		this.load.image('bullet', 'assets/sprites/bullet.png');
 		this.load.image('bullet-2', 'assets/sprites/enemy-bullet.png');
+		this.load.image('rocket', 'assets/sprites/rocket.png');
 
 		// Misc
 		this.load.image('steel', 'assets/sprites/steel-1.png');
