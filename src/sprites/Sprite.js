@@ -90,6 +90,7 @@ class Sprite extends Phaser.GameObjects.Sprite
 			this.rotation = Math.atan2(target.y - this.y, target.x - this.x) + adjustment;
 		}
 	}
+
 }
 
 export default Sprite;

@@ -12,6 +12,7 @@ import Ufos from '../groups/Ufos';
 import Mines from '../groups/Mines';
 import Spikes from '../groups/Spikes';
 import DebugGrid from '../debug/Grid';
+import Prop from '../util/Prop';
 
 class GameScene extends Phaser.Scene
 {
@@ -23,6 +24,9 @@ class GameScene extends Phaser.Scene
 
 	create()
 	{
+		this.props = new Prop(this);
+		this.prop = this.props.addFolder("Scene");
+
 		this.background = new Background(this, 'sky');
 
 		this.score = 0;
@@ -46,8 +50,8 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 
-			.add('ufos', Ufos, [null, 'artillery', 'alien', 50, 0])
-			.add('ufos', Ufos, [null, 'artilleryAlt', 'alien', 50, 0])
+			// .add('ufos', Ufos, [null, 'artillery', 'alien', 50, 0])
+			// .add('ufos', Ufos, [null, 'artilleryAlt', 'alien', 50, 0])
 
 			.level(1)
 			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
@@ -99,6 +103,9 @@ class GameScene extends Phaser.Scene
 		{
 			this.debugGrid = DebugGrid(this);
 		}
+
+		this.prop.add(this, 'score').onChange(score => this.stats.updateStat('score', score));
+		this.prop.add(this, 'gameover').onChange(score => score ? this.ship.kill() : this.ship.revive());
 	}
 
 	update(time, delta)

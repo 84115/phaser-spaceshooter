@@ -131,6 +131,10 @@ class PowerupsGroup extends SequencableGroup
 
 			this.createTimeline();
 		}
+
+		this.prop = this.scene.props.addFolder("Powerups");
+		this.active = "";
+		this.prop.add(this, 'active', Object.keys(this.triggers).concat([''])).onChange(lookup => this.handle(this.triggers[lookup], true));
 	}
 
 	patch()
@@ -200,9 +204,20 @@ class PowerupsGroup extends SequencableGroup
 		return this;
 	}
 
-	handle(powerup)
+	handle(powerup, force=false)
 	{
-		var powerupFn = this.triggers[powerup.lookup];
+		var powerupFn;
+
+		if (force)
+		{
+			powerupFn = powerup;
+		}
+		else
+		{
+			powerupFn = this.triggers[powerup.lookup];
+		}
+
+		console.log(powerupFn);
 
 		if (powerupFn)
 		{

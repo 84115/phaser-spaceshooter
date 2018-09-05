@@ -34,6 +34,17 @@ class ShipSprite extends PlayerSprite
 		this.updateStat('bulletspeed');
 		this.updateStat('speed');
 		this.updateStat('lives');
+
+		this.prop = this.scene.props.addFolder("Ship");
+		this.prop.add(this, 'health');
+		this.prop.add(this, 'shield');
+		this.prop.add(this, 'speed').onChange(value => this.speed = value);
+		this.prop.add(this, 'alive').onChange(this.revive);
+		// this.prop.add(this, 'tint').onChange(this.setTint);
+
+		this.propB = this.scene.props.addFolder("Weapon");
+		this.propB.add(this.bullets, 'enabled');
+		this.propB.add(this.bullets, 'speed');
 	}
 
 	update(time, delta)

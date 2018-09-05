@@ -10,6 +10,10 @@ class PlayerSprite extends Sprite
 		this.body.setCollideWorldBounds(true);
 
 		this.lives = 3;
+
+		this.prop = this.scene.props.addFolder("Player");
+		this.prop.add(this, 'alive');
+		this.prop.add(this, 'lives');
 	}
 
 	revive()

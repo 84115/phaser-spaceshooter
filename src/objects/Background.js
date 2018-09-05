@@ -16,6 +16,11 @@ class BackgroundObject
 		this.b = new Image(scene, 400, -640, key)
 			.setOrigin(0.5, 0);
 
+			console.log(this.scene)
+
+		this.prop = this.scene.props.addFolder("Background");
+		this.prop.add(this, 'scroll');
+
 		return this;
 	}
 
