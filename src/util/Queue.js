@@ -9,6 +9,13 @@ class Queue
 		this.position = -1;
 		this.timer = false;
 		this.lock = false;
+
+		this.activeLevel = 0;
+		this.levels = {};
+
+		this.prop = this.scene.props.addFolder("Queue");
+		this.prop.add(this, 'position').onChange(value => (this.position = Math.abs(Math.ceil(value))));
+		// this.prop.add(this, 'activeLevel').onChange(value => (this.position = this.levels[value]));
 	}
 
 	add(key, sequence, args=[])
@@ -30,6 +37,8 @@ class Queue
 	level(label=0)
 	{
 		this.message("Level:" + label);
+
+		this.levels[label] = this.position;
 
 		return this;
 	}
@@ -66,6 +75,19 @@ class Queue
 		this.scene[sequence.key] = false;
 
 		this.position++;
+
+		return this;
+	}
+
+	goto(position=0)
+	{
+		let sequence = this.sequences[position];
+
+		this.lock = false;
+
+		this.scene[sequence.key] = false;
+
+		this.position = position;
 
 		return this;
 	}
