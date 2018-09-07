@@ -53,6 +53,11 @@ class Group extends Phaser.GameObjects.Group
 					{
 						this.scene.physics.add.collider(this.scene.ship.bullets, child, this.scene.ship.collideBulletEnemyBullet, null, this.scene.ship);
 					}
+
+					if (child.projectile)
+					{
+						this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+					}
 				}
 			}
 		}

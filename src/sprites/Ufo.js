@@ -11,9 +11,9 @@ class UfoSprite extends EnemySprite
 		super(scene, x, y, key, health);
 
 		this.projectile = this.scene.physics.add.group({
-			// classType: () => new Bullet(this.scene, 'bullet', 100, 250),
+			classType: () => new Bullet(this.scene, 'bullet', 100, 250),
 			// classType: () => new Beam(this.scene),
-			classType: () => new Tracker(this.scene),
+			// classType: () => new Tracker(this.scene),
 			maxSize: 10 * 1,
 			runChildUpdate: true
 		});
