@@ -24,7 +24,7 @@ class ShipSprite extends PlayerSprite
 			runChildUpdate: true
 		});
 		this.bullets.enabled = true;
-		this.bullets.speed = 250;
+		this.bullets.speed = 200;
 		this.bullets.lastFired = 0;
 		this.bullets.tint;
 
@@ -54,6 +54,46 @@ class ShipSprite extends PlayerSprite
 			if (this.scene.controller.spacebar.isDown && time > this.bullets.lastFired)
 			{
 				var bullet = this.bullets.get();
+
+				if (false)
+				{
+				}
+				else if (this.scene.controller.upWeapon.isDown && this.scene.controller.leftWeapon.isDown)
+				{
+					bullet.direction = "upLeft";
+				}
+				else if (this.scene.controller.upWeapon.isDown && this.scene.controller.rightWeapon.isDown)
+				{
+					bullet.direction = "upRight";
+				}
+				else if (this.scene.controller.downWeapon.isDown && this.scene.controller.leftWeapon.isDown)
+				{
+					bullet.direction = "downLeft";
+				}
+				else if (this.scene.controller.downWeapon.isDown && this.scene.controller.rightWeapon.isDown)
+				{
+					bullet.direction = "downRight";
+				}
+				else if (this.scene.controller.upWeapon.isDown)
+				{
+					bullet.direction = "up";
+				}
+				else if (this.scene.controller.downWeapon.isDown)
+				{
+					bullet.direction = "down";
+				}
+				else if (this.scene.controller.leftWeapon.isDown)
+				{
+					bullet.direction = "left";
+				}
+				else if (this.scene.controller.rightWeapon.isDown)
+				{
+					bullet.direction = "right";
+				}
+				else
+				{
+					bullet.direction = "up";
+				}
 
 				if (bullet && this.bullets.enabled)
 				{
