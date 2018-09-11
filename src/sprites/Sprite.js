@@ -16,6 +16,11 @@ class Sprite extends Phaser.GameObjects.Sprite
 		}
 	}
 
+	set(variable)
+	{
+		return (value) => this[variable] = value;
+	}
+
 	damage(amount=0)
 	{
 		if (this.health && amount)

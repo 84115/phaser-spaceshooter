@@ -4,7 +4,7 @@ import Spike from '../sprites/Spike';
 class SpikeGroup extends SequencableGroup
 {
 
-	constructor(scene, tint, pattern='leftToRight', key='ufo', health=100, weaponInterval=5000)
+	constructor(scene, tint, pattern='leftToRight', key='mine', health=200, weaponInterval=5000, angle=0)
 	{
 		super(scene);
 
@@ -18,12 +18,24 @@ class SpikeGroup extends SequencableGroup
 				this.scene,
 				this.scene.grid[coord.start.x],
 				this.scene.grid[coord.start.y],
-				'mine',
-				200);
+				key,
+				health);
 
 			sprite.index = i;
 
 			sprite.getParent = () => this;
+
+			if (angle)
+			{
+				if (angle.x && angle.y)
+				{
+					sprite.trackObject = angle;
+				}
+				else
+				{
+					sprite.angle = angle;
+				}
+			}
 
 			if (sprite.startWeaponTimer && weaponInterval)
 			{
