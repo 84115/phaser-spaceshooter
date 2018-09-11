@@ -25,22 +25,8 @@ class SpikeGroup extends SequencableGroup
 
 			sprite.getParent = () => this;
 
-			if (angle)
-			{
-				if (angle.x && angle.y)
-				{
-					sprite.trackObject = angle;
-				}
-				else
-				{
-					sprite.angle = angle;
-				}
-			}
-
-			if (sprite.startWeaponTimer && weaponInterval)
-			{
-				sprite.startWeaponTimer(weaponInterval);
-			}
+			sprite.hookAngle(angle);
+			sprite.hookWeaponTimer(weaponInterval);
 
 			if (tint)
 			{

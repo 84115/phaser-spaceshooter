@@ -50,7 +50,7 @@ class GameScene extends Phaser.Scene
 
 		this.queue
 
-			// .add('ufos', Ufos, [null, 'artillery', 'alien', 50, 0])
+			.add('ufos', Ufos, [null, 'artillery', 'alien', 50, 1000, 45, 'right'])
 			// .add('ufos', Ufos, [null, 'artilleryAlt', 'alien', 50, 0])
 
 			.level(1)

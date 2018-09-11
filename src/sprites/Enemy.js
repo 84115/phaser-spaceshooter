@@ -63,6 +63,33 @@ class EnemySprite extends Sprite
 		}
 	}
 
+	hookAngle(angle)
+	{
+		if (angle)
+		{
+			if (angle.x && angle.y)
+			{
+				this.trackObject = angle;
+			}
+			else
+			{
+				this.angle = angle;
+			}
+		}
+
+		return this;
+	}
+
+	hookWeaponTimer(weaponInterval)
+	{
+		if (this.startWeaponTimer && weaponInterval)
+		{
+			this.startWeaponTimer(weaponInterval);
+		}
+
+		return this;
+	}
+
 	update(time, delta)
 	{
 		if (this.trackObject)
