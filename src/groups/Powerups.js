@@ -69,27 +69,28 @@ class PowerupsGroup extends SequencableGroup
 				args: [20000]
 			},
 			// "gun-speed": {
-			// 	key: "orb",
+			// 	key: "bullet-2",
 			// 	callback: () => (false)
 			// },
 			// "gun-spread": {
-			// 	key: "orb",
+			// 	key: "bullet-2",
 			// 	callback: () => (false)
 			// },
-			// "gun-size": {
-			// 	key: "orb",
-			// 	callback: () => (false)
-			// },
+			"gun-size": {
+				key: "bullet-2",
+				callback: this.size,
+				args: [20000]
+			},
 			// "gun-explosive": {
-			// 	key: "orb",
+			// 	key: "bullet-2",
 			// 	callback: () => (false)
 			// },
 			// "gun-laser": {
-			// 	key: "orb",
+			// 	key: "bullet-2",
 			// 	callback: () => (false)
 			// },
 			// "gun-bounce": {
-			// 	key: "orb",
+			// 	key: "bullet-2",
 			// 	callback: () => (false)
 			// },
 		};
@@ -337,6 +338,22 @@ class PowerupsGroup extends SequencableGroup
 					this.scene.ship.setTint();
 					this.scene.ship.bullets.tint = false;
 					this.scene.ship.bullets.frozen = false;
+				}
+			});
+		}
+	}
+
+	size(duration=100)
+	{
+		this.scene.ship.bullets.scale = 2;
+
+		if (duration)
+		{
+			this.scene.time.addEvent({
+				delay: duration,
+				callback: () =>
+				{
+					this.scene.ship.bullets.scale = 1;
 				}
 			});
 		}

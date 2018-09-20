@@ -14,9 +14,12 @@ class ShipBullet extends Bullet
 			this.setTint();
 		}
 
-		this.setPosition(x, y)
-			.setActive(true)
-			.setVisible(true);
+		if (this.scene.ship.bullets.scale)
+		{
+			this.setScale(this.scene.ship.bullets.scale);
+		}
+
+		super.fire(x, y);
 	}
 
 }
