@@ -12,10 +12,10 @@ class Controller
 		this.down = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 		this.right = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-		this.leftWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
-		this.rightWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
-		this.upWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
-		this.downWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+		this.leftWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+		this.rightWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.upWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+		this.downWeapon = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
 		this.spacebar = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 	}
