@@ -256,6 +256,15 @@ sequences["powerupThree"] = {
 	]
 };
 
+sequences["powerupStatic"] = {
+	ease: 'Ease',
+	duration: 5000,
+	offset: 1,
+	coords: [
+		{ start: { x: 6, y: 10 }, stop: { x: 6, y: 10 } },
+	]
+};
+
 sequences["glue"] = {
 	ease: 'Ease',
 	duration: 1500,

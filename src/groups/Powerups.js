@@ -127,6 +127,15 @@ class PowerupsGroup extends SequencableGroup
 				}
 
 				this.addSequence(sprite, coord);
+
+				sprite.setAlpha(0);
+
+				sprite.tween = this.scene.tweens.add({
+					targets: sprite,
+					alpha: { value: 1, duration: 750, ease: 'Power2' },
+					scaleX: { value: 1.5, duration: 750, delay: 150, ease: 'Power1', yoyo: true, repeat: -1 },
+					scaleY: { value: 1.5, duration: 750, delay: 150, ease: 'Power1', yoyo: true, repeat: -1 }
+				});
 			}
 
 			this.createTimeline();

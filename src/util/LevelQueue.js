@@ -16,6 +16,9 @@ class LevelQueue extends Queue
 	{
 		return this
 
+			.level(0)
+			.add('powerups', Powerups, [null, 'powerupStatic', 'gun-poision'])
+
 			.add('ufos', Ufos, [null, 'artillery', 'alien', 50, 1000, 45, 'right'])
 			// .add('ufos', Ufos, [null, 'artilleryAlt', 'alien', 50, 0])
 
