@@ -11,10 +11,13 @@ class PowerupsGroup extends SequencableGroup
 		// amount :: default = no-change
 		// time 0 :: 0=perma
 		this.triggers = {
-			// "game-life": {
-			// 	key: "orb",
-			// 	callback: () => (false)
-			// },
+			"game-life": {
+				key: "heart",
+				callback: () => {
+					this.scene.ship.lives++;
+					this.scene.ship.updateStat('lives');
+				}
+			},
 			// "game-multiplier": {
 			// 	key: "orb",
 			// 	callback: () => (false)
@@ -37,7 +40,7 @@ class PowerupsGroup extends SequencableGroup
 			"ship-speed": {
 				key: "orb-green",
 				callback: this.speed,
-				args: [0.05, 10000]
+				args: [0.05, 20000]
 			},
 			// "ship-invincible": {
 			// 	key: "orb",
@@ -47,22 +50,22 @@ class PowerupsGroup extends SequencableGroup
 			"gun-pierce": {
 				key: "skull",
 				callback: this.firerate,
-				args: [2, 10000, true]
+				args: [2, 20000, true]
 			},
 			"gun-poision": {
 				key: "slime",
 				callback: this.poison,
-				args: [10000]
+				args: [20000]
 			},
 			"gun-flame": {
 				key: "flame",
 				callback: this.poison,
-				args: [10000]
+				args: [20000]
 			},
 			"gun-ice": {
 				key: "ice",
 				callback: this.freeze,
-				args: [10000]
+				args: [20000]
 			},
 			// "gun-speed": {
 			// 	key: "orb",
