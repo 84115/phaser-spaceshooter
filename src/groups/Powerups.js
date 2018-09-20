@@ -42,10 +42,11 @@ class PowerupsGroup extends SequencableGroup
 				callback: this.speed,
 				args: [0.05, 20000]
 			},
-			// "ship-invincible": {
-			// 	key: "orb",
-			// 	callback: () => (false)
-			// },
+			"ship-invincible": {
+				key: "steel",
+				callback: this.invincible,
+				args: [20000]
+			},
 
 			"gun-pierce": {
 				key: "skull",
@@ -336,6 +337,24 @@ class PowerupsGroup extends SequencableGroup
 					this.scene.ship.setTint();
 					this.scene.ship.bullets.tint = false;
 					this.scene.ship.bullets.frozen = false;
+				}
+			});
+		}
+	}
+
+	invincible(duration=100)
+	{
+		this.scene.ship.setTint(0xff00ff);
+		this.scene.ship.invincible = true;
+
+		if (duration)
+		{
+			this.scene.time.addEvent({
+				delay: duration,
+				callback: () =>
+				{
+					this.scene.ship.setTint();
+					this.scene.ship.invincible = false;
 				}
 			});
 		}

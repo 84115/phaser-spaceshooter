@@ -18,6 +18,8 @@ class ShipSprite extends PlayerSprite
 		this.maxShield = 150;
 		this.shield = this.maxShield;
 
+		this.invincible = false;
+
 		this.bullets = this.scene.physics.add.group({
 			classType: () => new ShipBullet(this.scene, 'bullet-2', 100, 400, 'up'),
 			maxSize: 100,
@@ -165,7 +167,7 @@ class ShipSprite extends PlayerSprite
 
 	damage(amount)
 	{
-		if (this.alive)
+		if (this.alive && !this.invincible)
 		{
 			super.damage(amount);
 
