@@ -37,15 +37,13 @@ class MinesGroup extends Group
 
 	update(time, delta)
 	{
-		for (var i = 0; i < this.getChildren().length; i++)
+		for (let child of this)
 		{
-			let mine = this.getChildren()[i];
+			child.y += child.speed * delta;
 
-			mine.y += mine.speed * delta;
-
-			if (mine.y >= 640 + 32)
+			if (child.y >= 640 + 32)
 			{
-				mine.kill();
+				child.kill();
 			}
 		}
 	}
@@ -60,14 +58,7 @@ class MinesGroup extends Group
 
 	done()
 	{
-		if (this.sequenceDone)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return Boolean(this.sequenceDone);
 	}
 
 	animate()

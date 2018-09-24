@@ -47,18 +47,16 @@ class SequencableGroup extends Group
 
 	cleanupChildren()
 	{
-		for (var i = this.getChildren().length - 1; i >= 0; i--)
+		for (let child of this)
 		{
-			let child = this.getChildren()[i];
-
 			if (child.timer)
 			{
 				child.timer.reset(false);
 			}
 
-			if (this.getChildren()[i].kill)
+			if (child.kill)
 			{
-				this.getChildren()[i].kill();
+				child.kill();
 			}
 			else
 			{

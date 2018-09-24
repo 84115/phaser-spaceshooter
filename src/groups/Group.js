@@ -14,18 +14,24 @@ class Group extends Phaser.GameObjects.Group
 		}
 	}
 
-	update(time, delta)
+	*[Symbol.iterator]()
 	{
 		if (this.getChildren())
 		{
-			for (var i = 0; i < this.getChildren().length; i++)
+			for (let i = 0; i < this.getChildren().length; i++)
 			{
-				let child = this.getChildren()[i];
+				yield this.getChildren()[i];
+			}
+		}
+	}
 
-				if (child.update)
-				{
-					child.update(time, delta);
-				}
+	update(time, delta)
+	{
+		for (let child of this)
+		{
+			if (child.update)
+			{
+				child.update(time, delta);
 			}
 		}
 	}
@@ -41,23 +47,18 @@ class Group extends Phaser.GameObjects.Group
 				this.scene.physics.add.collider(this.scene.ship.bullets, this.getChildren(), this.scene.ship.collideBulletEnemy, null, this.scene.ship);
 			}
 
-			for (var i = 0; i < this.getChildren().length; i++)
+			for (let child of this)
 			{
-				let child = this.getChildren()[i];
+				this.scene.physics.add.collider(this.scene.ship, child, this.scene.ship.collideShipEnemy, null, this.scene.ship);
 
-				if (child)
+				if (this.scene.ship.bullets && child.shootable)
 				{
-					this.scene.physics.add.collider(this.scene.ship, child, this.scene.ship.collideShipEnemy, null, this.scene.ship);
+					this.scene.physics.add.collider(this.scene.ship.bullets, child, this.scene.ship.collideBulletEnemyBullet, null, this.scene.ship);
+				}
 
-					if (this.scene.ship.bullets && child.shootable)
-					{
-						this.scene.physics.add.collider(this.scene.ship.bullets, child, this.scene.ship.collideBulletEnemyBullet, null, this.scene.ship);
-					}
-
-					if (child.projectile)
-					{
-						this.scene.physics.add.collider(this.scene.ship, this.getChildren()[i].projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
-					}
+				if (child.projectile)
+				{
+					this.scene.physics.add.collider(this.scene.ship, child.projectile, this.scene.ship.collideShipEnemy, null, this.scene.ship);
 				}
 			}
 		}
@@ -67,14 +68,7 @@ class Group extends Phaser.GameObjects.Group
 
 	done()
 	{
-		if (this.getChildren().length === 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return this.getChildren().length === 0;
 	}
 
 	getChildrenHead()
