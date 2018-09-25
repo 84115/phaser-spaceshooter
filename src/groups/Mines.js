@@ -4,15 +4,15 @@ import Enemy from '../sprites/Enemy';
 class MinesGroup extends Group
 {
 
-	constructor(scene, config={})
+	constructor(scene, opts={})
 	{
 		super(scene);
 
-		this.key = config.key || "mine";
-		this.tint = config.tint || null;
-		this.limit = config.limit || 100;
-		this.interval = config.interval || 1000;
-		this.disableWeapon = config.disableWeapon || false;
+		this.key = this.default(opts.key, "mine");
+		this.tint = this.default(opts.tint, null);
+		this.limit = this.default(opts.limit, 100);
+		this.interval = this.default(opts.interval, 1000);
+		this.disableWeapon = this.default(opts.disableWeapon, false);
 
 		this.prev = [];
 		this.count = 0;

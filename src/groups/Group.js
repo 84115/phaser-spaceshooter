@@ -36,6 +36,18 @@ class Group extends Phaser.GameObjects.Group
 		}
 	}
 
+	default(value=undefined, defaults=undefined)
+	{
+		if (value === undefined)
+		{
+			return defaults;
+		}
+		else
+		{
+			return this.config[value];
+		}
+	}
+
 	patch()
 	{
 		if (this.scene.ship)
