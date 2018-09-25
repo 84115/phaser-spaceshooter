@@ -4,18 +4,19 @@ import Enemy from '../sprites/Enemy';
 class MinesGroup extends Group
 {
 
-	constructor(scene, tint, limit=100, interval=1000, disableWeapon=false, key='mine')
+	constructor(scene, config={})
 	{
 		super(scene);
+
+		this.key = config.key || "mine";
+		this.tint = config.tint || null;
+		this.limit = config.limit || 100;
+		this.interval = config.interval || 1000;
+		this.disableWeapon = config.disableWeapon || false;
 
 		this.prev = [];
 		this.count = 0;
 		this.sequenceDone = false;
-		this.key = key;
-		this.tint = tint;
-		this.limit = limit;
-		this.interval = interval;
-		this.disableWeapon = disableWeapon;
 
 		if (this.scene.background.scroll)
 		{
@@ -41,7 +42,12 @@ class MinesGroup extends Group
 		{
 			child.y += child.speed * delta;
 
-			if (child.y >= 640 + 32)
+			if (
+				// child.x <= 0 - 32 ||
+				// child.x >= 320 + 32 ||
+				child.y <= 0 - 32 ||
+				child.y >= 640 + 32
+			)
 			{
 				child.kill();
 			}

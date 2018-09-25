@@ -58,21 +58,24 @@ class SequencableGroup extends Group
 			{
 				child.kill();
 			}
+			else if (child.destroy)
+			{
+				child.destroy();
+			}
+			else if (child.disableBody)
+			{
+				child.disableBody(true, true);
+			}
 			else
 			{
-				// if (child.disableBody)
-				// {
-				// 	child.disableBody(true, true);
-				// }
-
-				// if (child.destroy)
-				// {
-				// 	child.destroy();
-				// }
+				console.warn('cannot cleanup child', child);
 			}
 		}
 
-		this.clear(true);
+		if (this.clear)
+		{
+			this.clear(true);
+		}
 	}
 
 	trySequenceTemplate(sequence)

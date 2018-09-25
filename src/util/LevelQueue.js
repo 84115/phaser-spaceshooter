@@ -16,7 +16,6 @@ class LevelQueue extends Queue
 	{
 		return this
 
-
 			.level(0)
 			.add('powerups', Powerups, [null, 'powerupStatic', 'gun-size'])
 			.add('powerups', Powerups, [null, 'powerupStatic', 'game-life'])
@@ -60,7 +59,12 @@ class LevelQueue extends Queue
 
 			.level(6)
 			.add('powerups', Powerups, [null, 'powerupOne', 'ship-health'])
-			.add('mines', Mines, [null, 30, 200, true])
+			.add('mines', Mines,
+			[{
+				limit: 30,
+				interval: 200,
+				disableWeapon: true
+			}])
 
 			.level(7)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-ice'])
@@ -68,7 +72,13 @@ class LevelQueue extends Queue
 
 			.level(8)
 			.add('powerups', Powerups, [null, 'powerupOne', 'gun-pierce'])
-			.add('mines', Mines, [null, 500, 50, false, 'asteroid'])
+			.add('mines', Mines,
+			[{
+				limit: 500,
+				interval: 50,
+				disableWeapon: false,
+				key: 'asteroid'
+			}])
 	}
 
 	run()
