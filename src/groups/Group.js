@@ -36,7 +36,7 @@ class Group extends Phaser.GameObjects.Group
 		}
 	}
 
-	default(value=undefined, defaults=undefined)
+	set(key=undefined, value=undefined, defaults=undefined)
 	{
 		if (value === undefined)
 		{
@@ -44,7 +44,9 @@ class Group extends Phaser.GameObjects.Group
 		}
 		else
 		{
-			return this.config[value];
+			this[key] = value;
+
+			return this[key];
 		}
 	}
 

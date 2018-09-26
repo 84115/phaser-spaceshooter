@@ -8,16 +8,16 @@ class UfoGroup extends SequencableGroup
 	{
 		super(scene);
 
-		this.key = this.default(opts.key, "mine");
-		this.tint = this.default(opts.tint, null);
-		this.pattern = this.default(opts.pattern, "leftToRight");
-		this.health = this.default(opts.health, "100");
-		this.limit = this.default(opts.limit, 100);
-		this.interval = this.default(opts.interval, 1000);
-		this.weaponInterval = this.default(opts.weaponInterval, 750);
-		this.disableWeapon = this.default(opts.disableWeapon, false);
-		this.angle = this.default(opts.angle, 0);
-		this.direction = this.default(opts.direction, "down");
+		this.set("key", opts.key, "mine");
+		this.set("tint", opts.tint, null);
+		this.set("pattern", opts.pattern, "leftToRight");
+		this.set("health", opts.health, "100");
+		this.set("limit", opts.limit, 100);
+		this.set("interval", opts.interval, 1000);
+		this.set("weaponInterval", opts.weaponInterval, 750);
+		this.set("disableWeapon", opts.disableWeapon, false);
+		this.set("angle", opts.angle, 0);
+		this.set("direction", opts.direction, "down");
 
 		let data = this.getSequence(this.pattern);
 
